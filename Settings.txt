@@ -1,0 +1,31 @@
+sudo ip link add mynet-shim link eno1 type macvlan  mode bridge
+sudo ip addr add 192.168.88.8/24 dev mynet-shim
+sudo ip link set mynet-shim up
+sudo ip route add 192.168.88.2 dev mynet-shim
+
+sudo systemctl restart systemd-resolved
+
+# Office fonts
+sudo apt install ttf-mscorefonts-installer
+wget https://gist.github.com/maxwelleite/10774746/raw/ttf-vista-fonts-installer.sh -q -O – | sudo bash
+sudo mkdir -p /usr/share/fonts/truetype/msttcorefonts/
+cd /usr/share/fonts/truetype/msttcorefonts/
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/segoeui.ttf?raw=true -O segoeui.ttf # regular
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/segoeuib.ttf?raw=true -O segoeuib.ttf # bold
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/segoeuib.ttf?raw=true -O segoeuii.ttf # italic
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/segoeuiz.ttf?raw=true -O segoeuiz.ttf # bold italic
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/segoeuil.ttf?raw=true -O segoeuil.ttf # light
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/seguili.ttf?raw=true -O seguili.ttf # light italic
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/segoeuisl.ttf?raw=true -O segoeuisl.ttf # semilight
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/seguisli.ttf?raw=true -O seguisli.ttf # semilight italic
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/seguisb.ttf?raw=true -O seguisb.ttf # semibold
+sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/seguisbi.ttf?raw=true -O seguisbi.ttf # semibold italic
+fc-cache -f /usr/share/fonts/truetype/msttcorefonts/
+
+# https://www.maketecheasier.com/change-default-font-libreoffice/
+
+# Firefox icon with 2 profiles
+#________________________________________
+# Move firefox.desktop to:
+/home/shanti-rud/.local/share/applications
+
