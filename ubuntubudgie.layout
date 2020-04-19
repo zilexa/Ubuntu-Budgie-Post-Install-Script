@@ -2,47 +2,50 @@
 Panels=Left Panel
 
 [Top Panel]
-Children=AppMenu;Spacer 1;IconTaskList;ShowTime;Clock;VisualSpace;AppIndicator;DropBy;QuickNote;Spacer 2;Places;Notifications;Network;Status;Separator;Spacer 3;User Indicator;Raven Trigger;
+Children=AppMenu;Separator;Kangaroo;IconTaskList;ShowTime;WallpaperSwitcher;VisualSpace;Seperator;DropBy;AppIndicator;QuickNote;Spacer 1;Night;Spacer 2;Network;Status;Spacer 3;Notifications;Seperator;Calendar;Seperator;User Indicator;Spacer 4
 Position=Left
 Size=53
 
 [AppMenu]
 ID=AppMenu
 
-[Spacer 1]
-ID=Spacer
+[Separator]
+ID=Separator
+
+[Kangaroo]
+ID=Kangaroo
 
 [IconTaskList]
 ID=Icon Task List
 
 [ShowTime]
 ID=ShowTime
+Alignment=center
+
+[WallpaperSwitcher]
+ID=Wallpaper Switcher
+Alignment=Center
 
 [VisualSpace]
 ID=Visual Space
+Alignment=end
+
+[Separator]
+ID=Separator
+
+[DropBy]
+ID=DropBy
 Alignment=end
 
 [AppIndicator]
 ID=AppIndicator Applet
 Alignment=end
 
-[Network]
-ID=Network
-Alignment=end
-
-[Tray]
-ID=System Tray
-Alignment=end
-
-[DropBy]
-ID=DropBy
-Alignment=end
-
 [QuickNote]
 ID=QuickNote
 Alignment=end
 
-[Spacer 2]
+[Spacer 1]
 ID=Spacer
 Alignment=end
 
@@ -50,16 +53,20 @@ Alignment=end
 ID=Night Light
 Alignment=end
 
-[Places]
-ID=Places
+[Spacer 2]
+ID=Spacer
+Alignment=end
+
+[Network]
+ID=Network
 Alignment=end
 
 [Status]
 ID=Status Indicator
 Alignment=end
 
-[User Indicator]
-ID=User Indicator
+[Spacer 3]
+ID=Spacer
 Alignment=end
 
 [Notifications]
@@ -70,18 +77,18 @@ Alignment=end
 ID=Separator
 Alignment=end
 
-[Clock]
-ID=Clock
-Alignment=center
-
-[Separator]
-ID=Separator
+[Calendar]
+ID=Calendar
 Alignment=end
 
 [Separator]
 ID=Separator
 Alignment=end
 
-[Spacer 3]
+[User Indicator]
+ID=User Indicator
+Alignment=end
+
+[Spacer 4]
 ID=Spacer
 Alignment=end
