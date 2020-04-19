@@ -2,7 +2,7 @@
 Panels=Left Panel
 
 [Top Panel]
-Children=AppMenu;Spacer 1;ShowTime;Clock;VisualSpace;AppIndicator;DropBy;QuickNote;Spacer 2;Places;Notifications;Network;Status;Separator;Spacer 3;User Indicator;Raven Trigger;
+Children=AppMenu;Spacer 1;IconTaskList;ShowTime;Clock;VisualSpace;AppIndicator;DropBy;QuickNote;Spacer 2;Places;Notifications;Network;Status;Separator;Spacer 3;User Indicator;Raven Trigger;
 Position=Left
 Size=53
 
@@ -12,12 +12,11 @@ ID=AppMenu
 [Spacer 1]
 ID=Spacer
 
+[IconTaskList]
+ID=Icon Task List
+
 [ShowTime]
 ID=ShowTime
-
-[Clock]
-ID=Clock
-Alignment=center
 
 [VisualSpace]
 ID=Visual Space
@@ -55,16 +54,28 @@ Alignment=end
 ID=Places
 Alignment=end
 
-[Notifications]
-ID=Notifications
-Alignment=end
-
 [Status]
 ID=Status Indicator
 Alignment=end
 
 [User Indicator]
 ID=User Indicator
+Alignment=end
+
+[Notifications]
+ID=Notifications
+Alignment=end
+
+[Separator]
+ID=Separator
+Alignment=end
+
+[Clock]
+ID=Clock
+Alignment=center
+
+[Separator]
+ID=Separator
 Alignment=end
 
 [Separator]
