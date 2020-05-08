@@ -221,10 +221,10 @@ Name[uk]=Відкрити нове вікно у потайливому режи
 Name[zh_TW]=開啟新隱私瀏覽視窗
 Exec=firefox -private-window
 
-[Desktop Action Shanti]
-Name=start Shanti's Firefox
-Exec=firefox -P Shanti -no-remote
+[Desktop Action P1]
+Name=start P1's Firefox
+Exec=firefox -P P1 -no-remote
 
-[Desktop Action Rudhra]
-Name=start Rudhra's Firefox
-Exec=firefox -P Rudhra -no-remote
+[Desktop Action P2]
+Name=start P2's Firefox
+Exec=firefox -P P2 -no-remote
