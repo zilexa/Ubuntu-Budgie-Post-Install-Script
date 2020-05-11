@@ -50,4 +50,7 @@ sudo bash officefonts.sh
 wait
 rm officefonts.sh
 exit 0
-
+#________________________________
+# LibreOffice UI/Spellcheck/Help in Dutch
+# -------------------------------
+sudo apt-get install libreoffice-l10n-nl myspell-nl hyphen-nl libreoffice-help-nl
