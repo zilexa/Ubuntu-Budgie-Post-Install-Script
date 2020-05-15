@@ -12,4 +12,5 @@ sudo apt-get install lib32ncurses5
 wget --no-check-certificate https://download.brother.com/welcome/dlf103530/mfcl2750dwpdrv-4.0.0-1.i386.deb
 dpkg  -i fcl2750dwpdrv-4.0.0-1.i386.deb
 rm fcl2750dwpdrv-4.0.0-1.i386.deb
-
+sudo sh -c "echo listen $SERVERIP:631 >> /etc/cups/cupsd.conf"
+sudo sh -c "echo ServerAdmin $EMAIL >> /etc/cups/cupsd.conf"
