@@ -41,7 +41,14 @@ gsettings set org.nemo.preferences show-reload-icon-toolbar true
 #
 # get brightness, volume etc buttons on laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
-#
+
+#________________________________
+# AppImageLauncher - integrate AppImage apps on first execution
+# -------------------------------
+sudo add-apt-repository ppa:appimagelauncher-team/stable
+sudo apt update
+sudo apt install appimagelauncher
+
 #________________________________
 # MS Office fonts
 # -------------------------------
@@ -51,13 +58,37 @@ wait
 rm officefonts.sh
 exit 0
 #________________________________
-# LibreOffice UI/Spellcheck/Help in Dutch
+# LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
 # -------------------------------
-sudo apt-get install libreoffice-l10n-nl myspell-nl hyphen-nl libreoffice-help-nl
-#
+sudo apt-add-repository ppa:libreoffice/ppa
+sudo apt update
+sudo apt-get install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
+
 #________________________________
 # Timeshift - automated system snapshots (backups) 
 # -------------------------------
 sudo add-apt-repository -y ppa:teejee2008/timeshift
-sudo apt-get update
+sudo apt update
 sudo apt-get install timeshift
+
+#________________________________
+# Pluma - better simple notepad 
+# -------------------------------
+sudo apt-get install pluma
+
+#________________________________
+# VLC - better videoplayer
+# -------------------------------
+sudo apt-get install vlc
+
+#________________________________
+# Recommended apps to install manually
+# -------------------------------
+echo -e "\n\nPlease install the following recommended apps by downloading them manually:\n"
+echo -e "BLEACHBIT (cleanup) \t https://www.bleachbit.org/download/linux"
+echo -e "NOMACHINE (share desktop within local network) \t https://www.nomachine.com/download/download&id=4"
+echo -e "ANYDESK (remote desktop via internet) \t https://anydesk.com/en/downloads/linux"
+echo -e "DIGIKAM (photo management) \t https://www.digikam.org/download/"
+echo -e "RAWTHERAPEE ART (raw photo editor) \t https://bitbucket.org/agriggio/art/downloads/"
+
+
