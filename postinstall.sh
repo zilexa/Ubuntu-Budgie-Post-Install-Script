@@ -54,3 +54,10 @@ exit 0
 # LibreOffice UI/Spellcheck/Help in Dutch
 # -------------------------------
 sudo apt-get install libreoffice-l10n-nl myspell-nl hyphen-nl libreoffice-help-nl
+#
+#________________________________
+# Timeshift - automated system snapshots (backups) 
+# -------------------------------
+sudo add-apt-repository -y ppa:teejee2008/timeshift
+sudo apt-get update
+sudo apt-get install timeshift
