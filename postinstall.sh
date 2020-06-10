@@ -5,7 +5,7 @@
 #
 # Create a system-wide environmental variable that will always point to the home folder of the logged in user
 # Useful since Ubuntu 19.10 to have an env when using sudo that points to /home/username instead of /root.
-sh -c "echo USERHOME=/home/$LOGNAME >> /etc/environment"
+sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
 #_________________________________
 # Get separators for Plank or Dock
 # --------------------------------
