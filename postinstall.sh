@@ -1,17 +1,23 @@
 #!/bin/bash
 #
+# Run this script with sudo -E, otherwise $HOME points to /root instead of /home/username
+# After running this script a new env variable $USERHOME is available for sudo to use instead of -E
+#
+# Create a system-wide environmental variable that will always point to the home folder of the logged in user
+# Useful since Ubuntu 19.10 to have an env when using sudo that points to /home/username instead of /root.
+sh -c "echo USERHOME=/home/$LOGNAME >> /etc/environment"
 #_________________________________
 # Get separators for Plank or Dock
 # --------------------------------
 # Get a seperator-like app icon
 sudo wget --no-check-certificate -P /usr/share/icons https://github.com/zilexa/UB-PostInstall/blob/master/separators/separatorH.svg
 # Get a seperator-like app shortcut
-wget --no-check-certificate -P /home/$USERDIR/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/separators/SeparatorH1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/separators/SeparatorH1.desktop
 #
 #______________________________________
 # Get a Firefox shortcut for 2 profiles
 # -------------------------------------
-wget --no-check-certificate -P /home/$USERDIR/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/firefox.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/firefox.desktop
 #
 #________________________________
 # Budgie Desktop Settings
