@@ -51,7 +51,6 @@ wget --no-check-certificate https://raw.githubusercontent.com/zilexa/myconfig-ub
 sudo bash officefonts.sh
 wait
 rm officefonts.sh
-exit 0
 #________________________________
 # LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
 # -------------------------------
