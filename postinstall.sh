@@ -30,22 +30,25 @@ sudo gsettings set com.solus-project.budgie-wm button-style 'left'
 # folders always list view instead of big icon view
 gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 sudo gsettings set org.nemo.preferences default-folder-viewer 'list-view'
-#
+
 # disable doubleclick empty area to go up 1 folder
 gsettings set org.nemo.preferences click-double-parent-folder false
 sudo gsettings set org.nemo.preferences click-double-parent-folder false
-#
+
 # week numbers in Raven calendar
 gsettings set com.solus-project.budgie-raven enable-week-numbers true
-sudo gsettings set com.solus-project.budgie-raven enable-week-numbers true
-#
+
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
 sudo gsettings set org.nemo.preferences show-reload-icon-toolbar true
-#
+
 # get brightness, volume etc buttons on laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
-sudo gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
+
+# Enable Window Previews for alt-tab
+gsettings set org.ubuntubudgie.budgie-wpreviews allworkspaces true
+gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
+
 
 #________________________________
 # AppImageLauncher - integrate AppImage apps on first execution
