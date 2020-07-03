@@ -100,6 +100,23 @@ echo -e "ANYDESK (remote desktop via internet) \t https://anydesk.com/en/downloa
 echo -e "DIGIKAM (photo management) \t https://www.digikam.org/download/"
 echo -e "RAWTHERAPEE ART (raw photo editor) \t https://bitbucket.org/agriggio/art/downloads/"
 
+
+#_________________________________
+# Add repository for recommended Budgie stuff
+# --------------------------------
+sudo add-apt-repository ppa:ubuntubudgie/backports -y
+sudo apt-get install lm-sensors
+sudo add-apt-repository ppa:linrunner/tlp -y
+sudo apt install tlp
+sudo apt install hardinfo
+#_________________________________
+# Install applets required for Panel
+# --------------------------------
+sudo apt install budgie-kangaroo-applet
+sudo apt install budgie-workspace-wallpaper-applet
+sudo apt install budgie-calendar-applet
+
+
 #_________________________________
 # Apply panel layout
 # --------------------------------
