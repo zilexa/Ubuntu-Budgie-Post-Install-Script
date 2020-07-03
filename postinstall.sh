@@ -12,29 +12,40 @@ sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
 # -------------------------------
 # Dark mode
 gsettings set com.solus-project.budgie-panel dark-theme true
+sudo gsettings set com.solus-project.budgie-panel dark-theme true
+
 #
 # Theme with clearer icons
 gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
+sudo gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
+
 #
 # close/minimise/maximise buttons on the left side (more common)
 gsettings set com.solus-project.budgie-wm button-style 'left'
+sudo gsettings set com.solus-project.budgie-wm button-style 'left'
+
 #
 # Panel left side, size 53 (=treshold for bigger app icons)
 #
 # folders always list view instead of big icon view
 gsettings set org.nemo.preferences default-folder-viewer 'list-view'
+sudo gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 #
 # disable doubleclick empty area to go up 1 folder
 gsettings set org.nemo.preferences click-double-parent-folder false
+sudo gsettings set org.nemo.preferences click-double-parent-folder false
 #
 # week numbers in Raven calendar
 gsettings set com.solus-project.budgie-raven enable-week-numbers true
+sudo gsettings set com.solus-project.budgie-raven enable-week-numbers true
 #
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
+sudo gsettings set org.nemo.preferences show-reload-icon-toolbar true
 #
 # get brightness, volume etc buttons on laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
+sudo gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
 
 #________________________________
 # AppImageLauncher - integrate AppImage apps on first execution
