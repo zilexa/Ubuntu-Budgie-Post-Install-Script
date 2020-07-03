@@ -39,15 +39,15 @@ gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboa
 #________________________________
 # AppImageLauncher - integrate AppImage apps on first execution
 # -------------------------------
-sudo add-apt-repository ppa:appimagelauncher-team/stable
-sudo apt update
-sudo apt install appimagelauncher
+sudo add-apt-repository ppa:appimagelauncher-team/stable -y
+sudo apt -y update
+sudo apt -y install appimagelauncher
 
 
 #________________________________
 # MS Office fonts
 # -------------------------------
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/Mediaserver/master/officefonts.sh
+wget --no-check-certificate https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/officefonts.sh
 sudo bash officefonts.sh
 wait
 rm officefonts.sh
@@ -55,33 +55,33 @@ exit 0
 #________________________________
 # LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
 # -------------------------------
-sudo apt-add-repository ppa:libreoffice/ppa
-sudo apt update
-sudo apt-get install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
+sudo apt-add-repository ppa:libreoffice/ppa -y
+sudo apt -y update
+sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
 
 #_________________________________
 # Add repository for recommended Budgie stuff
 # --------------------------------
 sudo add-apt-repository ppa:ubuntubudgie/backports -y
-sudo apt-get install lm-sensors
+sudo apt-get -y install lm-sensors
 sudo add-apt-repository ppa:linrunner/tlp -y
-sudo apt install tlp
-sudo apt install hardinfo
+sudo apt -y install tlp
+sudo apt -y install hardinfo
 
 #_________________________________
 # Install applets required for Panel
 # --------------------------------
-sudo apt install budgie-kangaroo-applet
-sudo apt install budgie-workspace-wallpaper-applet
-sudo apt install budgie-calendar-applet
+sudo apt -y install budgie-kangaroo-applet
+sudo apt -y install budgie-workspace-wallpaper-applet
+sudo apt -y install budgie-calendar-applet
 #_________________________________
 # Get separators for Plank or Dock
 # --------------------------------
 # Get a seperator-like app icon
-sudo wget --no-check-certificate -P /usr/share/icons https://github.com/zilexa/UB-PostInstall/blob/master/separators/separatorH.svg
+sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/separatorH.svg
 # Get a seperator-like app shortcut
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/separators/SeparatorH1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/SeparatorH1.desktop
 #_________________________________
 # Apply panel layout
 # --------------------------------
@@ -91,23 +91,23 @@ sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://ra
 #______________________________________
 # Get a Firefox shortcut for 2 profiles
 # -------------------------------------
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/firefox.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/firefox.desktop
 
 
 #________________________________
 # Timeshift - automated system snapshots (backups) 
 # -------------------------------
 sudo add-apt-repository -y ppa:teejee2008/timeshift
-sudo apt update
-sudo apt-get install timeshift
+sudo apt -y update
+sudo apt-get -y install timeshift
 #________________________________
 # Pluma - better simple notepad 
 # -------------------------------
-sudo apt-get install pluma
+sudo apt-get -y install pluma
 #________________________________
 # VLC - better videoplayer
 # -------------------------------
-sudo apt-get install vlc
+sudo apt-get -y install vlc
 #________________________________
 # Recommended apps to install manually
 # -------------------------------
