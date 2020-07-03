@@ -85,7 +85,7 @@ wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githu
 #_________________________________
 # Apply panel layout
 # --------------------------------
-sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/ubuntubudgie.layout
+sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/widescreen.layout
 
 
 #______________________________________
