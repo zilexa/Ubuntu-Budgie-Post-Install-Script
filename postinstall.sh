@@ -6,18 +6,6 @@
 # Create a system-wide environmental variable that will always point to the home folder of the logged in user
 # Useful since Ubuntu 19.10 to have an env when using sudo that points to /home/username instead of /root.
 sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
-#_________________________________
-# Get separators for Plank or Dock
-# --------------------------------
-# Get a seperator-like app icon
-sudo wget --no-check-certificate -P /usr/share/icons https://github.com/zilexa/UB-PostInstall/blob/master/separators/separatorH.svg
-# Get a seperator-like app shortcut
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/separators/SeparatorH1.desktop
-#
-#______________________________________
-# Get a Firefox shortcut for 2 profiles
-# -------------------------------------
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/firefox.desktop
 #
 #________________________________
 # Budgie Desktop Settings
@@ -48,6 +36,15 @@ gsettings set org.nemo.preferences show-reload-icon-toolbar true
 # get brightness, volume etc buttons on laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
 
+#_________________________________
+# Get separators for Plank or Dock
+# --------------------------------
+# Get a seperator-like app icon
+sudo wget --no-check-certificate -P /usr/share/icons https://github.com/zilexa/UB-PostInstall/blob/master/separators/separatorH.svg
+# Get a seperator-like app shortcut
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/separators/SeparatorH1.desktop
+#
+
 #________________________________
 # AppImageLauncher - integrate AppImage apps on first execution
 # -------------------------------
@@ -63,6 +60,7 @@ sudo bash officefonts.sh
 wait
 rm officefonts.sh
 exit 0
+
 #________________________________
 # LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
 # -------------------------------
@@ -87,6 +85,11 @@ sudo apt-get install pluma
 # -------------------------------
 sudo apt-get install vlc
 
+#______________________________________
+# Get a Firefox shortcut for 2 profiles
+# -------------------------------------
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UB-PostInstall/master/firefox.desktop
+
 #________________________________
 # Recommended apps to install manually
 # -------------------------------
@@ -97,4 +100,7 @@ echo -e "ANYDESK (remote desktop via internet) \t https://anydesk.com/en/downloa
 echo -e "DIGIKAM (photo management) \t https://www.digikam.org/download/"
 echo -e "RAWTHERAPEE ART (raw photo editor) \t https://bitbucket.org/agriggio/art/downloads/"
 
-
+#_________________________________
+# Apply panel layout
+# --------------------------------
+sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/ubuntubudgie.layout
