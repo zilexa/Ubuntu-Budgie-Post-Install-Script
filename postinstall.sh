@@ -63,8 +63,9 @@ sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-he
 # Add repository for recommended Budgie stuff
 # --------------------------------
 sudo add-apt-repository ppa:ubuntubudgie/backports -y
-sudo apt-get -y install lm-sensors
 sudo add-apt-repository ppa:linrunner/tlp -y
+sudo apt -y update
+sudo apt-get -y install lm-sensors
 sudo apt -y install tlp
 sudo apt -y install hardinfo
 
