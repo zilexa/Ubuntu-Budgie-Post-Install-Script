@@ -44,7 +44,18 @@ gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboa
 gsettings set org.ubuntubudgie.budgie-wpreviews allworkspaces true
 gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
 
-# Panel left side, size 53 (=treshold for bigger app icons)
+# Print Scr should take area screenshot
+gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
+gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip '@as []'
+gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot-clip '@as []'
+gsettings set org.gnome.settings-daemon.plugins.media-keys screencast '@as []'
+gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot '@as []'
+gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot '@as []'
+gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot '@as []'
+gsettings set com.solus-project.budgie-wm take-region-screenshot "['Print']"
+gsettings set com.solus-project.budgie-wm take-full-screenshot "['<Ctrl>Print']"
+mkdir $HOME/Pictures/Screenshots
+gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Screenshots"
 
 #_________________________________
 # Add repository for recommended Budgie stuff
