@@ -136,6 +136,13 @@ sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-he
 
 
 #________________________________
+# Folder Color for Nemo file manager 
+# -------------------------------
+sudo add-apt-repository ppa:costales/folder-color
+sudo apt-get update
+sudo apt-get install folder-color-nemo
+nemo -q
+#________________________________
 # Timeshift - automated system snapshots (backups) 
 # -------------------------------
 sudo add-apt-repository -y ppa:teejee2008/timeshift
