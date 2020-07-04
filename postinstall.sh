@@ -150,6 +150,13 @@ sudo apt-get -y install pluma
 # -------------------------------
 sudo apt-get -y install vlc
 #______________________________________
+# Install DarkTable
+# -------------------------------------
+echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
+curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics:darktable.gpg > /dev/null
+sudo apt update
+sudo apt -y install darktable
+#______________________________________
 # Get a Firefox shortcut for 2 profiles
 # -------------------------------------
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/firefox.desktop
