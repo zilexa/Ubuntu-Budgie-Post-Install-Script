@@ -85,6 +85,28 @@ wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githu
 # --------------------------------
 sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/widescreen.layout
 
+# Allow 3 and 4 finger gestures
+# --------------------------------
+sudo apt -y install libinput-gestures
+cd $HOME/Downloads
+wget https://github.com/bulletmark/libinput-gestures/archive/master.zip
+unzip master.zip
+cd libinput-gestures-master
+sudo ./libinput-gestures-setup install
+cd ..
+rm -r master.zip
+rm -r libinput-gestures-master
+libinput-gestures-setup autostart
+libinput-gestures-setup start
+wget https://gitlab.com/cunidev/gestures/-/archive/master/gestures-master.zip
+unzip gestures-master.zip
+cd gestures-master
+sudo apt -y install python3-setuptools
+sudo python3 setup.py install
+cd ..
+rm -r gestures-master.zip
+rm -r gestures-master
+cd $HOME
 
 #________________________________
 # AppImageLauncher - integrate AppImage apps on first execution
