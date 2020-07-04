@@ -14,19 +14,14 @@ sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
 gsettings set com.solus-project.budgie-panel dark-theme true
 sudo gsettings set com.solus-project.budgie-panel dark-theme true
 
-#
 # Theme with clearer icons
 gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
 sudo gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
 
-#
 # close/minimise/maximise buttons on the left side (more common)
 gsettings set com.solus-project.budgie-wm button-style 'left'
 sudo gsettings set com.solus-project.budgie-wm button-style 'left'
 
-#
-# Panel left side, size 53 (=treshold for bigger app icons)
-#
 # folders always list view instead of big icon view
 gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 sudo gsettings set org.nemo.preferences default-folder-viewer 'list-view'
@@ -49,29 +44,7 @@ gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboa
 gsettings set org.ubuntubudgie.budgie-wpreviews allworkspaces true
 gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
 
-
-#________________________________
-# AppImageLauncher - integrate AppImage apps on first execution
-# -------------------------------
-sudo add-apt-repository ppa:appimagelauncher-team/stable -y
-sudo apt -y update
-sudo apt -y install appimagelauncher
-
-
-#________________________________
-# MS Office fonts
-# -------------------------------
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/officefonts.sh
-sudo bash officefonts.sh
-wait
-rm officefonts.sh
-#________________________________
-# LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
-# -------------------------------
-sudo apt-add-repository ppa:libreoffice/ppa -y
-sudo apt -y update
-sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
-
+# Panel left side, size 53 (=treshold for bigger app icons)
 
 #_________________________________
 # Add repository for recommended Budgie stuff
@@ -97,15 +70,32 @@ sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubuserconte
 # Get a seperator-like app shortcut
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/SeparatorH1.desktop
 #_________________________________
-# Apply panel layout
+# Switch to widescreen panel layout with medium sized icons
 # --------------------------------
 sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/widescreen.layout
 
 
-#______________________________________
-# Get a Firefox shortcut for 2 profiles
-# -------------------------------------
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/firefox.desktop
+#________________________________
+# AppImageLauncher - integrate AppImage apps on first execution
+# -------------------------------
+sudo add-apt-repository ppa:appimagelauncher-team/stable -y
+sudo apt -y update
+sudo apt -y install appimagelauncher
+
+
+#________________________________
+# MS Office fonts
+# -------------------------------
+wget --no-check-certificate https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/officefonts.sh
+sudo bash officefonts.sh
+wait
+rm officefonts.sh
+#________________________________
+# LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
+# -------------------------------
+sudo apt-add-repository ppa:libreoffice/ppa -y
+sudo apt -y update
+sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
 
 #________________________________
@@ -122,6 +112,10 @@ sudo apt-get -y install pluma
 # VLC - better videoplayer
 # -------------------------------
 sudo apt-get -y install vlc
+#______________________________________
+# Get a Firefox shortcut for 2 profiles
+# -------------------------------------
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/firefox.desktop
 #________________________________
 # Recommended apps to install manually
 # -------------------------------
