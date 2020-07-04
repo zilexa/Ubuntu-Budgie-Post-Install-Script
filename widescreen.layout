@@ -1,94 +1,89 @@
 [Panels]
 Panels=Left Panel
 
-[Top Panel]
-Children=AppMenu;Separator;Kangaroo;IconTaskList;ShowTime;WallpaperSwitcher;VisualSpace;Seperator;DropBy;AppIndicator;QuickNote;Spacer 1;Night;Spacer 2;Network;Status;Spacer 3;Notifications;Seperator;Calendar;Seperator;User Indicator;Spacer 4
+[Left Panel]
+Children=Spacer 1;Calendar;Separator 1;Notifications;Spacer 2;Night;Spacer 3;QuickNote;Spacer 4;System Tray;AppIndicator;DropBy;Separator 2;Workspace Switcher;WallpaperSwitcher;ShowTime;IconTaskList;Kangaroo;Separator 3;AppMenu;
+
 Position=Left
 Size=53
 
-[AppMenu]
-ID=AppMenu
-
-[Separator]
-ID=Separator
-
-[Kangaroo]
-ID=Kangaroo
-
-[IconTaskList]
-ID=Icon Task List
-
-[ShowTime]
-ID=ShowTime
-Alignment=center
-
-[WallpaperSwitcher]
-ID=Wallpaper Switcher
-Alignment=Center
-
-[VisualSpace]
-ID=Visual Space
-Alignment=end
-
-[Separator]
-ID=Separator
-
-[DropBy]
-ID=DropBy
-Alignment=end
-
-[AppIndicator]
-ID=AppIndicator Applet
-Alignment=end
-
-[QuickNote]
-ID=QuickNote
-Alignment=end
-
 [Spacer 1]
 ID=Spacer
-Alignment=end
-
-[Night]
-ID=Night Light
-Alignment=end
-
-[Spacer 2]
-ID=Spacer
-Alignment=end
-
-[Network]
-ID=Network
-Alignment=end
-
-[Status]
-ID=Status Indicator
-Alignment=end
-
-[Spacer 3]
-ID=Spacer
-Alignment=end
-
-[Notifications]
-ID=Notifications
-Alignment=end
-
-[Separator]
-ID=Separator
-Alignment=end
+Alignment=start
 
 [Calendar]
 ID=Calendar
-Alignment=end
+Alignment=start
 
-[Separator]
+[Separator 1]
 ID=Separator
-Alignment=end
+Alignment=start
 
-[User Indicator]
-ID=User Indicator
-Alignment=end
+[Notifications]
+ID=Notifications
+Alignment=start
+
+[Spacer 2]
+ID=Spacer
+Alignment=start
+
+[Night]
+ID=Night Light
+Alignment=start
+
+[Spacer 3]
+ID=Spacer
+Alignment=start
+
+[QuickNote]
+ID=QuickNote
+Alignment=start
 
 [Spacer 4]
 ID=Spacer
+Alignment=start
+
+[System Tray]
+ID=System Tray
+Alignment=start
+
+[AppIndicator]
+ID=AppIndicator Applet
+Alignment=start
+
+[DropBy]
+ID=DropBy
+Alignment=start
+
+[Separator 2]
+ID=Separator
+Alignment=start
+
+[Workspace Switcher]
+ID=Workspace Switcher
+Alignment=start
+
+[WallpaperSwitcher]
+ID=WallpaperSwitcher
+Alignment=start
+
+[ShowTime]
+ID=ShowTime
+Alignment=start
+
+[IconTaskList]
+ID=Icon Task List
+Alignment=center
+
+[Kangaroo]
+ID=Kangaroo
 Alignment=end
+
+[Separator 3]
+ID=Separator
+Alignment=end
+
+[AppMenu]
+ID=AppMenu
+Alignment=end
+
