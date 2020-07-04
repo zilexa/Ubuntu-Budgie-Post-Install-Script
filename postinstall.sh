@@ -157,6 +157,13 @@ curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu
 sudo apt update
 sudo apt -y install darktable
 #______________________________________
+# Install AnyDesk (remote support)
+# -------------------------------------
+# wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+#sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+#sudo apt -y update
+#sudo apt-get -y install anydesk
+#______________________________________
 # Get a Firefox shortcut for 2 profiles
 # -------------------------------------
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/firefox.desktop
