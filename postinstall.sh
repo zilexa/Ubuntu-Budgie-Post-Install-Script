@@ -44,6 +44,9 @@ gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboa
 gsettings set org.ubuntubudgie.budgie-wpreviews allworkspaces true
 gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
 
+#Change QuickNote path to /Documents
+gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
+
 # Print Scr should take area screenshot
 gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
 gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip '@as []'
