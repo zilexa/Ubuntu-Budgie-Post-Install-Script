@@ -85,9 +85,10 @@ wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githu
 # --------------------------------
 sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/widescreen.layout
 
+#_________________________________
 # Allow 3 and 4 finger gestures
 # --------------------------------
-sudo apt -y install libinput-gestures
+sudo apt -y install libinput-tools
 cd $HOME/Downloads
 wget https://github.com/bulletmark/libinput-gestures/archive/master.zip
 unzip master.zip
