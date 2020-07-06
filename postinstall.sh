@@ -6,10 +6,49 @@
 # Create a system-wide environmental variable that will always point to the home folder of the logged in user
 # Useful since Ubuntu 19.10 to have an env when using sudo that points to /home/username instead of /root.
 sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
-#
-#________________________________
-# Budgie Desktop Settings
-# -------------------------------
+
+#___________________________________
+# Budgie Desktop Extras & Essentials
+# ----------------------------------
+# Add repository for recommended Budgie stuff
+sudo add-apt-repository ppa:ubuntubudgie/backports -y
+sudo add-apt-repository ppa:costales/folder-color
+sudo add-apt-repository -y ppa:teejee2008/timeshift
+sudo add-apt-repository ppa:appimagelauncher-team/stable -y
+sudo apt -y update
+
+# Install common applets required for Widescreen Panel Layout
+sudo apt -y install budgie-kangaroo-applet
+sudo apt -y install budgie-workspace-wallpaper-applet
+sudo apt -y install budgie-calendar-applet
+sudo apt -y install budgie-previews
+
+# Allow Folder Colors
+sudo apt-get install folder-color-nemo
+nemo -q
+
+# enable system sensors read-out like temperature, fan speed
+sudo apt -y install lm-sensors
+
+# Timeshift - automated system snapshots (backups) 
+sudo apt -y install timeshift
+
+# Allow users to choose to install AppImage apps
+sudo apt -y install appimagelauncher
+
+#______________________________________________
+# Configure Widescreen Panel and get seperators
+# ---------------------------------------------
+# Get a horizontal seperator-like app icon
+sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/separatorH.svg
+# Get a seperator-like app shortcut
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/SeparatorH1.desktop
+# Switch to widescreen panel layout with medium sized icons
+sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/widescreen.layout
+
+#____________________________
+# Budgie Desktop basic config
+# ---------------------------
 # Dark mode
 gsettings set com.solus-project.budgie-panel dark-theme true
 sudo gsettings set com.solus-project.budgie-panel dark-theme true
@@ -37,7 +76,7 @@ gsettings set com.solus-project.budgie-raven enable-week-numbers true
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
 sudo gsettings set org.nemo.preferences show-reload-icon-toolbar true
 
-# get brightness, volume etc buttons on laptop keyboard to work
+# get brightness, volume etc buttons on every laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
 
 # Enable Window Previews for alt-tab
@@ -60,37 +99,9 @@ gsettings set com.solus-project.budgie-wm take-full-screenshot "['<Ctrl>Print']"
 mkdir $HOME/Pictures/Screenshots
 gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Screenshots"
 
-#_________________________________
-# Add repository for recommended Budgie stuff
-# --------------------------------
-sudo add-apt-repository ppa:ubuntubudgie/backports -y
-sudo add-apt-repository ppa:linrunner/tlp -y
-sudo apt -y update
-sudo apt-get -y install lm-sensors
-sudo apt -y install tlp
-sudo apt -y install hardinfo
-
-#_________________________________
-# Install applets required for Panel
-# --------------------------------
-sudo apt -y install budgie-kangaroo-applet
-sudo apt -y install budgie-workspace-wallpaper-applet
-sudo apt -y install budgie-calendar-applet
-#_________________________________
-# Get separators for Plank or Dock
-# --------------------------------
-# Get a seperator-like app icon
-sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/separatorH.svg
-# Get a seperator-like app shortcut
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/SeparatorH1.desktop
-#_________________________________
-# Switch to widescreen panel layout with medium sized icons
-# --------------------------------
-sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/widescreen.layout
-
-#_________________________________
+#______________________________
 # Allow 3 and 4 finger gestures
-# --------------------------------
+# -----------------------------
 sudo apt -y install libinput-tools
 cd $HOME/Downloads
 wget https://github.com/bulletmark/libinput-gestures/archive/master.zip
@@ -113,72 +124,47 @@ rm -r gestures-master
 wget -P $HOME/.config https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/libinput-gestures.conf
 cd $HOME
 
-
-#________________________________
-# AppImageLauncher - integrate AppImage apps on first execution
-# -------------------------------
-sudo add-apt-repository ppa:appimagelauncher-team/stable -y
-sudo apt -y update
-sudo apt -y install appimagelauncher
-
-
-#________________________________
-# MS Office fonts
-# -------------------------------
+#________________________
+# Make LibreOffice usable
+# -----------------------
+# Install ALL common Microsoft Office fonts
 wget --no-check-certificate https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/officefonts.sh
 sudo bash officefonts.sh
 wait
 rm officefonts.sh
-#________________________________
-# LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
-# -------------------------------
+
+# Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
 sudo apt-add-repository ppa:libreoffice/ppa -y
 sudo apt -y update
 sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
-
-#________________________________
-# Folder Color for Nemo file manager 
-# -------------------------------
-sudo add-apt-repository ppa:costales/folder-color
-sudo apt-get update
-sudo apt-get install folder-color-nemo
-nemo -q
-#________________________________
-# Timeshift - automated system snapshots (backups) 
-# -------------------------------
-sudo add-apt-repository -y ppa:teejee2008/timeshift
-sudo apt -y update
-sudo apt-get -y install timeshift
-#________________________________
-# Pluma - better simple notepad 
-# -------------------------------
-sudo apt-get -y install pluma
-#________________________________
-# VLC - better videoplayer
-# -------------------------------
-sudo apt-get -y install vlc
-#______________________________________
-# Install DarkTable
-# -------------------------------------
-echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
-curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics:darktable.gpg > /dev/null
-sudo apt update
-sudo apt -y install darktable
-#______________________________________
-# Install AnyDesk (remote support)
-# -------------------------------------
-# wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-#sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
-#sudo apt -y update
-#sudo apt-get -y install anydesk
 #______________________________________
 # Get a Firefox shortcut for 2 profiles
 # -------------------------------------
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/firefox.desktop
-#________________________________
-# Recommended apps to install manually
-# -------------------------------
+
+#____________________________
+# Install essential software 
+# ---------------------------
+# Pluma - better simple notepad 
+sudo apt-get -y install pluma
+
+# VLC - better videoplayer
+sudo apt-get -y install vlc
+
+# Install AnyDesk (remote support)
+#wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+#sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+#sudo apt -y update
+#sudo apt-get -y install anydesk
+
+# DarkTable - image editing
+echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
+curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics:darktable.gpg > /dev/null
+sudo apt update
+sudo apt -y install darktable
+
+# Recommended apps latest version cannot be installed automatically
 echo -e "\n\nPlease install the following recommended apps by downloading them manually:\n"
 echo -e "BLEACHBIT (cleanup) \t https://www.bleachbit.org/download/linux"
 echo -e "NOMACHINE (share desktop within local network) \t https://www.nomachine.com/download/download&id=4"
