@@ -110,7 +110,9 @@ sudo python3 setup.py install
 cd ..
 rm -r gestures-master.zip
 rm -r gestures-master
+wget -P $HOME/.config https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/libinput-gestures.conf
 cd $HOME
+
 
 #________________________________
 # AppImageLauncher - integrate AppImage apps on first execution
