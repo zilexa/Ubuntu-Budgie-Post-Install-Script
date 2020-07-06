@@ -1,7 +1,11 @@
 #!/bin/bash
 #
-# Run this script without sudo. -E
-#
+# Welcome to Ubuntu Budgie! An intuitive, user friendly, light and fast Operating system. 
+# For most people, it is better than Windows (10) or MacOS. It can easily look exactly like Windows or Mac.
+# However that is not the goal of this script. This script will add features that will be standard features of upcoming releases. 
+# Like gestures, folder colors and some nice applets. 
+# It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
+
 # Create a system-wide environmental variable that will always point to the home folder of the logged in user
 # Useful since Ubuntu 19.10 to have an env when using sudo that points to /home/username instead of /root.
 sudo sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
