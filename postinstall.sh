@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-# Run this script with sudo -E, otherwise $HOME points to /root instead of /home/username
-# After running this script a new env variable $USERHOME is available for sudo to use instead of -E
+# Run this script without sudo. -E
 #
 # Create a system-wide environmental variable that will always point to the home folder of the logged in user
 # Useful since Ubuntu 19.10 to have an env when using sudo that points to /home/username instead of /root.
-sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
+sudo sh -c "echo USERHOME=/home/$SUDO_USER >> /etc/environment"
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
@@ -164,7 +163,7 @@ curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu
 sudo apt update
 sudo apt -y install darktable
 
-# Recommended apps latest version cannot be installed automatically
+# A few recommended apps that should be installed manually to get the latest version
 echo -e "\n\nPlease install the following recommended apps by downloading them manually:\n"
 echo -e "BLEACHBIT (cleanup) \t https://www.bleachbit.org/download/linux"
 echo -e "NOMACHINE (share desktop within local network) \t https://www.nomachine.com/download/download&id=4"
