@@ -36,7 +36,7 @@ sudo apt -y install lm-sensors
 # Timeshift - automated system snapshots (backups) 
 sudo apt -y install timeshift
 
-# Allow users to choose to install AppImage apps
+# Integrate AppImages at first launch
 sudo apt -y install appimagelauncher
 
 #______________________________________________
