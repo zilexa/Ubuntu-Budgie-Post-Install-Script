@@ -156,10 +156,10 @@ sudo apt-get -y install pluma
 sudo apt-get -y install vlc
 
 # Install AnyDesk (remote support)
-#wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-#sudo echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
-#sudo apt -y update
-#sudo apt-get -y install anydesk
+wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+sudo apt -y update
+sudo apt -y install anydesk
 
 # DarkTable - image editing
 echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
