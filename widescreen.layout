@@ -2,88 +2,91 @@
 Panels=Left Panel
 
 [Left Panel]
-Children=Spacer 1;Calendar;Separator 1;Notifications;Spacer 2;Night;Spacer 3;QuickNote;Spacer 4;System Tray;AppIndicator;DropBy;Separator 2;Workspace Switcher;WallpaperSwitcher;ShowTime;IconTaskList;Kangaroo;Separator 3;AppMenu;
+Children=Calendar;Spacer 1;Notifications;Separator 1;Spacer 2;Kangaroo;Spacer 3;AppMenu;IconTaskList;ShowTime;WallpaperSwitcher;Visual Space;QuickNote;Spacer 4;DropBy;AppIndicator;Night;Status Indicator;System Tray;Separator 2;User Indicator;
 
 Position=Left
 Size=53
-
-[Spacer 1]
-ID=Spacer
-Alignment=start
 
 [Calendar]
 ID=Calendar
 Alignment=start
 
-[Separator 1]
-ID=Separator
+[Spacer 1]
+ID=Spacer
 Alignment=start
 
 [Notifications]
 ID=Notifications
 Alignment=start
 
+[Separator 1]
+ID=Separator
+Alignment=start
+
 [Spacer 2]
 ID=Spacer
 Alignment=start
 
-[Night]
-ID=Night Light
+[Kangaroo]
+ID=Kangaroo
 Alignment=start
 
 [Spacer 3]
 ID=Spacer
 Alignment=start
 
-[QuickNote]
-ID=QuickNote
-Alignment=start
-
-[Spacer 4]
-ID=Spacer
-Alignment=start
-
-[System Tray]
-ID=System Tray
-Alignment=start
-
-[AppIndicator]
-ID=AppIndicator Applet
-Alignment=start
-
-[DropBy]
-ID=DropBy
-Alignment=start
-
-[Separator 2]
-ID=Separator
-Alignment=start
-
-[Workspace Switcher]
-ID=Workspace Switcher
-Alignment=start
-
-[WallpaperSwitcher]
-ID=WallpaperSwitcher
-Alignment=start
-
-[ShowTime]
-ID=ShowTime
+[AppMenu]
+ID=AppMenu
 Alignment=start
 
 [IconTaskList]
 ID=Icon Task List
+Alignment=start
+
+[ShowTime]
+ID=ShowTime
 Alignment=center
 
-[Kangaroo]
-ID=Kangaroo
+[WallpaperSwitcher]
+ID=WallpaperSwitcher
+Alignment=center
+
+[Visual Space]
+ID=Visual Space
 Alignment=end
 
-[Separator 3]
+[QuickNote]
+ID=QuickNote
+Alignment=end
+
+[Spacer 4]
+ID=Spacer
+Alignment=end
+
+[DropBy]
+ID=DropBy
+Alignment=end
+
+[AppIndicator]
+ID=AppIndicator Applet
+Alignment=end
+
+[Night]
+ID=Night Light
+Alignment=end
+
+[Status Indicator]
+ID=Status Indicator
+Alignment=end
+
+[System Tray]
+ID=System Tray
+Alignment=end
+
+[Separator 2]
 ID=Separator
 Alignment=end
 
-[AppMenu]
-ID=AppMenu
+[User Indicator]
+ID=User Indicator
 Alignment=end
-
