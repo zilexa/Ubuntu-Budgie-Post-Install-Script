@@ -43,11 +43,11 @@ sudo apt -y install appimagelauncher
 # Configure Widescreen Panel and get seperators
 # ---------------------------------------------
 # Get a horizontal seperator-like app icon
-sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/separatorH.svg
+sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/separatorH.svg
 # Get a seperator-like app shortcut
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/separators/SeparatorH1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/SeparatorH1.desktop
 # Switch to widescreen panel layout with medium sized icons
-sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/widescreen.layout
+sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/widescreen.layout
 
 #____________________________
 # Budgie Desktop basic config
@@ -124,14 +124,14 @@ sudo python3 setup.py install
 cd ..
 rm -r gestures-master.zip
 rm -r gestures-master
-wget -P $HOME/.config https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/libinput-gestures.conf
+wget -P $HOME/.config https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libinput-gestures.conf
 cd $HOME
 
 #________________________
 # Make LibreOffice usable
 # -----------------------
 # Install ALL common Microsoft Office fonts
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/officefonts.sh
+wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/officefonts.sh
 sudo bash officefonts.sh
 wait
 rm officefonts.sh
@@ -144,7 +144,7 @@ sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-he
 #______________________________________
 # Get a Firefox shortcut for 2 profiles
 # -------------------------------------
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/myconfig-ubuntu/master/firefox.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox.desktop
 
 #____________________________
 # Install essential software 
