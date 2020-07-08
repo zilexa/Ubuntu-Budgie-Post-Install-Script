@@ -1,6 +1,6 @@
 #!/bin/bash
 # ZileXa: modified Maxwel's script to install fontforge (required for his script) and to include Segoeui and MS core fonts. 
-# Author: Maxwel Leite
+# Original Author: Maxwel Leite
 # Website: http://needforbits.wordpress.com/
 # Description: Script to install Microsoft Vista TrueType Fonts (TTF) aka Microsoft’s ClearType fonts on Ubuntu distros
 #              Microsoft added a group of new "ClearType Fonts" to Windows with Windows Vista and Office 2007.
