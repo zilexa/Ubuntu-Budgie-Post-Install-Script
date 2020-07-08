@@ -10,8 +10,8 @@
 # Note: Microsoft no longer provides the PowerPoint Viewer 2007 (v12.0.4518.1014) or any version anymore for download
 # Tested: Ubuntu Saucy/Trusty/Xenial/Bionic/
 # Added by ZileXa
-sudo apt-get --yes --force-yes install fontforge
-sudo apt-get --yes --force-yes install ttf-mscorefonts-installer
+sudo apt-get --yes --allow install fontforge
+sudo apt-get --yes --allow install ttf-mscorefonts-installer
 sudo mkdir -p /usr/share/fonts/truetype/msttcorefonts/
 cd /usr/share/fonts/truetype/msttcorefonts/
 sudo wget -q https://github.com/martinring/clide/blob/master/doc/fonts/segoeui.ttf?raw=true -O segoeui.ttf # regular
