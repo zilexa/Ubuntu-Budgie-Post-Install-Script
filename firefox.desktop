@@ -227,4 +227,4 @@ Exec=firefox -P P1 -no-remote
 
 [Desktop Action P2]
 Name=start P2's Firefox
-Exec=firefox -P P2 -no-remote
+Exec=firefox -P P2 -no-remotep
