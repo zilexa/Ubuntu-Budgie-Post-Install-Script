@@ -42,6 +42,8 @@ sudo apt -y install appimagelauncher
 #______________________________________________
 # Configure Widescreen Panel and get seperators
 # ---------------------------------------------
+# replace override file otherwise all settings will be reverted back
+sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/25_budgie-desktop-environment.gschema.override
 # Get a horizontal seperator-like app icon
 sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/separatorH.svg
 # Get a seperator-like app shortcut
