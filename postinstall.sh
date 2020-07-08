@@ -51,6 +51,7 @@ sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubuserconte
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/SeparatorH1.desktop
 # Switch to widescreen panel layout with medium sized icons
 sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/widescreen.layout
+gsettings set com.solus-project.budgie-panel layout 'widescreen'
 # reset panel to apply changes
 nohup budgie-panel --reset --replace &
 
