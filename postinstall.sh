@@ -141,7 +141,6 @@ sudo sed -i -e 's/Icon=libreoffice-main/Icon=libreoffice-oasis-text-template/g' 
 # Install ALL common Microsoft Office fonts
 wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/officefonts.sh
 sudo bash officefonts.sh
-wait
 rm officefonts.sh
 
 # Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
@@ -168,6 +167,7 @@ wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
 echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
 sudo apt -y update
 sudo apt -y install anydesk
+sudo systemctl disable anydesk
 
 # DarkTable - image editing
 echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
