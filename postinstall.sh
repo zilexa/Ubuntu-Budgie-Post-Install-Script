@@ -42,14 +42,17 @@ sudo apt -y install appimagelauncher
 #______________________________________________
 # Configure Widescreen Panel and get seperators
 # ---------------------------------------------
-# replace override file otherwise some settings will be reverted back and only default icons will be pinned
+# replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
 sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/25_budgie-desktop-environment.gschema.override
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 # Get a horizontal seperator-like app icon
 sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/separatorH.svg
 # Get a seperator-like app shortcut
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/SeparatorH1.desktop
 # Switch to widescreen panel layout with medium sized icons
 sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/widescreen.layout
+# reset panel to apply changes
+nohup budgie-panel --reset --replace &
 
 #____________________________
 # Budgie Desktop basic config
