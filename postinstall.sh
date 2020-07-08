@@ -54,6 +54,10 @@ sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://ra
 gsettings set com.solus-project.budgie-panel layout 'widescreen'
 # reset panel to apply changes
 nohup budgie-panel --reset --replace &
+# disable plank from autostarting
+rm -r /home/$LOGNAME/.config/autostart/plank.desktop
+# stop plank
+sudo pkill plank
 
 #____________________________
 # Budgie Desktop basic config
