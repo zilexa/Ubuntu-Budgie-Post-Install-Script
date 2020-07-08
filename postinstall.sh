@@ -35,7 +35,7 @@ nemo -q
 sudo apt -y install lm-sensors
 
 # install tlp to control performance and temperature automatically
-sudo apt-get install tlp tlp-rdw
+sudo apt -y install tlp tlp-rdw
 sudo tlp start
 
 # Timeshift - automated system snapshots (backups) 
