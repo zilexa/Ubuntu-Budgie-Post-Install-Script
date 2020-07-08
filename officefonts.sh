@@ -129,3 +129,4 @@ if [ $err -ne 1 ]; then
 else
     echo -e "\nSome error occurred! Please try again!!\n"
 fi
+exit
