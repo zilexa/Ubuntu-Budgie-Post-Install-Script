@@ -27,7 +27,7 @@ sudo apt -y install budgie-calendar-applet
 sudo apt -y install budgie-previews
 
 # Allow Folder Colors
-sudo apt-get install folder-color-nemo
+sudo apt -y install folder-color-nemo
 nemo -q
 
 # enable system sensors read-out like temperature, fan speed
