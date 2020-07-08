@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install Brother MFC-L2750DW 32-bit drivers on 64-bit Ubuntu 19.10 or higher.
+# Installs Brother MFC-L2750DW 32-bit drivers on 64-bit Ubuntu 19.10 or higher.
 # Brother only provides 32-bit drivers and has removed the required instructions for 64-bit OS. 
 
 sudo ufw allow 54925/udp
