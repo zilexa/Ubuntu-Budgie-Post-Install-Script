@@ -18,6 +18,7 @@ sudo add-apt-repository ppa:ubuntubudgie/backports -y
 sudo add-apt-repository ppa:costales/folder-color
 sudo add-apt-repository -y ppa:teejee2008/timeshift
 sudo add-apt-repository ppa:appimagelauncher-team/stable -y
+sudo add-apt-repository ppa:linrunner/tlp
 sudo apt -y update
 
 # Install common applets required for Widescreen Panel Layout
@@ -32,6 +33,10 @@ nemo -q
 
 # enable system sensors read-out like temperature, fan speed
 sudo apt -y install lm-sensors
+
+# install tlp to control performance and temperature automatically
+sudo apt-get install tlp tlp-rdw
+sudo tlp start
 
 # Timeshift - automated system snapshots (backups) 
 sudo apt -y install timeshift
