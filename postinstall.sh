@@ -14,11 +14,11 @@ sudo sh -c "echo USERHOME=/home/$LOGNAME >> /etc/environment"
 # Budgie Desktop Extras & Essentials
 # ----------------------------------
 # Add repository for recommended Budgie stuff
-sudo add-apt-repository ppa:ubuntubudgie/backports -y
-sudo add-apt-repository ppa:costales/folder-color
+sudo add-apt-repository -y ppa:ubuntubudgie/backports
+sudo add-apt-repository -y ppa:costales/folder-color
 sudo add-apt-repository -y ppa:teejee2008/timeshift
-sudo add-apt-repository ppa:appimagelauncher-team/stable -y
-sudo add-apt-repository ppa:linrunner/tlp
+sudo add-apt-repository -y ppa:appimagelauncher-team/stable
+sudo add-apt-repository -y ppa:linrunner/tlp
 sudo apt -y update
 
 # Install common applets required for Widescreen Panel Layout
