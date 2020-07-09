@@ -37,21 +37,21 @@ fi
 if ! which wget >/dev/null; then
     echo "Error: wget is required to download the file"
     echo "Run the following command to install it:"
-    echo "sudo apt-get install wget"
+    echo "sudo apt -y install wget"
     exit 1
 fi
 
 if ! which cabextract >/dev/null; then
     echo "Error: cabextract is required to unpack the files"
     echo "Run the following command to install it:"
-    echo "sudo apt-get install cabextract"
+    echo "sudo apt -y install cabextract"
     exit 1
 fi
 
 if ! which fontforge >/dev/null; then
     echo "Error: fontforge is required to convert TTC files into TTF"
     echo "Run the following command to install it:"
-    echo "sudo apt-get install fontforge"
+    echo "sudo apt -y install fontforge"
     exit 1
 fi
 
