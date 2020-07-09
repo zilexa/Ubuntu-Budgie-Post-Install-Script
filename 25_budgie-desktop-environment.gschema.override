@@ -150,4 +150,4 @@ desktop-icons-handler='NEMO'
 enable-shell-extensions-repo=false
 allow-updates=false
 download-updates=false
-download-updates-notify=false
+download-updates-notify=falsewwww
