@@ -7,7 +7,7 @@
 # It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
 
 # Create a system-wide environmental variable that will always point to the home folder of the logged in user
-# Useful since Ubuntu 19.10 to have an env when using sudo that points to /home/username instead of /root.
+# Useful since Ubuntu 19.10. Now when you use sudo, this custom env-variable points to /home/username instead of /root.
 sudo sh -c "echo USERHOME=/home/$LOGNAME >> /etc/environment"
 
 #___________________________________
