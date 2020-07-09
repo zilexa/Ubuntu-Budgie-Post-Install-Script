@@ -150,7 +150,7 @@ Keywords[uk]=Internet;WWW;Browser;Web;Explorer;Інтернет;мережа;п�
 Keywords[vi]=Internet;WWW;Browser;Web;Explorer;Trình duyệt;Trang web
 Keywords[zh_CN]=Internet;WWW;Browser;Web;Explorer;网页;浏览;上网;火狐;Firefox;ff;互联网;网站;
 Keywords[zh_TW]=Internet;WWW;Browser;Web;Explorer;網際網路;網路;瀏覽器;上網;網頁;火狐
-Exec=firefox -ProfileManager -no-remote
+Exec=firefox %u
 Terminal=false
 X-MultipleArgs=false
 Type=Application
@@ -158,7 +158,7 @@ Icon=firefox
 Categories=GNOME;GTK;Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
 StartupNotify=true
-Actions=P1;P2;
+Actions=new-window;Profile1;Profile2;
 
 [Desktop Action new-window]
 Name=Open a New Window
@@ -221,10 +221,10 @@ Name[uk]=Відкрити нове вікно у потайливому режи
 Name[zh_TW]=開啟新隱私瀏覽視窗
 Exec=firefox -private-window
 
-[Desktop Action P1]
-Name=start P1's Firefox
-Exec=firefox -P P1 -no-remote
+[Desktop Action Profile1]
+Name=start Profile1's Firefox
+Exec=firefox -P Profile1 -no-remote
 
-[Desktop Action P2]
-Name=start P2's Firefox
-Exec=firefox -P P2 -no-remote
+[Desktop Action Profile2]
+Name=start Profile2's Firefox
+Exec=firefox -P Profile2 -no-remote
