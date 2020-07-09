@@ -47,6 +47,8 @@ sudo apt -y install appimagelauncher
 #______________________________________________
 # Configure Widescreen Panel and get seperators
 # ---------------------------------------------
+# Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
+sudo sed -i -e 's/Icon=libreoffice-main/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
 # replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
 sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
@@ -139,7 +141,9 @@ sudo python3 setup.py install
 cd ..
 rm -r gestures-master.zip
 rm -r gestures-master
-wget -P $HOME/.config https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libinput-gestures.conf
+wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libinput-gestures.conf
+libinput-gestures-setup stop
+libinput-gestures-setup start
 cd $HOME
 
 #________________________
