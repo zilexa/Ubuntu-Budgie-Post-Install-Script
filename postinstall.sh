@@ -106,6 +106,12 @@ gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
 #Change QuickNote path to /Documents
 gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
 
+#Notifications Top-Left to match Panel on leftside
+gsettings set com.solus-project.budgie-panel notification-position 'BUDGIE_NOTIFICATION_POSITION_TOP_LEFT'
+
+#Touchpad should match scroll direction of mouse (default of mouse is non-natural)
+gsettings get org.gnome.desktop.peripherals.touchpad natural-scroll false
+
 # Print Scr should take area screenshot
 gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
 gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip '@as []'
