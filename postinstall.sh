@@ -48,7 +48,7 @@ sudo apt -y install appimagelauncher
 # Configure Widescreen Panel and get seperators
 # ---------------------------------------------
 # Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
-sudo sed -i -e 's/Icon=libreoffice-main/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
+sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
 # replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
 sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
@@ -122,6 +122,7 @@ gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Scr
 #______________________________
 # Allow 3 and 4 finger gestures
 # -----------------------------
+sudo gpasswd -a $USER input
 sudo apt -y install libinput-tools
 cd $HOME/Downloads
 wget https://github.com/bulletmark/libinput-gestures/archive/master.zip
