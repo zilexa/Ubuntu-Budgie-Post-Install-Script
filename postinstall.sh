@@ -49,6 +49,7 @@ sudo apt -y install appimagelauncher
 # ---------------------------------------------
 # Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
 sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
+cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
 # replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
 sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
@@ -110,7 +111,7 @@ gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
 gsettings set com.solus-project.budgie-panel notification-position 'BUDGIE_NOTIFICATION_POSITION_TOP_LEFT'
 
 #Touchpad should match scroll direction of mouse (default of mouse is non-natural)
-gsettings get org.gnome.desktop.peripherals.touchpad natural-scroll false
+gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 
 # Print Scr should take area screenshot
 gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
@@ -147,7 +148,7 @@ sudo apt -y install python3-setuptools
 sudo python3 setup.py install
 cd ..
 rm -r gestures-master.zip
-rm -r gestures-master
+#rm -r gestures-master
 wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libinput-gestures.conf
 libinput-gestures-setup stop
 libinput-gestures-setup start
@@ -157,7 +158,8 @@ cd $HOME
 # Make LibreOffice usable
 # -----------------------
 # Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
-sudo sed -i -e 's/Icon=libreoffice-main/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
+sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
+cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
 
 # Install ALL common Microsoft Office fonts
 wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/officefonts.sh
@@ -169,10 +171,6 @@ sudo apt-add-repository ppa:libreoffice/ppa -y
 sudo apt -y update
 sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
-#______________________________________
-# Get a Firefox shortcut for 2 profiles
-# -------------------------------------
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox.desktop
 
 #____________________________
 # Install essential software 
@@ -184,22 +182,32 @@ sudo apt-get -y install pluma
 sudo apt-get -y install vlc
 
 # Install AnyDesk (remote support)
-wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
 echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
 sudo apt -y update
 sudo apt -y install anydesk
 sudo systemctl disable anydesk
 
 # DarkTable - image editing
 echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
-curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics:darktable.gpg > /dev/null
+wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
 sudo apt update
 sudo apt -y install darktable
+
+
+#______________________________________
+#             OPTIONAL 
+# -------------------------------------
+# Get a Firefox shortcut for 2 profiles
+#wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox.desktop
+
+# Install Spotify
+# wget -qO - https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+# echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 # A few recommended apps that should be installed manually to get the latest version
 echo -e "\n\nPlease install the following recommended apps by downloading them manually:\n"
 echo -e "BLEACHBIT (cleanup) \t https://www.bleachbit.org/download/linux"
-echo -e "NOMACHINE (share desktop within local network) \t https://www.nomachine.com/download/download&id=4"
-echo -e "ANYDESK (remote desktop via internet) \t https://anydesk.com/en/downloads/linux"
 echo -e "DIGIKAM (photo management) \t https://www.digikam.org/download/"
 echo -e "RAWTHERAPEE ART (raw photo editor) \t https://bitbucket.org/agriggio/art/downloads/"
+echo -e "NOMACHINE (share desktop within local network) \t https://www.nomachine.com/download/download&id=4"
