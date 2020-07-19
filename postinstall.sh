@@ -157,9 +157,9 @@ cd $HOME
 #________________________
 # Make LibreOffice usable
 # -----------------------
-# Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
-sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
-cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
+# (DONE during Widescreen layout config) Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
+# sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
+# cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
 
 # Install ALL common Microsoft Office fonts
 wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/officefonts.sh
