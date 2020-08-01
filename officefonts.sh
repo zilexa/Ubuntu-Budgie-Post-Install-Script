@@ -11,6 +11,7 @@
 # Tested: Ubuntu Saucy/Trusty/Xenial/Bionic/
 # Added by ZileXa
 sudo apt -y install fontforge
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 sudo apt -y install ttf-mscorefonts-installer
 sudo mkdir -p /usr/share/fonts/truetype/msttcorefonts/
 cd /usr/share/fonts/truetype/msttcorefonts/
@@ -30,7 +31,7 @@ output_dir="/usr/share/fonts/truetype/vista"
 tmp_dir="/tmp/fonts-vista"
 
 if [[ $EUID -ne 0 ]]; then
-    echo -e "You must be a root user!\nTry: sudo ./ttf-vista-fonts-installer.sh" 2>&1
+    echo -e "You must be a root user!\nTry: sudo ./officefonts.sh" 2>&1
     exit 1
 fi
 
