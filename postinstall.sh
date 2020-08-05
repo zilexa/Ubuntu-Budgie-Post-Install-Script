@@ -169,17 +169,19 @@ rm officefonts.sh
 # Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
 sudo apt-add-repository ppa:libreoffice/ppa -y
 sudo apt -y update
-sudo apt-get -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
+sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
 
 #____________________________
 # Install essential software 
 # ---------------------------
 # Pluma - better simple notepad 
-sudo apt-get -y install pluma
+sudo apt -y install pluma
 
-# VLC - better videoplayer
-sudo apt-get -y install vlc
+# Pinta - Alternative to Drawing (like Ms Paint) 
+sudo add-apt-repository ppa:pinta-maintainers/pinta-stable
+sudo apt -y update
+sudo apt -y install pinta 
 
 # Install AnyDesk (remote support)
 echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
@@ -191,7 +193,7 @@ sudo systemctl disable anydesk
 # DarkTable - image editing
 echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
 wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
-sudo apt update
+sudo apt -y update
 sudo apt -y install darktable
 
 
