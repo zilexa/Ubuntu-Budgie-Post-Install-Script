@@ -104,14 +104,17 @@ gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboa
 gsettings set org.ubuntubudgie.budgie-wpreviews allworkspaces true
 gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
 
-#Change QuickNote path to /Documents
+# Change QuickNote path to /Documents
 gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
 
-#Notifications Top-Left to match Panel on leftside
+# Notifications Top-Left to match Panel on leftside
 gsettings set com.solus-project.budgie-panel notification-position 'BUDGIE_NOTIFICATION_POSITION_TOP_LEFT'
 
-#Touchpad should match scroll direction of mouse (default of mouse is non-natural)
+# Touchpad should match scroll direction of mouse (default of mouse is non-natural)
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+
+# Show battery percentage in taskbar
+gsettings set org.gnome.desktop.interface.show-battery-percentage true
 
 # Print Scr should take area screenshot
 gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
