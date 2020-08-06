@@ -116,6 +116,9 @@ gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 # Show battery percentage in taskbar
 gsettings set org.gnome.desktop.interface.show-battery-percentage true
 
+# Enable auto night light
+gsettings set org.gnome.settings-daemon.plugins.color.night-light-enabled true
+
 # Print Scr should take area screenshot
 gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
 gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip '@as []'
