@@ -183,6 +183,13 @@ sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-n
 # ---------------------------
 # Pluma - better simple notepad 
 sudo apt -y install pluma
+# Pluma enable line numbers, highlight current line and show bracket matching. 
+gsettings set org.mate.pluma.display-line-numbers true
+gsettings set org.mate.pluma.highlight-current-line true
+gsettings set org.mate.pluma.bracket-matching true
+sudo gsettings set org.mate.pluma.display-line-numbers true
+sudo gsettings set org.mate.pluma.highlight-current-line true
+sudo gsettings set org.mate.pluma.bracket-matching true
 
 # Bleachbit - system cleanup
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
@@ -219,6 +226,7 @@ sudo apt -y install darktable
 # set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
 sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/defaults.list
+
 
 #______________________________________
 #             OPTIONAL 
