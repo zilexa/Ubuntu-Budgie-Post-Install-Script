@@ -178,38 +178,106 @@ sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-n
 # Pluma - better simple notepad 
 sudo apt -y install pluma
 
-# Pinta - Alternative to Drawing (like Ms Paint) 
-sudo add-apt-repository ppa:pinta-maintainers/pinta-stable
-sudo apt -y update
-sudo apt -y install pinta 
+# Bleachbit - system cleanup
+wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
+sudo apt -y install ./bleachbit_4.0.0_all_ubuntu1910.deb
 
-# Install AnyDesk (remote support)
+# Add repositories for applications that have their own up-to-date repository
+# ---------------------------
+# Add Pinta repository
+sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
+# Add Audacious repository
+sudo add-apt-repository -y ppa:ubuntuhandbook1/apps
+# Add Anydesk repository
 echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-sudo apt -y update
-sudo apt -y install anydesk
-sudo systemctl disable anydesk
-
-# DarkTable - image editing
+# Add Darktable repository
 echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
 wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
+# Reload repositories
+sudo apt -y update
+
+# Now install applications from added repositories
+# ---------------------------
+# Pinta - Alternative to Drawing (like Ms Paint) 
+sudo apt -y install pinta 
+# Audacious - Alternative musicplayer to RythmBox
+sudo apt -y install audacious
+# Install AnyDesk (remote support)
+sudo apt -y install anydesk
+sudo systemctl disable anydesk
+# DarkTable - image editing
 sudo apt -y update
 sudo apt -y install darktable
 
+# set app defaults (solves known Ubuntu Budgie issues)
+# ---------------------------
+sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/defaults.list
 
 #______________________________________
 #             OPTIONAL 
 # -------------------------------------
-# Get a Firefox shortcut for 2 profiles
-#wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox.desktop
-
 # Install Spotify
-# wget -qO - https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
-# echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+read -p "Install Spotify (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        echo Installing Spotify by adding its repository...
+        wget -qO - https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+        echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+        sudo apt -y update && sudo apt -y install spotify-client
+    ;;
+    * )
+        echo "Skipping Spotify..." 
+    ;;
+esac
 
-# A few recommended apps that should be installed manually to get the latest version
-echo -e "\n\nPlease install the following recommended apps by downloading them manually:\n"
-echo -e "BLEACHBIT (cleanup) \t https://www.bleachbit.org/download/linux"
-echo -e "DIGIKAM (photo management) \t https://www.digikam.org/download/"
-echo -e "RAWTHERAPEE ART (raw photo editor) \t https://bitbucket.org/agriggio/art/downloads/"
-echo -e "NOMACHINE (share desktop within local network) \t https://www.nomachine.com/download/download&id=4"
+# Get a Firefox shortcut for 2 profiles
+echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
+read -p "Only useful if each user has its own Firefox profile. Do you need this option (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        echo adding profiles to right-click of Firefox shortcut... 
+        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox.desktop
+    ;;
+    * )
+        echo "Keeping the Firefox shortcut as is..."
+    ;;
+esac
+
+# DigiKam
+echo "install the photo management tool (DigiKam), recommeded for large photo collections (Y/n)?"
+read -p "(The downloadpage will open in your browser. choose the Linux 64-bit AppImage.)" answer
+case ${answer:0:1} in
+    y|Y )
+       xdg-open https://www.digikam.org/download/
+    ;;
+    * )
+        echo "Skipping DigiKam..."
+    ;;
+esac
+
+# RawTherapee
+echo "DarkTable is a (raw) photo editor and has been installed already. Would you also like to install RawTherapee ART (Y/n)?"
+read -p "(The downloadpage will open.)" answer
+case ${answer:0:1} in
+    y|Y )
+       xdg-open https://bitbucket.org/agriggio/art/downloads/
+    ;;
+    * )
+        echo "Skipping RawTherapee..."
+    ;;
+esac
+
+# NoMachine
+echo "AnyDesk has been installed already for remote desktop sharing. Would you also like to install NoMachine (Y/n)?"
+read -p "Recommended to share desktop within your network. to access a PC while on your laptop for example (the downloadpage will open)." answer
+case ${answer:0:1} in
+    y|Y )
+       xdg-open https://www.nomachine.com/download/download&id=4
+    ;;
+    * )
+        echo "Skipping NoMachine..."
+    ;;
+esac
+
+echo "DONE! please REBOOT now, type sudo reboot now and hit enter."
