@@ -1,6 +1,6 @@
 ### Ubuntu Budgie unattended post installation configuration
 
-Welcome to Ubuntu Budgie! An intuitive, user friendly, light and fast Operating System. 
+#### Welcome to Ubuntu Budgie! An intuitive, user friendly, light and fast Operating System. 
 For most people, it is better than Windows (10) or MacOS. It can easily look exactly like Windows or Mac.
 However that is not the goal of this script. This script will add features that will be standard features of upcoming releases. 
 Like gestures, folder colors and some nice applets. 
