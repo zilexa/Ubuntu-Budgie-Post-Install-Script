@@ -78,6 +78,6 @@ Note some of these settings are also applied for root, otherwise the experience 
 * Add 2 profiles to Firefox right-click shortcut
 
 ## Note that the following apps will be replaced:
-* gedit replaced by Pluma
-* drawing (buggy, can't show full photo) by Pinta
-* Rhythmbox music player by Audacious or Deadbeef (user can choose)
+* Gedit text-editor replaced by Pluma
+* Drawing image editor (can't show full photo) replaced by Pinta
+* Rhythmbox music player replaced by Audacious or Deadbeef (user can choose)
