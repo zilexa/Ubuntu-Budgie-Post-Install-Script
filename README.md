@@ -2,7 +2,7 @@
 
 #### Welcome to Ubuntu Budgie! An intuitive, user friendly, light and fast Operating System. 
 For most people, it is better than Windows (10) or MacOS. It can easily look exactly like Windows or Mac.
-However that is not the goal of this script. This script will add features that will be standard features of upcoming releases. 
+However that is not the goal of this script. This script will add features that could become standard features of upcoming releases. 
 Like gestures, folder colors and some nice applets. 
 It will also apply settings to make it feel more intuitive for both Windows and MacOS users, even adding the most used Apple touchpad gestures! Most settings can easily be changed/reverted by the user.
 
