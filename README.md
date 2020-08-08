@@ -4,7 +4,12 @@
 For most people, it is better than Windows (10) or MacOS. It can easily look exactly like Windows or Mac.
 However that is not the goal of this script. This script will add features that will be standard features of upcoming releases. 
 Like gestures, folder colors and some nice applets. 
-It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
+It will also apply settings to make it feel more intuitive for both Windows and MacOS users, even adding the most used Apple touchpad gestures! Most settings can easily be changed/reverted by the user.
+
+This script simply allows you configure your fresh Ubuntu Budgie system automatically, so that you don't have to do these things manually or figure out where you can configure it.
+
+Just sit back and relax. At the end, a few optional apps can be installed.
+
 
 ## How To Use:
 Op the File Manager, go to Downloads
@@ -19,13 +24,13 @@ bash postinstall.sh
 
 
 ### Installs system tools: 
-* Folder Colors - Allow customisable Folder Colors
-* lm-sensors - enable system sensors read-out like temperature, fan speed
-* tlp - install tlp to control performance and temperature automatically
-* Timeshift - automated system snapshots (backups) 
-* appimagelauncher - Integrate AppImages at first launch
+* Folder Colors - Allows you to organise your folders with colors and tags.
+* lm-sensors - enable system sensors read-out like temperature, fan speed. 
+* tlp - install tlp to control performance and temperature automatically. Must-have for laptops.
+* Timeshift - automated system backups via snapshots.
+* appimagelauncher - Integrate AppImages at first launch.
 
-### applies: 
+### Applies: 
 * A nice widescreen layout, highly recommended as it allows maximum usage of screen height with a vertical bar on the left side. 
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
