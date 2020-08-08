@@ -90,12 +90,16 @@ sudo gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 gsettings set org.nemo.preferences click-double-parent-folder false
 sudo gsettings set org.nemo.preferences click-double-parent-folder false
 
-# week numbers in Raven calendar
-gsettings set com.solus-project.budgie-raven enable-week-numbers true
+# allow slow doubleclick on filename to rename file
+gsetting set org.nemo.preferences.quick-renames-with-pause-in-between true
+sudo gsetting set org.nemo.preferences.quick-renames-with-pause-in-between true
 
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
 sudo gsettings set org.nemo.preferences show-reload-icon-toolbar true
+
+# week numbers in Raven calendar
+gsettings set com.solus-project.budgie-raven enable-week-numbers true
 
 # get brightness, volume etc buttons on every laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
