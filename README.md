@@ -10,6 +10,7 @@ This script simply allows you configure your fresh Ubuntu Budgie system automati
 
 Just sit back and relax. At the end, a few optional apps can be installed.
 
+Note that most apps are installed via their own repository (if available). This way, you have the latest version and the applications can easily be updated. 
 
 ## How To Use:
 Op the File Manager, go to Downloads
