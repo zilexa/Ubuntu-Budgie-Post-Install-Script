@@ -32,8 +32,9 @@ bash postinstall.sh
 
 ### Default desktop: 
 * A nice widescreen layout, highly recommended as it allows maximum usage of screen height with a vertical bar on the left side. 
-
-![screenshot of desktop layout](https://i.ibb.co/23vRt53/Screenshot-from-2020-08-08-17-21-08.png)
+* This layout can also be used horizontally
+* Either way, it showcases the nice features of Budgie, with its applets such as one to quickly open a file, have 2 workspaces with their own customisable wallpaper and more. 
+![screenshot of desktop layout](https://i.ibb.co/BNccrGp/nnn.png)
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
 * Dark mode
