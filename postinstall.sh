@@ -199,8 +199,6 @@ sudo apt -y install ./bleachbit*.deb
 # ---------------------------
 # Add Pinta repository
 sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
-# Add Audacious repository
-sudo add-apt-repository -y ppa:ubuntuhandbook1/apps
 # Add Anydesk repository
 echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
@@ -214,13 +212,10 @@ sudo apt -y update
 # ---------------------------
 # Pinta - Alternative to Drawing (like Ms Paint) 
 sudo apt -y install pinta 
-# Audacious - Alternative musicplayer to RythmBox
-sudo apt -y install audacious
 # Install AnyDesk (remote support)
 sudo apt -y install anydesk
 sudo systemctl disable anydesk
 # DarkTable - image editing
-sudo apt -y update
 sudo apt -y install darktable
 
 # set app defaults (solves known Ubuntu Budgie issues)
@@ -250,21 +245,31 @@ echo "Replace the local music player (Rhytmbox) with one that supports folders i
 read -p "Recommended if you have custom music, your own recordings or music without proper tags (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
-        echo "Installing Deadbeef (don't mind the name) music player and ZileXa's config..."
+        echo "Replacing Rhythmbox for Deadbeef and applying Zilexa config & layout"
+        # Removing Rhythmbox
+        sudo apt -y autoremove rhythmbox --purge
+        # Installing Deadbeef
         wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
         sudo apt -y install ./deadbeef*.deb
-        # Get config file and required pre-build plugins, move to correct user folders
+        # Get config file and required pre-build plugins for layout
         wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
         unzip master.zip
         mv deadbeef-config-layout-master/lib $HOME/.local
         mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
         rm -r deadbeef-config-layout-master
         rm master.zip
-        # Removing Rhythmbox
-        sudo apt -y autoremove rhythmbox --purge
     ;;
     * )
-        echo "Keeping Rhythmbox as default player..." 
+        echo "Installing Audacious instead of Deadbeef and removing Rhythmbox" 
+        # Removing Rhythmbox
+        sudo apt -y autoremove rhythmbox --purge
+        # Installing Audacious
+        sudo add-apt-repository -y ppa:ubuntuhandbook1/apps
+        sudo apt -y update
+        sudo apt -y install audacious
+        # set Audacious as default player
+        sudo sed -i -e 's/deadbeef/audacious/g' /usr/share/applications/defaults.list
+        
     ;;
 esac
 
