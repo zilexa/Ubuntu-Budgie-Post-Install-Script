@@ -240,7 +240,7 @@ case ${answer:0:1} in
     ;;
 esac
 
-# Install Deadbeef musicplayer simple with folder tree layout
+# Install Deadbeef or Audacious musicplayer
 echo "Replace the local music player (Rhytmbox) with one that supports folders in a tree-view?"
 read -p "Recommended if you have custom music, your own recordings or music without proper tags (y/n)?" answer
 case ${answer:0:1} in
@@ -254,7 +254,8 @@ case ${answer:0:1} in
         # Get config file and required pre-build plugins for layout
         wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
         unzip master.zip
-        mv deadbeef-config-layout-master/lib $HOME/.local
+        mv deadbeef-config-layout-master/lib $HOME/.local/
+        mkdir $HOME/.config/deadbeef/
         mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
         rm -r deadbeef-config-layout-master
         rm master.zip
@@ -272,7 +273,6 @@ case ${answer:0:1} in
         
     ;;
 esac
-
 
 # Get a Firefox shortcut for 2 profiles
 echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
