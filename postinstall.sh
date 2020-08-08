@@ -176,11 +176,6 @@ wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgi
 sudo bash officefonts.sh
 rm officefonts.sh
 
-# Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
-sudo apt-add-repository ppa:libreoffice/ppa -y
-sudo apt -y update
-sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
-
 
 #____________________________
 # Install essential software 
@@ -230,6 +225,19 @@ sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent
 #______________________________________
 #             OPTIONAL 
 # -------------------------------------
+# Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
+read -p "Install Dutch languagepack for LibreOffice (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        sudo apt-add-repository ppa:libreoffice/ppa -y
+        sudo apt -y update
+        sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
+    ;;
+    * )
+        echo "Skipping Dutch languagepack for LibreOffice..." 
+    ;;
+esac
+
 # Install Spotify
 read -p "Install Spotify (y/n)?" answer
 case ${answer:0:1} in
