@@ -30,8 +30,10 @@ bash postinstall.sh
 * Timeshift - automated system backups via snapshots.
 * appimagelauncher - Integrate AppImages at first launch.
 
-### Applies: 
+### Default desktop: 
 * A nice widescreen layout, highly recommended as it allows maximum usage of screen height with a vertical bar on the left side. 
+
+![screenshot of desktop layout](https://i.ibb.co/23vRt53/Screenshot-from-2020-08-08-17-21-08.png)
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
 * Dark mode
