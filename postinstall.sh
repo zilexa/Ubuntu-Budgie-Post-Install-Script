@@ -193,7 +193,7 @@ sudo gsettings set org.mate.pluma.bracket-matching true
 
 # Bleachbit - system cleanup
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
-sudo apt -y install ./bleachbit_4.0.0_all_ubuntu1910.deb
+sudo apt -y install ./bleachbit*.deb
 
 # Add repositories for applications that have their own up-to-date repository
 # ---------------------------
@@ -244,6 +244,30 @@ case ${answer:0:1} in
         echo "Skipping Spotify..." 
     ;;
 esac
+
+# Install Deadbeef musicplayer simple with folder tree layout
+echo "Replace the local music player (Rhytmbox) with one that supports folders in a tree-view?"
+read -p "Recommended if you have custom music, your own recordings or music without proper tags (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        echo "Installing Deadbeef (don't mind the name) music player and ZileXa's config..."
+        wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
+        sudo apt -y install ./deadbeef*.deb
+        # Get config file and required pre-build plugins, move to correct user folders
+        wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
+        unzip master.zip
+        mv deadbeef-config-layout-master/lib $HOME/.local
+        mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
+        rm -r deadbeef-config-layout-master
+        rm master.zip
+        # Removing Rhythmbox
+        sudo apt -y autoremove rhythmbox --purge
+    ;;
+    * )
+        echo "Keeping Rhythmbox as default player..." 
+    ;;
+esac
+
 
 # Get a Firefox shortcut for 2 profiles
 echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
