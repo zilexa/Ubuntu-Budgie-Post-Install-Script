@@ -37,12 +37,13 @@ bash postinstall.sh
 ![screenshot of desktop layout](https://i.ibb.co/BNccrGp/nnn.png)
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
+Note some of these settings are also applied for root, otherwise the experience is inconsistent.
 * Dark mode
 * Theme with clearer icons (ubuntu-mono-dark)
-* close/minimise/maximise buttons on the left side (more common)
+* close/minimise/maximise buttons on the left side
 * folders always list view instead of big icon view
 * disable doubleclick empty area to go up 1 folder (very annoying)
-* allow slow doubleclick on filename to rename file (common)
+* allow slow doubleclick on filename to rename file (very common)
 * show reload folder button
 * week numbers in Raven calendar
 * get brightness, volume etc buttons on every laptop keyboard to work (solves a bug)
@@ -54,7 +55,7 @@ bash postinstall.sh
 * Enable auto night light
 * Print Scr should take area screenshot (solves a bug)
 * Allow 3 and 4 finger gestures (like MacOS)
-* set app defaults (solves a bug)
+* set app defaults (solves a bug in the current UB 20.04 version)
 
 ## LibreOffice specific:
 * replace icon for LibreOffice startcenter (default is a blank one, not very recognisable)
