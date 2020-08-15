@@ -23,9 +23,9 @@ bash postinstall.sh
 
 ## What it does:
 
-### Installs system tools: 
+### Installs 'OS system addons': 
 * Folder Colors - Allows you to organise your folders with colors and tags via right-click context menu.
-* lm-sensors - enable system sensors read-out like temperature, fan speed. 
+* lm-sensors - allows system sensors read-out like temperature, fan speed. 
 * tlp - install tlp to control performance and temperature automatically. Must-have for laptops.
 * Timeshift - automated system backups via snapshots.
 * appimagelauncher - Integrate AppImages at first launch.
@@ -40,32 +40,32 @@ bash postinstall.sh
 - Allow 3 and 4 finger gestures (like MacOS)
   - 3/4 fingers swipe up/down will show/hide all active windows
   - 2 finger swipe left/right will go to previous/next page in file manager and internet browsers
-  - more gestures are possible
+  - More gestures are possible
+
+### Solves bugs or things I believe should be enabled by default:
+* Touchpad scroll direction should match default scroll direction of mouse (solves a bug).
+* Keyboard Print Scr button should trigger area selection for screenshot (solves a bug, you still have to hit the button twice fast).
+* Set app defaults (solves a bug).
+* Enable Window Previews for alt-tab (disabled by default).
+* Allow slow doubleclick on filename to rename file (disabled by default).
+* Disable doubleclick empty area to go up 1 folder (enabled by default leading to many misclicks and deletion risks).
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
 Note some of these settings are also applied for root, otherwise the experience is inconsistent.
 * Dark mode
 * Theme with clearer icons (ubuntu-mono-dark)
-* close/minimise/maximise buttons on the left side
-* folders always list view instead of big icon view
-* show reload folder button
-* week numbers in Raven calendar
+* Close/minimise/maximise buttons on the left side
+* Folders always list view instead of big icon view
+* Show reload folder button
+* Week numbers in Raven calendar
 * Change QuickNote path to /Documents
 * Notifications top-left to match Panel on leftside (matches widescreen layout)
 * Show battery percentage in taskbar
 * Enable auto night light
 
-### Solves bugs or things I believe should be enabled by default:
-* Touchpad should match scroll direction of mouse (solves a bug) 
-* Print Scr should take area screenshot (solves a bug)
-* set app defaults (solves a bug)
-* Enable Window Previews for alt-tab (disabled by default)
-* allow slow doubleclick on filename to rename file (disabled by default)
-* disable doubleclick empty area to go up 1 folder (enabled by default leading to many misclicks and deletion risks)
-
 ## LibreOffice specific:
-* replace icon for LibreOffice startcenter (default is a blank one, not very recognisable)
-* Install old MS Office fonts, new MS Office fonts and also current MS Office fonts
+* Replace icon for LibreOffice startcenter (default is a blank one, not very recognisable).
+* Install old MS Office fonts, new MS Office fonts and also current MS Office fonts.
 
 ## Installs latest version of essential software
 * Pluma - texteditor (replaces gedit, still simple & lightweight)
