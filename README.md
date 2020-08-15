@@ -69,22 +69,17 @@ Note some of these settings are also applied for root, otherwise the experience 
 * Install old MS Office fonts, new MS Office fonts and also current MS Office fonts
 
 ## Installs latest version of essential software
-* Pluma - texteditor
+* Pluma - texteditor (replaces gedit, still simple & lightweight)
 * Bleachbit - system cleanup
-* Pinta - Alternative to Drawing (like Ms Paint) 
+* Pinta - simple drawer/image editor like Microsoft Paint (replaces Drawing because it lacks zoom control to view a photo)
 * AnyDesk -  Remote support
-* DarkTable - image editing
+* DarkTable - (raw) photo editing
 
 ## Optional software (user can decide y/n)
 * Spotify
-* Audacious or Deadbeef (folder tree view) or music player
+* Musicplayer Deadbeef (it has folder tree view!) or Audacious, either way replacing Rhythmbox
 * DigiKam - awesome photo management software
 * RawTherapee ART - raw photo editor in addtion to DarkTable
 * NoMachine - desktop share/remote desktop for within network, faster than built-in solution
 * Add LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help 
-* Add 2 profiles to Firefox right-click shortcut
-
-## Note that the following apps will be replaced:
-* Gedit text-editor replaced by Pluma
-* Drawing image editor (can't show full photo) replaced by Pinta
-* Rhythmbox music player replaced by Audacious or Deadbeef (user can choose)
+* Add 2 firefox profiles to the Firefox right-click shortcut
