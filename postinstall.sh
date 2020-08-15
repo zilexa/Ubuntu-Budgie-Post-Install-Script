@@ -149,20 +149,23 @@ sudo ./libinput-gestures-setup install
 cd ..
 rm -r master.zip
 rm -r libinput-gestures-master
-libinput-gestures-setup autostart
-libinput-gestures-setup start
-wget https://gitlab.com/cunidev/gestures/-/archive/master/gestures-master.zip
-unzip gestures-master.zip
-cd gestures-master
-sudo apt -y install python3-setuptools
-sudo python3 setup.py install
-cd ..
-rm -r gestures-master.zip
-#rm -r gestures-master
+# Get the preconfigured file enabling 3/4 finger up/down swipe to show/hide open windows (alt+tab) and 2 finger left/right for prev/next page.
+# This is the default file untouched only copied those 4 gestures, added the correct command for Budgie and commented out the original. 
 wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libinput-gestures.conf
 libinput-gestures-setup stop
 libinput-gestures-setup start
-cd $HOME
+libinput-gestures-setup autostart
+libinput-gestures-setup start
+# Experimental UI for libinput gestures, not installed because untested and does not reflect the configured gestures from libinput-gestures.
+#wget https://gitlab.com/cunidev/gestures/-/archive/master/gestures-master.zip
+#unzip gestures-master.zip
+#cd gestures-master
+#sudo apt -y install python3-setuptools
+#sudo python3 setup.py install
+#cd ..
+#rm -r gestures-master.zip
+#rm -r gestures-master
+cd $HOME/Downloads
 
 #________________________
 # Make LibreOffice usable
