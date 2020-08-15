@@ -63,9 +63,12 @@ Note some of these settings are also applied for root, otherwise the experience 
 * Show battery percentage in taskbar
 * Enable auto night light
 
-## LibreOffice specific:
-* Replace icon for LibreOffice startcenter (default is a blank one, not very recognisable).
-* Install old MS Office fonts, new MS Office fonts and also current MS Office fonts.
+## LibreOffice:
+* Replaces icon for LibreOffice startcenter (default is a blank one, not very recognisable).
+- Installs 3 sets of Microsoft Windows/Office fonts:  
+  - Microsoft Vista TTF fonts like Verdana 
+  - Cleartype TTF fonts from MS Office 2007 like Calibri
+  - MS Segoeui TTF font
 
 ## Installs latest version of essential software
 * Pluma - texteditor (replaces gedit, still simple & lightweight)
