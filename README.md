@@ -38,9 +38,9 @@ bash postinstall.sh
 
 ### touchpad gestures!
 * Allow 3 and 4 finger gestures (like MacOS)
- * 3/4 fingers swipe up/down will show/hide all active windows
- * 2 finger swipe left/right will go to previous/next page in file manager and internet browsers
- * more gestures are possible
+ - 3/4 fingers swipe up/down will show/hide all active windows
+ - 2 finger swipe left/right will go to previous/next page in file manager and internet browsers
+ - more gestures are possible
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
 Note some of these settings are also applied for root, otherwise the experience is inconsistent.
