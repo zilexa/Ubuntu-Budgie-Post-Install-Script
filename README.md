@@ -23,9 +23,8 @@ bash postinstall.sh
 
 ## What it does:
 
-
 ### Installs system tools: 
-* Folder Colors - Allows you to organise your folders with colors and tags.
+* Folder Colors - Allows you to organise your folders with colors and tags via right-click context menu.
 * lm-sensors - enable system sensors read-out like temperature, fan speed. 
 * tlp - install tlp to control performance and temperature automatically. Must-have for laptops.
 * Timeshift - automated system backups via snapshots.
@@ -33,9 +32,15 @@ bash postinstall.sh
 
 ### Default desktop: 
 * A nice widescreen layout, highly recommended as it allows maximum usage of screen height with a vertical bar on the left side. 
-* This layout can also be used horizontally
+* This layout can also be used horizontally (bottom, like Windows or top in combination with Plank dock like Mac. 
 * Either way, it showcases the nice features of Budgie, with its applets such as one to quickly open a file, have 2 workspaces with their own customisable wallpaper and more. 
 ![screenshot of desktop layout](https://i.ibb.co/BNccrGp/nnn.png)
+
+### touchpad gestures!
+* Allow 3 and 4 finger gestures (like MacOS)
+** 3/4 fingers swipe up/down will show/hide all active windows
+** 2 finger swipe left/right will go to previous/next page in file manager and internet browsers
+** more gestures are possible
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
 Note some of these settings are also applied for root, otherwise the experience is inconsistent.
@@ -43,26 +48,27 @@ Note some of these settings are also applied for root, otherwise the experience 
 * Theme with clearer icons (ubuntu-mono-dark)
 * close/minimise/maximise buttons on the left side
 * folders always list view instead of big icon view
-* disable doubleclick empty area to go up 1 folder (very annoying)
-* allow slow doubleclick on filename to rename file (very common)
 * show reload folder button
 * week numbers in Raven calendar
-* get brightness, volume etc buttons on every laptop keyboard to work (solves a bug)
-* Enable Window Previews for alt-tab
 * Change QuickNote path to /Documents
-* Notifications Top-Left to match Panel on leftside (matches widescreen layout)
-* Touchpad should match scroll direction of mouse (solves a bug) 
+* Notifications top-left to match Panel on leftside (matches widescreen layout)
 * Show battery percentage in taskbar
 * Enable auto night light
+
+### Solves bugs or things I believe should be enabled by default:
+* Touchpad should match scroll direction of mouse (solves a bug) 
 * Print Scr should take area screenshot (solves a bug)
-* Allow 3 and 4 finger gestures (like MacOS)
-* set app defaults (solves a bug in the current UB 20.04 version)
+* set app defaults (solves a bug)
+* Enable Window Previews for alt-tab (disabled by default)
+* allow slow doubleclick on filename to rename file (disabled by default)
+* disable doubleclick empty area to go up 1 folder (enabled by default leading to many misclicks and deletion risks)
+
 
 ## LibreOffice specific:
 * replace icon for LibreOffice startcenter (default is a blank one, not very recognisable)
 * Install old MS Office fonts, new MS Office fonts and also current MS Office fonts
 
-## Installs Essential software
+## Installs latest version of essential software
 * Pluma - texteditor
 * Bleachbit - system cleanup
 * Pinta - Alternative to Drawing (like Ms Paint) 
