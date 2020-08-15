@@ -38,9 +38,9 @@ bash postinstall.sh
 
 ### touchpad gestures!
 * Allow 3 and 4 finger gestures (like MacOS)
-** 3/4 fingers swipe up/down will show/hide all active windows
-** 2 finger swipe left/right will go to previous/next page in file manager and internet browsers
-** more gestures are possible
+ * 3/4 fingers swipe up/down will show/hide all active windows
+ * 2 finger swipe left/right will go to previous/next page in file manager and internet browsers
+ * more gestures are possible
 
 ### Toggles the following settings to match what most users from Windows and MacOS are used to: 
 Note some of these settings are also applied for root, otherwise the experience is inconsistent.
@@ -62,7 +62,6 @@ Note some of these settings are also applied for root, otherwise the experience 
 * Enable Window Previews for alt-tab (disabled by default)
 * allow slow doubleclick on filename to rename file (disabled by default)
 * disable doubleclick empty area to go up 1 folder (enabled by default leading to many misclicks and deletion risks)
-
 
 ## LibreOffice specific:
 * replace icon for LibreOffice startcenter (default is a blank one, not very recognisable)
