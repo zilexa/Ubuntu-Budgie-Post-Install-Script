@@ -91,8 +91,8 @@ gsettings set org.nemo.preferences click-double-parent-folder false
 sudo gsettings set org.nemo.preferences click-double-parent-folder false
 
 # allow slow doubleclick on filename to rename file
-gsetting set org.nemo.preferences.quick-renames-with-pause-in-between true
-sudo gsetting set org.nemo.preferences.quick-renames-with-pause-in-between true
+gsetting set org.nemo.preferences quick-renames-with-pause-in-between true
+sudo gsetting set org.nemo.preferences quick-renames-with-pause-in-between true
 
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
@@ -118,10 +118,10 @@ gsettings set com.solus-project.budgie-panel notification-position 'BUDGIE_NOTIF
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 
 # Show battery percentage in taskbar
-gsettings set org.gnome.desktop.interface.show-battery-percentage true
+gsettings set org.gnome.desktop.interface show-battery-percentage true
 
 # Enable auto night light
-gsettings set org.gnome.settings-daemon.plugins.color.night-light-enabled true
+gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 
 # Print Scr should take area screenshot
 gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
