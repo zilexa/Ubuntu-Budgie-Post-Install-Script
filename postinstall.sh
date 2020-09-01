@@ -91,8 +91,8 @@ gsettings set org.nemo.preferences click-double-parent-folder false
 sudo gsettings set org.nemo.preferences click-double-parent-folder false
 
 # allow slow doubleclick on filename to rename file
-gsetting set org.nemo.preferences quick-renames-with-pause-in-between true
-sudo gsetting set org.nemo.preferences quick-renames-with-pause-in-between true
+gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
+sudo gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
 
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
@@ -186,12 +186,12 @@ rm officefonts.sh
 # Pluma - better simple notepad 
 sudo apt -y install pluma
 # Pluma enable line numbers, highlight current line and show bracket matching. 
-gsettings set org.mate.pluma.display-line-numbers true
-gsettings set org.mate.pluma.highlight-current-line true
-gsettings set org.mate.pluma.bracket-matching true
-sudo gsettings set org.mate.pluma.display-line-numbers true
-sudo gsettings set org.mate.pluma.highlight-current-line true
-sudo gsettings set org.mate.pluma.bracket-matching true
+gsettings set org.mate.pluma display-line-numbers true
+gsettings set org.mate.pluma highlight-current-line true
+gsettings set org.mate.pluma bracket-matching true
+sudo gsettings set org.mate.pluma display-line-numbers true
+sudo gsettings set org.mate.pluma highlight-current-line true
+sudo gsettings set org.mate.pluma bracket-matching true
 
 # Bleachbit - system cleanup
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
