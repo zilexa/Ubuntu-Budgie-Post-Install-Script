@@ -86,20 +86,20 @@ sudo gsettings set com.solus-project.budgie-wm button-style 'left'
 gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 sudo gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 
-# disable doubleclick empty area to go up 1 folder
-gsettings set org.nemo.preferences click-double-parent-folder false
-sudo gsettings set org.nemo.preferences click-double-parent-folder false
+# DEFAULT SINCE 20.10 disable doubleclick empty area to go up 1 folder
+# gsettings set org.nemo.preferences click-double-parent-folder false
+#sudo gsettings set org.nemo.preferences click-double-parent-folder false
 
-# allow slow doubleclick on filename to rename file
-gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
-sudo gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
+# DEFAULT SINCE 20.10 allow slow doubleclick on filename to rename file
+#gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
+#sudo gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
 
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
 sudo gsettings set org.nemo.preferences show-reload-icon-toolbar true
 
-# week numbers in Raven calendar
-gsettings set com.solus-project.budgie-raven enable-week-numbers true
+# DEFAULT SINCE 20.10 week numbers in Raven calendar
+# gsettings set com.solus-project.budgie-raven enable-week-numbers true
 
 # get brightness, volume etc buttons on every laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
@@ -108,8 +108,8 @@ gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboa
 gsettings set org.ubuntubudgie.budgie-wpreviews allworkspaces true
 gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
 
-# Change QuickNote path to /Documents
-gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
+# ? Change QuickNote path to /Documents
+# gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
 
 # Notifications Top-Left to match Panel on leftside
 gsettings set com.solus-project.budgie-panel notification-position 'BUDGIE_NOTIFICATION_POSITION_TOP_LEFT'
@@ -124,16 +124,16 @@ gsettings set org.gnome.desktop.interface show-battery-percentage true
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 
 # Print Scr should take area screenshot
-gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
-gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip '@as []'
-gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot-clip '@as []'
-gsettings set org.gnome.settings-daemon.plugins.media-keys screencast '@as []'
-gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot '@as []'
-gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot '@as []'
-gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot '@as []'
-gsettings set com.solus-project.budgie-wm take-region-screenshot "['Print']"
-gsettings set com.solus-project.budgie-wm take-full-screenshot "['<Ctrl>Print']"
-mkdir $HOME/Pictures/Screenshots
+#gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
+#gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip '@as []'
+#gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot-clip '@as []'
+#gsettings set org.gnome.settings-daemon.plugins.media-keys screencast '@as []'
+#gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot '@as []'
+#gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot '@as []'
+#gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot '@as []'
+#gsettings set com.solus-project.budgie-wm take-region-screenshot "['Print']"
+#gsettings set com.solus-project.budgie-wm take-full-screenshot "['<Ctrl>Print']"
+#mkdir $HOME/Pictures/Screenshots
 gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Screenshots"
 
 #______________________________
@@ -220,26 +220,26 @@ sudo systemctl disable anydesk
 # DarkTable - image editing
 sudo apt -y install darktable
 
-# set app defaults (solves known Ubuntu Budgie issues)
+# DEFAULT SINCE 20.10 set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
-sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/defaults.list
+#sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/defaults.list
 
 
 #______________________________________
 #             OPTIONAL 
 # -------------------------------------
-# Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
-read -p "Install Dutch languagepack for LibreOffice (y/n)?" answer
-case ${answer:0:1} in
-    y|Y )
-        sudo apt-add-repository ppa:libreoffice/ppa -y
-        sudo apt -y update
-        sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
-    ;;
-    * )
-        echo "Skipping Dutch languagepack for LibreOffice..." 
-    ;;
-esac
+# DEFAULT SINCE 20.10 Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
+#read -p "Install Dutch languagepack for LibreOffice (y/n)?" answer
+#case ${answer:0:1} in
+#    y|Y )
+#        sudo apt-add-repository ppa:libreoffice/ppa -y
+#        sudo apt -y update
+#        sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
+#    ;;
+#    * )
+#        echo "Skipping Dutch languagepack for LibreOffice..." 
+#    ;;
+#esac
 
 # Install Spotify
 read -p "Install Spotify (y/n)?" answer
