@@ -1,0 +1,25 @@
+/* Firefox tweaks to hide horizontal tabs, keep titlebar for close/min/max buttons and hide Sidebery header */
+/* HOW TO USE: */
+/* Go to about:profiles and open the first folder of your profile. */
+/* Create a folder here called 'chrome'. */
+/* Copy this file into that folder and restart Firefox. */
+/* File path should be: */
+/* /home/username/.mozilla/firefox/profilename/chrome/userChrome.css */
+  
+
+/* Hide horizontal tabs at the top of the window */
+#tabbrowser-tabs {
+  visibility: collapse !important;
+}
+
+#titlebar {
+  visibility: collapse;
+}
+
+
+#tabbrowser-tabs { visibility: hidden !important; }
+tab { display: none !important; }
+
+#sidebar-header {
+  visibility: collapse !important;
+}
