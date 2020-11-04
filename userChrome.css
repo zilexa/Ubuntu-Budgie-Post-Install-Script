@@ -6,20 +6,8 @@
 /* File path should be: */
 /* /home/username/.mozilla/firefox/profilename/chrome/userChrome.css */
   
+/* Remove the toolbar containing tabs. Note: this removes the actual bar, not just the tabs!*/
+#TabsToolbar { visibility: collapse ! important; }
 
-/* Hide horizontal tabs at the top of the window */
-#tabbrowser-tabs {
-  visibility: collapse !important;
-}
-
-#titlebar {
-  visibility: collapse;
-}
-
-
-#tabbrowser-tabs { visibility: hidden !important; }
-tab { display: none !important; }
-
-#sidebar-header {
-  visibility: collapse !important;
-}
+/* Remove the header of the sidebar (when a sidebar is enabled)*/
+#sidebar-header { visibility: collapse !important; }
