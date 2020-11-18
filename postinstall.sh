@@ -359,7 +359,7 @@ read -p "Fast and lightweight tool for 2-way syncing between your devices." answ
 case ${answer:0:1} in
     y|Y )
        sudo systemctl enable syncthing@asterix.service
-       sudo mv /etc/systemd/system/multi-user.target.wants/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$USER.service
+       sudo mv /etc/systemd/system/multi-user.target.wants/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$LOGNAME.service
     ;;
     * )
         echo "Not enabling Syncthing..."
