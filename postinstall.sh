@@ -189,9 +189,14 @@ sudo apt -y install pluma
 gsettings set org.mate.pluma display-line-numbers true
 gsettings set org.mate.pluma highlight-current-line true
 gsettings set org.mate.pluma bracket-matching true
+gsettings set org.mate.pluma color-scheme 'cobalt'
 sudo gsettings set org.mate.pluma display-line-numbers true
 sudo gsettings set org.mate.pluma highlight-current-line true
 sudo gsettings set org.mate.pluma bracket-matching true
+sudo gsettings set org.mate.pluma color-scheme 'cobalt'
+
+# Audacity - Audio recording and editing
+sudo apt -y install audacity
 
 # Bleachbit - system cleanup
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
