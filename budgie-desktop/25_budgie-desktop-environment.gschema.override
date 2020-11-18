@@ -10,7 +10,7 @@ dark-theme=false
 display-type=1
 
 [com.solus-project.icon-tasklist]
-pinned-launchers=['firefox.desktop', 'nemo.desktop', 'org.gnome.gThumb.desktop', 'rhythmbox.desktop', 'libreoffice-startcenter.desktop', 'org.gnome.Calculator.desktop', 'pluma.desktop']
+pinned-launchers=['nemo.desktop', 'org.gnome.gThumb.desktop', 'deadbeef.desktop', 'libreoffice-startcenter.desktop', 'org.gnome.Calculator.desktop', 'firefox.desktop']
 
 [net.launchpad.plank.dock.settings]
 position='bottom'
