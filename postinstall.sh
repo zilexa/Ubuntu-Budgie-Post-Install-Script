@@ -203,6 +203,7 @@ sudo apt -y install audacity
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
 sudo apt -y install ./bleachbit*.deb
 
+
 # Add repositories for applications that have their own up-to-date repository
 # ---------------------------
 # Add Pinta repository
@@ -246,6 +247,20 @@ echo "#192.168.88.X:  /mnt/X  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto
 # Set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
 sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/defaults.list
+
+
+# Move /Desktop and /Templates to be subfolders of /Documents
+# This makes it easy for syncing with my server or the cloud
+# Also rename Pictures to Photos and Videos to Media 
+mv /$HOME/Pictures /$HOME/Photos
+mv /$HOME/Videos /$HOME/Media
+mv /$HOME/Templates /$HOME/Documents/
+mv /$HOME/Desktop /$HOME/Documents/
+sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
+sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
+sudo sed -i -e 's+$HOME/Pictures+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
+sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
+rm -rf $HOME/Public
 
 
 #______________________________________
