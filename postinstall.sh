@@ -44,6 +44,9 @@ sudo apt -y install timeshift
 # Integrate AppImages at first launch
 sudo apt -y install appimagelauncher
 
+# Install ExFat support
+sudo apt -y install exfat-utils
+
 #______________________________________________
 # Configure Widescreen Panel and get seperators
 # ---------------------------------------------
