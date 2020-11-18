@@ -6,10 +6,6 @@
 # Like gestures, folder colors and some nice applets. 
 # It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
 
-# Create a system-wide environmental variable that will always point to the home folder of the logged in user
-# Useful since Ubuntu 19.10. Now when you use sudo, this custom env-variable points to /home/username instead of /root.
-# sudo sh -c "echo USERHOME=/home/$LOGNAME >> /etc/environment"
-
 #___________________________________
 # Budgie Desktop Extras & Essentials
 # ----------------------------------
@@ -247,9 +243,9 @@ sudo apt -y install onlyoffice-desktopeditors
 sudo apt -y install nfs-common
 echo "#192.168.88.X:  /mnt/X  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
 
-# DEFAULT SINCE 20.10 set app defaults (solves known Ubuntu Budgie issues)
+# Set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
-#sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/defaults.list
+sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/defaults.list
 
 
 #______________________________________
