@@ -36,7 +36,7 @@ sudo tlp start
 
 # Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
-sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift.json
+sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift/timeshift.json
 sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
 
 # Integrate AppImages at first launch
@@ -52,14 +52,14 @@ sudo apt -y install exfat-utils
 sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
 cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
 # replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
-sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/25_budgie-desktop-environment.gschema.override
+sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 # Get a horizontal seperator-like app icon
-sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/separatorH.svg
+sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/separators/separatorH.svg
 # Get a seperator-like app shortcut
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/separators/SeparatorH1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/separators/SeparatorH1.desktop
 # Switch to widescreen panel layout with medium sized icons
-sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/widescreen.layout
+sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/widescreen.layout
 gsettings set com.solus-project.budgie-panel layout 'widescreen'
 # reset panel to apply changes
 nohup budgie-panel --reset --replace &
@@ -152,7 +152,7 @@ rm -r master.zip
 rm -r libinput-gestures-master
 # Get the preconfigured file enabling 3/4 finger up/down swipe to show/hide open windows (alt+tab) and 2 finger left/right for prev/next page.
 # This is the default file untouched only copied those 4 gestures, added the correct command for Budgie and commented out the original. 
-wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libinput-gestures.conf
+wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/libinput-gestures.conf
 libinput-gestures-setup stop
 libinput-gestures-setup start
 libinput-gestures-setup autostart
@@ -176,7 +176,7 @@ cd $HOME/Downloads
 # cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
 
 # Install ALL common Microsoft Office fonts
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/officefonts.sh
+wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libreoffice/officefonts.sh
 sudo bash officefonts.sh
 rm officefonts.sh
 
@@ -235,7 +235,7 @@ sudo apt -y install darktable
 sudo apt-get install onlyoffice-desktopeditors
 # Syncthing - sync folders between devices
 sudo apt -y install syncthing
-sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing%40.service
+sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing/syncthing%40.service
 # OnlyOffice - Better alternative for existing MS Office files
 sudo apt -y install onlyoffice-desktopeditors
 
@@ -245,7 +245,7 @@ echo "#192.168.88.X:  /mnt/X  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto
 
 # Set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
-sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/defaults.list
+sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/defaults.list
 
 
 #______________________________________
@@ -318,7 +318,7 @@ read -p "Only useful if each user has its own Firefox profile. Do you need this 
 case ${answer:0:1} in
     y|Y )
         echo adding profiles to right-click of Firefox shortcut... 
-        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox.desktop
+        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox/firefox.desktop
     ;;
     * )
         echo "Keeping the Firefox shortcut as is..."
