@@ -207,6 +207,10 @@ wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
 # Add Darktable repository
 echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
 wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
+# Add Syncthing repository
+curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
 # Reload repositories
 sudo apt -y update
 
@@ -219,6 +223,14 @@ sudo apt -y install anydesk
 sudo systemctl disable anydesk
 # DarkTable - image editing
 sudo apt -y install darktable
+
+# NFS - Fastest way to access shared folders over the network (as a client) - just replace "X" in the example added to /etc/fstab
+sudo apt -y install nfs-common
+echo "#192.168.88.X:  /mnt/X  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
+
+# Syncthing - sync folders between devices
+sudo apt-get install syncthing
+sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing%40.service
 
 # DEFAULT SINCE 20.10 set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
@@ -326,15 +338,16 @@ case ${answer:0:1} in
     ;;
 esac
 
-# NoMachine
-echo "AnyDesk has been installed already for remote desktop sharing. Would you also like to install NoMachine (Y/n)?"
-read -p "Recommended to share desktop within your network. to access a PC while on your laptop for example (the downloadpage will open)." answer
+# Syncthing
+echo "Start and always run Syncthing (required for Obelix server syncing) (Y/n)?"
+read -p "Fast and lightweight tool for 2-way syncing between your devices." answer
 case ${answer:0:1} in
     y|Y )
-       xdg-open https://www.nomachine.com/download/download&id=4
+       sudo systemctl enable syncthing@asterix.service
+       sudo systemctl start syncthing@asterix.service
     ;;
     * )
-        echo "Skipping NoMachine..."
+        echo "Not enabling Syncthing..."
     ;;
 esac
 
