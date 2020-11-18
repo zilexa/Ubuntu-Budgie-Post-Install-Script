@@ -8,7 +8,7 @@
 
 # Create a system-wide environmental variable that will always point to the home folder of the logged in user
 # Useful since Ubuntu 19.10. Now when you use sudo, this custom env-variable points to /home/username instead of /root.
-sudo sh -c "echo USERHOME=/home/$LOGNAME >> /etc/environment"
+# sudo sh -c "echo USERHOME=/home/$LOGNAME >> /etc/environment"
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
