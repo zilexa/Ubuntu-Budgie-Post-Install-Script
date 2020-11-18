@@ -240,7 +240,7 @@ sudo apt-get install onlyoffice-desktopeditors
 # Syncthing - sync folders between devices
 sudo apt -y install syncthing
 sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing%40.service
-# Syncthing - sync folders between devices
+# OnlyOffice - Better alternative for existing MS Office files
 sudo apt -y install onlyoffice-desktopeditors
 
 # NFS - Fastest way to access shared folders over the network (as a client) - just replace "X" in the example added to /etc/fstab
@@ -359,7 +359,7 @@ read -p "Fast and lightweight tool for 2-way syncing between your devices." answ
 case ${answer:0:1} in
     y|Y )
        sudo systemctl enable syncthing@asterix.service
-       sudo systemctl start syncthing@asterix.service
+       sudo mv /etc/systemd/system/multi-user.target.wants/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$USER.service
     ;;
     * )
         echo "Not enabling Syncthing..."
