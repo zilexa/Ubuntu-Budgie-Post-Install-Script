@@ -219,6 +219,9 @@ wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu
 curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
+# Add OnlyOffice repository
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+sudo add-apt-repository "deb https://download.onlyoffice.com/repo/debian squeeze main"
 # Reload repositories
 sudo apt -y update
 
@@ -231,14 +234,16 @@ sudo apt -y install anydesk
 sudo systemctl disable anydesk
 # DarkTable - image editing
 sudo apt -y install darktable
+sudo apt-get install onlyoffice-desktopeditors
+# Syncthing - sync folders between devices
+sudo apt -y install syncthing
+sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing%40.service
+# Syncthing - sync folders between devices
+sudo apt -y install onlyoffice-desktopeditors
 
 # NFS - Fastest way to access shared folders over the network (as a client) - just replace "X" in the example added to /etc/fstab
 sudo apt -y install nfs-common
 echo "#192.168.88.X:  /mnt/X  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
-
-# Syncthing - sync folders between devices
-sudo apt-get install syncthing
-sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing%40.service
 
 # DEFAULT SINCE 20.10 set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
