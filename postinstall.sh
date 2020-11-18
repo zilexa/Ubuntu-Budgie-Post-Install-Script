@@ -249,18 +249,18 @@ echo "#192.168.88.X:  /mnt/X  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto
 sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/defaults.list
 
 
-# Move /Desktop and /Templates to be subfolders of /Documents
-# This makes it easy for syncing with my server or the cloud
 # Also rename Pictures to Photos and Videos to Media 
 mv /$HOME/Pictures /$HOME/Photos
 mv /$HOME/Videos /$HOME/Media
+# Move /Desktop and /Templates to be subfolders of /Documents
+# This makes it easy for syncing with my server or the cloud
 mv /$HOME/Templates /$HOME/Documents/
 mv /$HOME/Desktop /$HOME/Documents/
 sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
-sudo sed -i -e 's+$HOME/Pictures+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
-sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
+# Remove the $HOME/Public folder and prevent it from being created at boot
 rm -rf $HOME/Public
+sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
 
 
 #______________________________________
