@@ -38,8 +38,10 @@ sudo apt -y install lm-sensors
 sudo apt -y install tlp tlp-rdw
 sudo tlp start
 
-# Timeshift - automated system snapshots (backups) 
+# Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
+sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift.json
+sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
 
 # Integrate AppImages at first launch
 sudo apt -y install appimagelauncher
