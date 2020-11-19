@@ -202,6 +202,7 @@ sudo apt -y install audacity
 # Bleachbit - system cleanup
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
 sudo apt -y install ./bleachbit*.deb
+sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
 
 
 # Add repositories for applications that have their own up-to-date repository
