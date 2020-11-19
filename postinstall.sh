@@ -12,38 +12,24 @@
 # Add repository for recommended Budgie stuff
 sudo add-apt-repository -y ppa:ubuntubudgie/backports
 sudo add-apt-repository -y ppa:costales/folder-color
-sudo add-apt-repository -y ppa:teejee2008/timeshift
-sudo add-apt-repository -y ppa:appimagelauncher-team/stable
-sudo add-apt-repository -y ppa:linrunner/tlp
 sudo apt -y update
 
-# Install common applets required for Widescreen Panel Layout
+# Install common applets required for Widescreen Panel Layout or for file manager
 sudo apt -y install budgie-kangaroo-applet
 sudo apt -y install budgie-workspace-wallpaper-applet
 sudo apt -y install budgie-calendar-applet
 sudo apt -y install budgie-previews
-
-# Allow Folder Colors
 sudo apt -y install folder-color-nemo
 nemo -q
 
-# enable system sensors read-out like temperature, fan speed
-sudo apt -y install lm-sensors
-
-# install tlp to control performance and temperature automatically
-sudo apt -y install tlp tlp-rdw
-sudo tlp start
-
-# Timeshift - automated system snapshots (backups) and set configuration
-sudo apt -y install timeshift
-sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift/timeshift.json
-sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
-
-# Integrate AppImages at first launch
-sudo apt -y install appimagelauncher
-
 # Install ExFat support
 sudo apt -y install exfat-utils
+
+# Install NFS supprt - Fastest way to access shared folders over the network (as a client)
+sudo apt -y install nfs-common
+# Add an example to /etc/fstab. Create a folder in /mnt, fill in your NAS IP address (X) and folder name (Y) and uncomment. 
+echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
+
 
 #______________________________________________
 # Configure Widescreen Panel and get seperators
@@ -168,9 +154,9 @@ libinput-gestures-setup start
 #rm -r gestures-master
 cd $HOME/Downloads
 
-#________________________
-# Make LibreOffice usable
-# -----------------------
+#___________________________________________________________
+# Make LibreOffice usable by installing all MS Office fonts
+# ----------------------------------------------------------
 # (DONE during Widescreen layout config) Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
 # sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
 # cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
@@ -182,7 +168,7 @@ rm officefonts.sh
 
 
 #____________________________
-# Install essential software 
+# Install essential software from default repository 
 # ---------------------------
 # Pluma - better simple notepad 
 sudo apt -y install pluma
@@ -199,27 +185,19 @@ sudo gsettings set org.mate.pluma color-scheme 'cobalt'
 # Audacity - Audio recording and editing
 sudo apt -y install audacity
 
-# Bleachbit - system cleanup
-wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
-sudo apt -y install ./bleachbit*.deb
-sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
-
-
 # Add repositories for applications that have their own up-to-date repository
 # ---------------------------
-# Add Pinta repository
+sudo add-apt-repository -y ppa:teejee2008/timeshift
+sudo add-apt-repository -y ppa:appimagelauncher-team/stable
+sudo add-apt-repository -y ppa:linrunner/tlp
 sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
-# Add Anydesk repository
 echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-# Add Darktable repository
 echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
 wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
-# Add Syncthing repository
 curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
-# Add OnlyOffice repository
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 sudo add-apt-repository "deb https://download.onlyoffice.com/repo/debian squeeze main"
 # Reload repositories
@@ -227,6 +205,17 @@ sudo apt -y update
 
 # Now install applications from added repositories
 # ---------------------------
+# enable system sensors read-out like temperature, fan speed
+sudo apt -y install lm-sensors
+# install tlp to control performance and temperature automatically
+sudo apt -y install tlp tlp-rdw
+sudo tlp start
+# Timeshift - automated system snapshots (backups) and set configuration
+sudo apt -y install timeshift
+sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift/timeshift.json
+sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
+# Integrate AppImages at first launch
+sudo apt -y install appimagelauncher
 # Pinta - Alternative to Drawing (like Ms Paint) 
 sudo apt -y install pinta 
 # Install AnyDesk (remote support)
@@ -240,21 +229,24 @@ sudo apt -y install syncthing
 sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing/syncthing%40.service
 # OnlyOffice - Better alternative for existing MS Office files
 sudo apt -y install onlyoffice-desktopeditors
-
-# NFS - Fastest way to access shared folders over the network (as a client) - just replace "X" in the example added to /etc/fstab
-sudo apt -y install nfs-common
-echo "#192.168.88.X:  /mnt/X  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
+# Bleachbit - system cleanup
+wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
+sudo apt -y install ./bleachbit*.deb
+sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
 
 # Set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
 sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/defaults.list
 
 
-# Also rename Pictures to Photos and Videos to Media 
+#_________________________________
+# Simplify $HOME personal folders
+# --------------------------------
+# Rename Pictures to Photos, Videos to Media 
 mv /$HOME/Pictures /$HOME/Photos
 mv /$HOME/Videos /$HOME/Media
 # Move /Desktop and /Templates to be subfolders of /Documents
-# This makes it easy for syncing with my server or the cloud
+# This way, all you have to do is sync /Documents with your cloud provider and/or server (i.e. via Syncthing)
 mv /$HOME/Templates /$HOME/Documents/
 mv /$HOME/Desktop /$HOME/Documents/
 sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
@@ -265,27 +257,14 @@ sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
 
 
 #______________________________________
-#             OPTIONAL 
+#          OPTIONAL SOFTWARE
 # -------------------------------------
-# DEFAULT SINCE 20.10 Get LibreOffice Dutch UI/Spellcheck/Hyphencheck/Help
-#read -p "Install Dutch languagepack for LibreOffice (y/n)?" answer
-#case ${answer:0:1} in
-#    y|Y )
-#        sudo apt-add-repository ppa:libreoffice/ppa -y
-#        sudo apt -y update
-#        sudo apt -y install libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
-#    ;;
-#    * )
-#        echo "Skipping Dutch languagepack for LibreOffice..." 
-#    ;;
-#esac
-
-# KeepassXC
+# KeepassXC Password Manager
 echo "Install KeepassXC?? (Y/n)"
-read -p "The only free, FOSS, password manager that provides maximum security and can be synced between devices" answer
+read -p "The only free, reliable password manager that provides maximum security and can be synced between devices" answer
 case ${answer:0:1} in
     y|Y )
-       sudo add-apt-repository ppa:phoerious/keepassxc
+       sudo add-apt-repository -y ppa:phoerious/keepassxc
        sudo apt update && sudo apt -y install keepassxc
     ;;
     * )
