@@ -1,4 +1,5 @@
-## Ubuntu Budgie complete Out Of The Box Experience - configuration & carefully selected applications (each configured as well)
+## Ubuntu Budgie - Out Of The Box Experience - configuration & carefully selected applications (each configured as well)
+A single script to run after you wipe your drive, do a clean install. When the script is finished, your PC/Laptop is immediately ready, as if you didn't wipe your drive!
 
 #### Welcome to Ubuntu Budgie! An intuitive, user friendly, light and fast Operating System. 
 For most people, it is better than Windows (10) or MacOS. It can easily look exactly like Windows or Mac.
