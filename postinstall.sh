@@ -279,23 +279,22 @@ sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
 #    ;;
 #esac
 
-# Install Spotify
-read -p "Install Spotify (y/n)?" answer
+# KeepassXC
+echo "Install KeepassXC?? (Y/n)"
+read -p "The only free, FOSS, password manager that provides maximum security and can be synced between devices" answer
 case ${answer:0:1} in
     y|Y )
-        echo Installing Spotify by adding its repository...
-        wget -qO - https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
-        echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-        sudo apt -y update && sudo apt -y install spotify-client
+       sudo add-apt-repository ppa:phoerious/keepassxc
+       sudo apt update && sudo apt -y install keepassxc
     ;;
     * )
-        echo "Skipping Spotify..." 
+        echo "Not enabling Syncthing..."
     ;;
 esac
 
 # Install Deadbeef or Audacious musicplayer
-echo "Replace the local music player (Rhytmbox) with one that supports folders in a tree-view?"
-read -p "Recommended if you have custom music, your own recordings or music without proper tags (y/n)?" answer
+echo "Do you need a musicplayer that supports folder-view? (Y/n)"
+read -p "Choose Yes (default, Deadbeef will be installed) otherwise (no) Audacious will be installed (Y/n)?" answer
 case ${answer:0:1} in
     y|Y )
         echo "Replacing Rhythmbox for Deadbeef and applying Zilexa config & layout"
@@ -319,29 +318,29 @@ case ${answer:0:1} in
         sudo apt -y autoremove rhythmbox --purge
         # Installing Audacious
         sudo add-apt-repository -y ppa:ubuntuhandbook1/apps
-        sudo apt -y update
-        sudo apt -y install audacious
+        sudo apt -y update && sudo apt -y install audacious
         # set Audacious as default player
         sudo sed -i -e 's/deadbeef/audacious/g' /usr/share/applications/defaults.list
         
     ;;
 esac
 
-# Get a Firefox shortcut for 2 profiles
-echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
-read -p "Only useful if each user has its own Firefox profile. Do you need this option (y/n)?" answer
+# Install Spotify
+read -p "Install Spotify (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
-        echo adding profiles to right-click of Firefox shortcut... 
-        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox/firefox.desktop
+        echo Installing Spotify by adding its repository...
+        wget -qO - https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+        echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+        sudo apt -y update && sudo apt -y install spotify-client
     ;;
     * )
-        echo "Keeping the Firefox shortcut as is..."
+        echo "Skipping Spotify..." 
     ;;
 esac
 
 # DigiKam
-echo "install the photo management tool (DigiKam), recommeded for large photo collections (Y/n)?"
+echo "install the photo management tool (DigiKam), recommended for large photo collections (Y/n)?"
 read -p "(The downloadpage will open in your browser. choose the Linux 64-bit AppImage.)" answer
 case ${answer:0:1} in
     y|Y )
@@ -365,8 +364,8 @@ case ${answer:0:1} in
 esac
 
 # Syncthing
-echo "Start and always run Syncthing (required for Obelix server syncing) (Y/n)?"
-read -p "Fast and lightweight tool for 2-way syncing between your devices." answer
+echo "Syncthing is installed but turned off. Turn on and start at boot? (Y/n)?"
+read -p "Syncthing is a fast and lightweight tool for 2-way syncing between your devices." answer
 case ${answer:0:1} in
     y|Y )
        sudo systemctl enable syncthing@asterix.service
@@ -374,6 +373,19 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Not enabling Syncthing..."
+    ;;
+esac
+
+# Get a Firefox shortcut for 2 profiles
+echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
+read -p "Only useful if each user has its own Firefox profile. Do you need this option (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        echo adding profiles to right-click of Firefox shortcut... 
+        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox/firefox.desktop
+    ;;
+    * )
+        echo "Keeping the Firefox shortcut as is..."
     ;;
 esac
 
