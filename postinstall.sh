@@ -59,15 +59,13 @@ sudo pkill plank
 # ---------------------------
 # Dark mode
 gsettings set com.solus-project.budgie-panel dark-theme true
-sudo gsettings set com.solus-project.budgie-panel dark-theme true
 
-# Theme with clearer icons
+# Dark but well-readable theme with icons more clear than the default set
+gsettings set org.gnome.desktop.interface.gtk-theme 'Arc-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
-sudo gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
 
 # close/minimise/maximise buttons on the left side (more common)
 gsettings set com.solus-project.budgie-wm button-style 'left'
-sudo gsettings set com.solus-project.budgie-wm button-style 'left'
 
 # folders always list view instead of big icon view
 gsettings set org.nemo.preferences default-folder-viewer 'list-view'
