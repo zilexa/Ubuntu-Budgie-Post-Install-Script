@@ -1,4 +1,5 @@
-## Ubuntu Budgie - Out Of The Box Experience - configuration & carefully selected applications (each configured as well)
+## Ubuntu Budgie - Post Installation script 
+## An Out Of The Box Experience - configuration & carefully selected applications (each configured as well)
 A single script to run after you wipe your drive, do a clean install. When the script is finished, your PC/Laptop is immediately ready, as if you didn't wipe your drive!
 
 #### Welcome to Ubuntu Budgie! An intuitive, user friendly, light and fast Operating System. 
