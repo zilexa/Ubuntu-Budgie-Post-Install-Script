@@ -10,9 +10,11 @@
 # Don't show bootmenu with BTRFS filesystem
 sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
+# Don't write to file each time a file is accessed
+sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
 # Can't use swap on BTRFS, have to figure out if it is recommended as separate volume. Disable for now.
 sudo swapoff -a  
-#
+sudo sed -i -e 's+/swapfile+#/swapfile+g' /etc/fstab
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
