@@ -7,18 +7,22 @@
 # It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
 
 #__________________________________________
+# BTRFS filesystem configuration
+#__________________________________________
 # Don't show bootmenu with BTRFS filesystem
 sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
-# Can't use swap on BTRFS, have to figure out if it is recommended as separate volume. Disable for now.
-sudo swapoff -a  
-sudo sed -i -e 's+/swapfile+#/swapfile+g' /etc/fstab
+# Create swapfile on special BTRFS subvolume
+wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-swap-setup.sh
+sudo bash BTRFS-swap-setup.sh
+rm BTRFS-swap-setup.sh
+
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
-# ----------------------------------
+#___________________________________
 # Add repository for recommended Budgie stuff
 sudo add-apt-repository -y ppa:ubuntubudgie/backports
 sudo add-apt-repository -y ppa:costales/folder-color
@@ -40,9 +44,104 @@ sudo apt -y install nfs-common
 echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
 
 
+#________________________________________________________________
+# Install & configure essential software from default repository 
+# _______________________________________________________________
+# Replace gedit for Pluma - better simple notepad 
+sudo apt -y install pluma
+# Pluma enable line numbers, highlight current line and show bracket matching. 
+gsettings set org.mate.pluma display-line-numbers true
+gsettings set org.mate.pluma highlight-current-line true
+gsettings set org.mate.pluma bracket-matching true
+gsettings set org.mate.pluma color-scheme 'cobalt'
+sudo gsettings set org.mate.pluma display-line-numbers true
+sudo gsettings set org.mate.pluma highlight-current-line true
+sudo gsettings set org.mate.pluma bracket-matching true
+sudo gsettings set org.mate.pluma color-scheme 'cobalt'
+
+# Replace Rhythmbox for Deadbeef (much more intuitive and has folder-view)
+sudo apt -y autoremove rhythmbox --purge
+wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
+sudo apt -y install ./deadbeef*.deb
+# Get config file and required pre-build plugins for layout
+wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
+unzip master.zip
+mv deadbeef-config-layout-master/lib $HOME/.local/
+mkdir $HOME/.config/deadbeef/
+mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
+rm -r deadbeef-config-layout-master
+rm master.zip
+
+# Audacity - Audio recording and editing
+sudo apt -y install audacity
+
+# All MS Office fonts
+# -------_------------
+wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libreoffice/officefonts.sh
+sudo bash officefonts.sh
+rm officefonts.sh
+
+#____________________________________________________________________________
+# Add repositories for applications that have their own up-to-date repository
+# ---------------------------------------------------------------------------
+sudo add-apt-repository -y ppa:teejee2008/timeshift
+sudo add-apt-repository -y ppa:appimagelauncher-team/stable
+sudo add-apt-repository -y ppa:linrunner/tlp
+sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
+echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
+wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
+curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+sudo add-apt-repository "deb https://download.onlyoffice.com/repo/debian squeeze main"
+# Reload repositories
+sudo apt -y update
+
+# Now install applications from added repositories
+# ------------------------------------------------
+# enable system sensors read-out like temperature, fan speed
+sudo apt -y install lm-sensors
+# install tlp to control performance and temperature automatically
+sudo apt -y install tlp tlp-rdw
+sudo tlp start
+# Timeshift - automated system snapshots (backups) and set configuration
+sudo apt -y install timeshift
+sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift/timeshift.json
+sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
+# Integrate AppImages at first launch
+sudo apt -y install appimagelauncher
+# Pinta - Alternative to Drawing (like Ms Paint) 
+sudo apt -y install pinta 
+# Install AnyDesk (remote support)
+sudo apt -y install anydesk
+sudo systemctl disable anydesk
+# DarkTable - image editing
+sudo apt -y install darktable
+sudo apt-get install onlyoffice-desktopeditors
+# Syncthing - sync folders between devices
+sudo apt -y install syncthing
+sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing/syncthing%40.service
+# OnlyOffice - Better alternative for existing MS Office files
+sudo apt -y install onlyoffice-desktopeditors
+# Bleachbit - system cleanup
+wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
+sudo apt -y install ./bleachbit*.deb
+sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
+
+#_____________________________________________________
+# Set app defaults (solves known Ubuntu Budgie issues)
+# ____________________________________________________
+sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
+sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
+sudo sed -i -e 's#org.gnome.Geary.desktop#thunderbird.desktop#g' /usr/share/applications/defaults.list
+sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/mimeapps.list
+
 #______________________________________________
 # Configure Widescreen Panel and get seperators
-# ---------------------------------------------
+# _____________________________________________
 # Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
 sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
 cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
@@ -68,7 +167,7 @@ sudo pkill plank
 
 #____________________________
 # Budgie Desktop basic config
-# ---------------------------
+#____________________________
 # Dark mode
 gsettings set com.solus-project.budgie-panel dark-theme true
 
@@ -131,7 +230,7 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 
 #______________________________
 # Allow 3 and 4 finger gestures
-# -----------------------------
+#______________________________
 sudo gpasswd -a $USER input
 sudo apt -y install libinput-tools
 cd $HOME/Downloads
@@ -159,127 +258,26 @@ libinput-gestures-setup autostart
 #rm -r gestures-master
 cd $HOME/Downloads
 
-#___________________________________________________________
-# Make LibreOffice usable by installing all MS Office fonts
-# ----------------------------------------------------------
-# (DONE during Widescreen layout config) Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
-# sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
-# cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
-
-# Install ALL common Microsoft Office fonts
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libreoffice/officefonts.sh
-sudo bash officefonts.sh
-rm officefonts.sh
-
-
-#____________________________
-# Install essential software from default repository 
-# ---------------------------
-# Replace gedit for Pluma - better simple notepad 
-sudo apt -y install pluma
-# Pluma enable line numbers, highlight current line and show bracket matching. 
-gsettings set org.mate.pluma display-line-numbers true
-gsettings set org.mate.pluma highlight-current-line true
-gsettings set org.mate.pluma bracket-matching true
-gsettings set org.mate.pluma color-scheme 'cobalt'
-sudo gsettings set org.mate.pluma display-line-numbers true
-sudo gsettings set org.mate.pluma highlight-current-line true
-sudo gsettings set org.mate.pluma bracket-matching true
-sudo gsettings set org.mate.pluma color-scheme 'cobalt'
-
-# Replace Rhythmbox for Deadbeef (much more intuitive and has folder-view)
-sudo apt -y autoremove rhythmbox --purge
-wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
-sudo apt -y install ./deadbeef*.deb
-# Get config file and required pre-build plugins for layout
-wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
-unzip master.zip
-mv deadbeef-config-layout-master/lib $HOME/.local/
-mkdir $HOME/.config/deadbeef/
-mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
-rm -r deadbeef-config-layout-master
-rm master.zip
-
-# Audacity - Audio recording and editing
-sudo apt -y install audacity
-
-# Add repositories for applications that have their own up-to-date repository
-# ---------------------------
-sudo add-apt-repository -y ppa:teejee2008/timeshift
-sudo add-apt-repository -y ppa:appimagelauncher-team/stable
-sudo add-apt-repository -y ppa:linrunner/tlp
-sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
-echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
-wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
-wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
-curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
-echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
-printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
-sudo add-apt-repository "deb https://download.onlyoffice.com/repo/debian squeeze main"
-# Reload repositories
-sudo apt -y update
-
-# Now install applications from added repositories
-# ---------------------------
-# enable system sensors read-out like temperature, fan speed
-sudo apt -y install lm-sensors
-# install tlp to control performance and temperature automatically
-sudo apt -y install tlp tlp-rdw
-sudo tlp start
-# Timeshift - automated system snapshots (backups) and set configuration
-sudo apt -y install timeshift
-sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift/timeshift.json
-sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
-# Integrate AppImages at first launch
-sudo apt -y install appimagelauncher
-# Pinta - Alternative to Drawing (like Ms Paint) 
-sudo apt -y install pinta 
-# Install AnyDesk (remote support)
-sudo apt -y install anydesk
-sudo systemctl disable anydesk
-# DarkTable - image editing
-sudo apt -y install darktable
-sudo apt-get install onlyoffice-desktopeditors
-# Syncthing - sync folders between devices
-sudo apt -y install syncthing
-sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing/syncthing%40.service
-# OnlyOffice - Better alternative for existing MS Office files
-sudo apt -y install onlyoffice-desktopeditors
-# Bleachbit - system cleanup
-wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
-sudo apt -y install ./bleachbit*.deb
-sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
-
-
-# Set app defaults (solves known Ubuntu Budgie issues)
-# ---------------------------
-sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
-sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
-sudo sed -i -e 's#org.gnome.Geary.desktop#thunderbird.desktop#g' /usr/share/applications/defaults.list
-sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/mimeapps.list
 
 #_________________________________
 # Simplify $HOME personal folders
-# --------------------------------
-# Rename Pictures to Photos, Videos to Media 
-mv $HOME/Pictures $HOME/Photos
-mv $HOME/Videos $HOME/Media
-# Move /Desktop and /Templates to be subfolders of /Documents
+#_________________________________
+# Move /Desktop and /Templates to be subfolders of /Documents. Remove /Public folder and prevent it from being created
 # This way, all you have to do is sync /Documents with your cloud provider and/or server (i.e. via Syncthing)
 sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
+sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
 mv $HOME/Templates $HOME/Documents/
 mv $HOME/Desktop $HOME/Documents/
-# Remove the $HOME/Public folder and prevent it from being created at boot
-sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
 rm -rf $HOME/Public
+# Rename and move contents from Pictures to Photos, Videos to Media 
+mv $HOME/Pictures $HOME/Photos
+mv $HOME/Videos $HOME/Media
 
 
 #______________________________________
 #          OPTIONAL SOFTWARE
-# -------------------------------------
+#______________________________________
 # KeepassXC Password Manager
 echo "Install KeepassXC?? (Y/n)"
 read -p "The only free, reliable password manager that provides maximum security and can be synced between devices" answer
@@ -354,6 +352,20 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Keeping the Firefox shortcut as is..."
+    ;;
+esac
+
+# Change fstab swap mount to correct UUID
+echo " "
+echo "_____________"
+echo " "
+read -p "You need to replace XXXXXXXXXXX to the UUID of your system drive. Do it now?" answer
+case ${answer:0:1} in
+    y|Y )
+        sudo pluma /etc/fstab
+    ;;
+    * )
+        echo "Please do it before you reboot." 
     ;;
 esac
 
