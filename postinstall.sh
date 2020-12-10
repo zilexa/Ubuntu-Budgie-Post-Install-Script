@@ -305,7 +305,7 @@ read -p "Install Spotify (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
         echo Installing Spotify by adding its repository...
-        wget -qO - https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+        curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
         echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
         sudo apt -y update && sudo apt -y install spotify-client
     ;;
@@ -343,7 +343,7 @@ echo "Syncthing is installed but turned off. Turn on and start at boot? (Y/n)?"
 read -p "Syncthing is a fast and lightweight tool for 2-way syncing between your devices." answer
 case ${answer:0:1} in
     y|Y )
-       sudo systemctl enable syncthing@asterix.service
+       sudo systemctl enable syncthing@.service
        sudo mv /etc/systemd/system/multi-user.target.wants/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$LOGNAME.service
     ;;
     * )
