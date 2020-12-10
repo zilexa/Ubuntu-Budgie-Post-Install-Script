@@ -18,9 +18,8 @@ sudo apt -y update
 sudo apt -y install budgie-kangaroo-applet
 sudo apt -y install budgie-workspace-wallpaper-applet
 sudo apt -y install budgie-calendar-applet
-sudo apt -y install budgie-previews
-sudo apt -y install folder-color-nemo
-nemo -q
+#sudo apt -y install folder-color-nemo #no longer supported in 20.10
+#nemo -q # because not supported
 
 # Install ExFat support
 sudo apt -y install exfat-utils
@@ -40,10 +39,13 @@ cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/ap
 # replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
 sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-# Get a horizontal seperator-like app icon
-sudo wget --no-check-certificate -P /usr/share/icons https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/separators/separatorH.svg
-# Get a seperator-like app shortcut
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/separators/SeparatorH1.desktop
+# Add horizontal and vertical separator icons to the system
+wget https://github.com/zilexa/UbuntuBudgie-config/raw/master/budgie-desktop/seperators/seperator-images.zip
+unzip seperator-images.zip
+sudo mv {separatorH.svg,separatorV.svg} /usr/share/icons
+# Add a fake app-shortcuts to use as a horizontal and vertical seperarators
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorH1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorV1.desktop
 # Switch to widescreen panel layout with medium sized icons
 sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/widescreen.layout
 gsettings set com.solus-project.budgie-panel layout 'widescreen'
@@ -61,7 +63,7 @@ sudo pkill plank
 gsettings set com.solus-project.budgie-panel dark-theme true
 
 # Dark but well-readable theme with icons more clear than the default set
-gsettings set org.gnome.desktop.interface.gtk-theme 'Arc-Dark'
+gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
 
 # close/minimise/maximise buttons on the left side (more common)
@@ -71,20 +73,16 @@ gsettings set com.solus-project.budgie-wm button-style 'left'
 gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 sudo gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 
-# DEFAULT SINCE 20.10 disable doubleclick empty area to go up 1 folder
-# gsettings set org.nemo.preferences click-double-parent-folder false
-#sudo gsettings set org.nemo.preferences click-double-parent-folder false
-
-# DEFAULT SINCE 20.10 allow slow doubleclick on filename to rename file
-#gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
-#sudo gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
+# allow slow doubleclick on filename to rename file
+gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
+sudo gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
 
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
 sudo gsettings set org.nemo.preferences show-reload-icon-toolbar true
 
-# DEFAULT SINCE 20.10 week numbers in Raven calendar
-# gsettings set com.solus-project.budgie-raven enable-week-numbers true
+# week numbers in Raven calendar
+gsettings set com.solus-project.budgie-raven enable-week-numbers true
 
 # get brightness, volume etc buttons on every laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
@@ -93,8 +91,8 @@ gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboa
 gsettings set org.ubuntubudgie.budgie-wpreviews allworkspaces true
 gsettings set org.ubuntubudgie.budgie-wpreviews enable-previews true
 
-# ? Change QuickNote path to /Documents
-# gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
+# Change QuickNote path to /Documents
+gsettings set org.ubuntubudgie.plugins.quicknote custompath "$HOME/Documents"
 
 # Notifications Top-Left to match Panel on leftside
 gsettings set com.solus-project.budgie-panel notification-position 'BUDGIE_NOTIFICATION_POSITION_TOP_LEFT'
@@ -119,7 +117,7 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 #gsettings set com.solus-project.budgie-wm take-region-screenshot "['Print']"
 #gsettings set com.solus-project.budgie-wm take-full-screenshot "['<Ctrl>Print']"
 #mkdir $HOME/Pictures/Screenshots
-gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Screenshots"
+#gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Screenshots"
 
 #______________________________
 # Allow 3 and 4 finger gestures
@@ -140,7 +138,6 @@ wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/z
 libinput-gestures-setup stop
 libinput-gestures-setup start
 libinput-gestures-setup autostart
-libinput-gestures-setup start
 # Experimental UI for libinput gestures, not installed because untested and does not reflect the configured gestures from libinput-gestures.
 #wget https://gitlab.com/cunidev/gestures/-/archive/master/gestures-master.zip
 #unzip gestures-master.zip
