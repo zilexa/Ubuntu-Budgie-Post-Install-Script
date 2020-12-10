@@ -1,0 +1,9 @@
+https://askubuntu.com/questions/1206157/can-i-have-a-swapfile-on-btrfs
+
+Note that for modern systems/laptops with NVME SSDs, it is `/dev/nvme0n1p2` instead of `/dev/sda1`. Note /dev/nvme0n1p1 is your efi boot disk that your OS created when you installed it, ignore that one. 
+
+The only suggestion I have in addition, is to add two mount options 'default' and 'noatime':
+```
+UUID=XXXXXXXXXXXXXXX /swap btrfs defaults,noatime,subvol=@swap 0 0
+/swap/swapfile none swap sw 0 0
+```
