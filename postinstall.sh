@@ -323,7 +323,7 @@ read -p "Syncthing is a fast and lightweight tool for 2-way syncing between your
 case ${answer:0:1} in
     y|Y )
        sudo systemctl enable syncthing@.service
-       sudo mv /etc/systemd/system/multi-user.target.wants/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$LOGNAME.service
+       sudo ln -s /etc/systemd/system/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$LOGNAME.service
     ;;
     * )
         echo "Not enabling Syncthing..."
