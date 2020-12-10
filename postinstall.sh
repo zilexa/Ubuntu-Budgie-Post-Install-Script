@@ -10,6 +10,8 @@
 # Don't show bootmenu with BTRFS filesystem
 sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
+# Can't use swap on BTRFS, have to figure out if it is recommended as separate volume. Disable for now.
+sudo swapoff -a  
 #
 
 #___________________________________
