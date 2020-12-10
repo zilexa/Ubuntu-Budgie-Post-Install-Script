@@ -231,22 +231,23 @@ sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent
 
 # Set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
-#sudo wget -O /usr/share/applications/defaults.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/defaults.list
-sudo sed -i -e 's#rhythmbox.desktop#'deadbeef.desktop'#g' /etc/budgie-desktop/defaults.list
+sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
 sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
+sudo sed -i -e 's#org.gnome.Geary.desktop#thunderbird.desktop#g' /usr/share/applications/defaults.list
+sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/mimeapps.list
 
 #_________________________________
 # Simplify $HOME personal folders
 # --------------------------------
 # Rename Pictures to Photos, Videos to Media 
-mv /$HOME/Pictures /$HOME/Photos
-mv /$HOME/Videos /$HOME/Media
+mv $HOME/Pictures $HOME/Photos
+mv $HOME/Videos $HOME/Media
 # Move /Desktop and /Templates to be subfolders of /Documents
 # This way, all you have to do is sync /Documents with your cloud provider and/or server (i.e. via Syncthing)
 sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
-mv /$HOME/Templates /$HOME/Documents/
-mv /$HOME/Desktop /$HOME/Documents/
+mv $HOME/Templates $HOME/Documents/
+mv $HOME/Desktop $HOME/Documents/
 # Remove the $HOME/Public folder and prevent it from being created at boot
 sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
 rm -rf $HOME/Public
