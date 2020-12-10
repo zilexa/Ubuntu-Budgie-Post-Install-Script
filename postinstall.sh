@@ -6,6 +6,12 @@
 # Like gestures, folder colors and some nice applets. 
 # It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
 
+#__________________________________________
+# Don't show bootmenu with BTRFS filesystem
+sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
+sudo update-grub
+#
+
 #___________________________________
 # Budgie Desktop Extras & Essentials
 # ----------------------------------
@@ -165,7 +171,7 @@ rm officefonts.sh
 #____________________________
 # Install essential software from default repository 
 # ---------------------------
-# Pluma - better simple notepad 
+# Replace gedit for Pluma - better simple notepad 
 sudo apt -y install pluma
 # Pluma enable line numbers, highlight current line and show bracket matching. 
 gsettings set org.mate.pluma display-line-numbers true
@@ -176,6 +182,19 @@ sudo gsettings set org.mate.pluma display-line-numbers true
 sudo gsettings set org.mate.pluma highlight-current-line true
 sudo gsettings set org.mate.pluma bracket-matching true
 sudo gsettings set org.mate.pluma color-scheme 'cobalt'
+
+# Replace Rhythmbox for Deadbeef (much more intuitive and has folder-view)
+sudo apt -y autoremove rhythmbox --purge
+wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
+sudo apt -y install ./deadbeef*.deb
+# Get config file and required pre-build plugins for layout
+wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
+unzip master.zip
+mv deadbeef-config-layout-master/lib $HOME/.local/
+mkdir $HOME/.config/deadbeef/
+mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
+rm -r deadbeef-config-layout-master
+rm master.zip
 
 # Audacity - Audio recording and editing
 sudo apt -y install audacity
@@ -229,6 +248,7 @@ wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
 sudo apt -y install ./bleachbit*.deb
 sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
 
+
 # Set app defaults (solves known Ubuntu Budgie issues)
 # ---------------------------
 sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
@@ -269,53 +289,6 @@ case ${answer:0:1} in
     ;;
 esac
 
-# Install Deadbeef or Audacious musicplayer
-echo "Do you need a musicplayer that supports folder-view? (Y/n)"
-read -p "Choose Yes (default, Deadbeef will be installed) otherwise (no) Audacious will be installed (Y/n)?" answer
-case ${answer:0:1} in
-    y|Y )
-        echo "Replacing Rhythmbox for Deadbeef and applying Zilexa config & layout"
-        # Removing Rhythmbox
-        sudo apt -y autoremove rhythmbox --purge
-        # Installing Deadbeef
-        wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
-        sudo apt -y install ./deadbeef*.deb
-        # Get config file and required pre-build plugins for layout
-        wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
-        unzip master.zip
-        mv deadbeef-config-layout-master/lib $HOME/.local/
-        mkdir $HOME/.config/deadbeef/
-        mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
-        rm -r deadbeef-config-layout-master
-        rm master.zip
-    ;;
-    * )
-        echo "Installing Audacious instead of Deadbeef and removing Rhythmbox" 
-        # Removing Rhythmbox
-        sudo apt -y autoremove rhythmbox --purge
-        # Installing Audacious
-        sudo add-apt-repository -y ppa:ubuntuhandbook1/apps
-        sudo apt -y update && sudo apt -y install audacious
-        # set Audacious as default player
-        sudo sed -i -e 's/deadbeef/audacious/g' /usr/share/applications/defaults.list
-        
-    ;;
-esac
-
-# Install Spotify
-read -p "Install Spotify (y/n)?" answer
-case ${answer:0:1} in
-    y|Y )
-        echo Installing Spotify by adding its repository...
-        curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
-        echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-        sudo apt -y update && sudo apt -y install spotify-client
-    ;;
-    * )
-        echo "Skipping Spotify..." 
-    ;;
-esac
-
 # DigiKam
 echo "install the photo management tool (DigiKam), recommended for large photo collections (Y/n)?"
 read -p "(The downloadpage will open in your browser. choose the Linux 64-bit AppImage.)" answer
@@ -350,6 +323,20 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Not enabling Syncthing..."
+    ;;
+esac
+
+# Install Spotify
+read -p "Install Spotify (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        echo Installing Spotify by adding its repository...
+        curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+        echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+        sudo apt -y update && sudo apt -y install spotify-client
+    ;;
+    * )
+        echo "Skipping Spotify..." 
     ;;
 esac
 
