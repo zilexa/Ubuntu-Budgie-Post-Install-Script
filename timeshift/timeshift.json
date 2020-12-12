@@ -21,7 +21,7 @@
   "snapshot_count" : "298237",
   "date_format" : "%Y-%m-%d %H:%M:%S",
   "exclude" : [
-    "/home/asterix/.config/syncthing/index-v0.14.0.db/***",
+    "/home/asterix/.local/share/syncthing/***",
     "/home/asterix/.cache/***",
     "/home/asterix/Documents/***",
     "/home/asterix/Downloads/***",
