@@ -123,6 +123,7 @@ sudo apt -y install darktable
 sudo apt-get install onlyoffice-desktopeditors
 # Syncthing - sync folders between devices
 sudo apt -y install syncthing
+mkdir $HOME/.local/share/syncthing
 sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing/syncthing%40.service
 # OnlyOffice - Better alternative for existing MS Office files
 sudo apt -y install onlyoffice-desktopeditors
