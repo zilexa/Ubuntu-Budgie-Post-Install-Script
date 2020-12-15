@@ -1,4 +1,4 @@
-/* Firefox 1) remove tabs bar 2) remove header of sidebar (if enabled) */
+/* Firefox 1) remove tabs bar 2) remove header of sidebars (otherwise it eats up useless space) */
 /**/
 /* HOW TO USE: */
 /* Go to about:profiles and open the first folder of your profile. */
@@ -8,5 +8,5 @@
 /* Remove tabs bar. Note: this removes the bar, instead of hiding its contents!*/
 #TabsToolbar { visibility: collapse ! important; }
 
-/* Remove header of the sidebar (when a sidebar is enabled)*/
+/* Remove header of sidebars (when a History/Bookmarks/Sidebery sidebar is enabled)*/
 #sidebar-header { visibility: collapse !important; }
