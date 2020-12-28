@@ -7,13 +7,17 @@
 # It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
 
 #__________________________________________
-# BTRFS filesystem configuration
+# filesystem configuration (BTRFS)
 #__________________________________________
 # Don't show bootmenu with BTRFS filesystem
 sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
+# Disable swap as it doesn't work out of the box with BTRFS and most systems don't need it or are better of using ZRAM
+sudo swapoff -a
+sudo rm -rf /swapfile
+
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
@@ -41,10 +45,18 @@ echo "# Example how to mount your servers NFS shares to a client:" | sudo tee -a
 echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
 
 
-#________________________________________________________________
-# Install & configure essential software from default repository 
-# _______________________________________________________________
+#________________________________________________________________________
+# Perform all actions from $HOME/Downloads, this allows automated cleanup
+#________________________________________________________________________
+# Just in case this script was not executed from ./Downloads
+cd $HOME/Downloads
+
+
+#__________________________________________________________________________________________
+# Install applications and apply per app configurations (make them ready to use & intuitive
+# -----------------------------------------------------------------------------------------
 # Replace gedit for Pluma - better simple notepad 
+# -----------------------------------------------
 sudo apt -y install pluma
 # Pluma enable line numbers, highlight current line and show bracket matching. 
 gsettings set org.mate.pluma display-line-numbers true
@@ -57,9 +69,11 @@ sudo gsettings set org.mate.pluma bracket-matching true
 sudo gsettings set org.mate.pluma color-scheme 'cobalt'
 
 # Replace Rhythmbox for Deadbeef (much more intuitive and has folder-view)
+# ------------------------------------------------------------------------
 sudo apt -y autoremove rhythmbox --purge
 wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
 sudo apt -y install ./deadbeef*.deb
+rm deadbeef*.deb
 # Get config file and required pre-build plugins for layout
 wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
 unzip master.zip
@@ -69,17 +83,21 @@ mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
 rm -r deadbeef-config-layout-master
 rm master.zip
 
-# Audacity - Audio recording and editing
-sudo apt -y install audacity
-
 # All MS Office fonts
-# -------_------------
+# --------------------
 wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libreoffice/officefonts.sh
 sudo bash officefonts.sh
 rm officefonts.sh
 
+# Bleachbit - system cleanup
+wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
+sudo apt -y install ./bleachbit*.deb
+rm bleachbit*.deb
+sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
 
-#____________________________________________________________________________
+# Audacity - Audio recording and editing
+sudo apt -y install audacity
+
 # Add repositories for applications that have their own up-to-date repository
 # ---------------------------------------------------------------------------
 # Timeshift repository
@@ -105,6 +123,7 @@ echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_
 curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics_darktable.gpg > /dev/null
 
 # Reload repositories
+# -------------------
 sudo apt -y update
 
 # Now install applications from added repositories
@@ -134,10 +153,7 @@ sudo apt -y install darktable
 sudo apt-get install onlyoffice-desktopeditors
 # Photoflare - simple image editing
 sudo apt -y install photoflare
-# Bleachbit - system cleanup
-wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
-sudo apt -y install ./bleachbit*.deb
-sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
+
 
 #_____________________________________________________
 # Set app defaults (solves known Ubuntu Budgie issues)
@@ -158,9 +174,10 @@ cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/ap
 sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 # Add horizontal and vertical separator icons to the system
-wget https://github.com/zilexa/UbuntuBudgie-config/raw/master/budgie-desktop/seperators/seperator-images.zip
-unzip seperator-images.zip
+wget https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/separator-images.zip
+unzip separator-images.zip
 sudo mv {separatorH.svg,separatorV.svg} /usr/share/icons
+rm -r separator-images.zip
 # Add a fake app-shortcuts to use as a horizontal and vertical seperarators
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorH1.desktop
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorV1.desktop
@@ -173,6 +190,8 @@ nohup budgie-panel --reset --replace &
 rm -r /home/$LOGNAME/.config/autostart/plank.desktop
 # stop plank
 sudo pkill plank
+cd $HOME/Downloads
+rm nohup.out
 
 
 #____________________________
@@ -290,8 +309,8 @@ rm -rf $HOME/Public
 #____________________________________
 wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-recommended-subvolumes.sh
 bash BTRFS-recommended-subvolumes.sh
+cd $HOME/Downloads
 rm BTRFS-recommended-subvolumes.sh
-
 
 #______________________________________
 #          OPTIONAL SOFTWARE
@@ -372,19 +391,4 @@ case ${answer:0:1} in
         echo "Keeping the Firefox shortcut as is..."
     ;;
 esac
-
-# Change fstab swap mount to correct UUID
-echo " "
-echo "_____________"
-echo " "
-read -p "You need to replace XXXXXXXXXXX to the UUID of your system drive. Do it now?" answer
-case ${answer:0:1} in
-    y|Y )
-        sudo pluma /etc/fstab
-    ;;
-    * )
-        echo "Please do it before you reboot." 
-    ;;
-esac
-
 echo "DONE! please REBOOT now, type sudo reboot now and hit enter."
