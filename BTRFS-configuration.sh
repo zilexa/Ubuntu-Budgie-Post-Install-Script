@@ -31,6 +31,7 @@ sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt
 sudo btrfs subvolume create /mnt/userdata
 
 # Move personal user folders to the subvolume
+# Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
 sudo mv /home/$LOGNAME/Documents /mnt/@userdata/
 sudo mv /home/$LOGNAME/Downloads /mnt/@userdata/
 sudo mv /home/$LOGNAME/Media /mnt/@userdata/
