@@ -14,11 +14,6 @@ sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
-# Create swapfile on special BTRFS subvolume
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-swap-setup.sh
-sudo bash BTRFS-swap-setup.sh
-rm BTRFS-swap-setup.sh
-
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
@@ -265,15 +260,22 @@ cd $HOME/Downloads
 #_________________________________
 # Move /Desktop and /Templates to be subfolders of /Documents. Remove /Public folder and prevent it from being created
 # This way, all you have to do is sync /Documents with your cloud provider and/or server (i.e. via Syncthing)
+# First, rename and move contents from Pictures to Photos, Videos to Media 
+mv $HOME/Pictures $HOME/Photos
+mv $HOME/Videos $HOME/Media
 sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
 sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
 mv $HOME/Templates $HOME/Documents/
 mv $HOME/Desktop $HOME/Documents/
 rm -rf $HOME/Public
-# Rename and move contents from Pictures to Photos, Videos to Media 
-mv $HOME/Pictures $HOME/Photos
-mv $HOME/Videos $HOME/Media
+
+#____________________________________
+# Create recommended BTRFS subvolumes
+#____________________________________
+wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-recommended-subvolumes.sh
+sudo bash BTRFS-recommended-subvolumes.sh
+rm BTRFS-recommended-subvolumes.sh
 
 
 #______________________________________
