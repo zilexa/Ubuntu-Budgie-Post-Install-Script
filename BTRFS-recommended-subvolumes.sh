@@ -42,6 +42,7 @@ sudo btrfs subvolume create /mnt/userdata
 sudo umount /mnt
 
 # Now mount the subvolume, note this will not persist after reboot
+sudo mkdir /mnt/userdata
 sudo mount -o subvol=@userdata /dev/nvme0n1p2 /mnt/userdata
 
 # Move personal user folders to the subvolume
