@@ -12,6 +12,7 @@
 cd /
 sudo mv /tmp /tmpold
 sudo btrfs subvolume create tmp
+sudo chmod 1777 /tmp
 sudo mv /tmpold/* /tmp
 sudo rm -r /tmpold
 
@@ -41,7 +42,7 @@ chattr +C $HOME/Photos/.digiKam-db
 
 # Create subvolume for personal userdata
 sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt
-sudo btrfs subvolume create /mnt/userdata
+sudo btrfs subvolume create /mnt/@userdata
 sudo umount /mnt
 
 # Now mount the subvolume, note this will not persist after reboot
