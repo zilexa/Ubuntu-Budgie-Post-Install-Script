@@ -2,7 +2,7 @@
 Panels=Left Panel
 
 [Left Panel]
-Children=Calendar;Spacer 1;Notifications;Separator 1;Spacer 2;Kangaroo;Spacer 3;AppMenu;IconTaskList;ShowTime;WallpaperSwitcher;Visual Space;QuickNote;Spacer 4;AppIndicator;Night;Status Indicator;System Tray;Separator 2;User Indicator;
+Children=Calendar;Spacer 1;Notifications;Separator 1;AppMenu;IconTaskList;ShowTime;WallpaperSwitcher;Visual Space;QuickNote;Spacer 4;AppIndicator;Night;Status Indicator;System Tray;Separator 2;User Indicator;
 
 Position=Left
 Size=53
@@ -21,18 +21,6 @@ Alignment=start
 
 [Separator 1]
 ID=Separator
-Alignment=start
-
-[Spacer 2]
-ID=Spacer
-Alignment=start
-
-[Kangaroo]
-ID=Kangaroo
-Alignment=start
-
-[Spacer 3]
-ID=Spacer
 Alignment=start
 
 [AppMenu]
