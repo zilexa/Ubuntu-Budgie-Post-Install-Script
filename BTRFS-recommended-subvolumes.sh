@@ -54,11 +54,11 @@ sudo mv /home/$LOGNAME/Music /mnt/userdata/
 sudo mv /home/$LOGNAME/Photos /mnt/userdata/
 
 # Link personal folders inside subvolume back into home subvolume
-ln -s /mnt/userdata/Documents /mnt/home/asterix/Documents
-ln -s /mnt/userdata/Downloads /mnt/home/asterix/Downloads
-ln -s /mnt/userdata/Media /mnt/home/asterix/Media
-ln -s /mnt/userdata/Music /mnt/home/asterix/Music
-ln -s /mnt/userdata/Photos /mnt/home/asterix/Photos
+ln -s /mnt/userdata/Documents $HOME/Documents
+ln -s /mnt/userdata/Downloads $HOME/Downloads
+ln -s /mnt/userdata/Media $HOME/Media
+ln -s /mnt/userdata/Music $HOME/Music
+ln -s /mnt/userdata/Photos $HOME/Photos
 
 # Add a commented line in /etc/fstab, user will need to add the UUID
 # This makes the /mnt/userdata mount persistent. 
