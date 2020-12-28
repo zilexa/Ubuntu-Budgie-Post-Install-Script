@@ -35,6 +35,9 @@ chattr +C syncthing
 mv stold/* syncthing/
 rm -r stold
 
+# DigiKam database 
+mkdir $HOME/Photos/.digiKam-db
+chattr +C $HOME/Photos/.digiKam-db
 
 # Create subvolume for personal userdata
 sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt
