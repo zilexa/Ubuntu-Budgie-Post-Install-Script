@@ -36,6 +36,8 @@ sudo apt -y install exfat-utils
 # Install NFS supprt - Fastest way to access shared folders over the network (as a client)
 sudo apt -y install nfs-common
 # Add an example to /etc/fstab. Create a folder in /mnt, fill in your NAS IP address (X) and folder name (Y) and uncomment. 
+echo "#" | sudo tee -a /etc/fstab
+echo "# Example how to mount your servers NFS shares to a client:" | sudo tee -a /etc/fstab
 echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
 
 
@@ -76,22 +78,32 @@ wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgi
 sudo bash officefonts.sh
 rm officefonts.sh
 
+
 #____________________________________________________________________________
 # Add repositories for applications that have their own up-to-date repository
 # ---------------------------------------------------------------------------
+# Timeshift repository
 sudo add-apt-repository -y ppa:teejee2008/timeshift
+# AppImageLauncher repository
 sudo add-apt-repository -y ppa:appimagelauncher-team/stable
+# TLP repository
 sudo add-apt-repository -y ppa:linrunner/tlp
-sudo add-apt-repository -y ppa:pinta-maintainers/pinta-stable
+# AnyDesk repository
 echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
-wget -qO - https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.04/Release.key | sudo apt-key add -
+# Syncthing repository
 curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
+# OnlyOffice DesktopEditors repository
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
-sudo add-apt-repository "deb https://download.onlyoffice.com/repo/debian squeeze main"
+sudo add-apt-repository -y "deb https://download.onlyoffice.com/repo/debian squeeze main"
+# Photoflare repository
+sudo add-apt-repository -y ppa:photoflare/photoflare-stable
+# DarkTable repository
+echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.10/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
+curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics_darktable.gpg > /dev/null
+
 # Reload repositories
 sudo apt -y update
 
@@ -108,20 +120,20 @@ sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zil
 sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
 # Integrate AppImages at first launch
 sudo apt -y install appimagelauncher
-# Pinta - Alternative to Drawing (like Ms Paint) 
-sudo apt -y install pinta 
 # Install AnyDesk (remote support)
 sudo apt -y install anydesk
 sudo systemctl disable anydesk
-# DarkTable - image editing
-sudo apt -y install darktable
-sudo apt-get install onlyoffice-desktopeditors
 # Syncthing - sync folders between devices
-sudo apt -y install syncthing
 mkdir $HOME/.local/share/syncthing
+sudo apt -y install syncthing
 sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing/syncthing%40.service
 # OnlyOffice - Better alternative for existing MS Office files
 sudo apt -y install onlyoffice-desktopeditors
+# DarkTable - pro photo editing
+sudo apt -y install darktable
+sudo apt-get install onlyoffice-desktopeditors
+# Photoflare - simple image editing
+sudo apt -y install photoflare
 # Bleachbit - system cleanup
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
 sudo apt -y install ./bleachbit*.deb
@@ -134,6 +146,7 @@ sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defa
 sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
 sudo sed -i -e 's#org.gnome.Geary.desktop#thunderbird.desktop#g' /usr/share/applications/defaults.list
 sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/mimeapps.list
+
 
 #______________________________________________
 # Configure Widescreen Panel and get seperators
@@ -160,6 +173,7 @@ nohup budgie-panel --reset --replace &
 rm -r /home/$LOGNAME/.config/autostart/plank.desktop
 # stop plank
 sudo pkill plank
+
 
 #____________________________
 # Budgie Desktop basic config
@@ -224,6 +238,7 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 #mkdir $HOME/Pictures/Screenshots
 #gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Screenshots"
 
+
 #______________________________
 # Allow 3 and 4 finger gestures
 #______________________________
@@ -274,7 +289,7 @@ rm -rf $HOME/Public
 # Create recommended BTRFS subvolumes
 #____________________________________
 wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-recommended-subvolumes.sh
-sudo bash BTRFS-recommended-subvolumes.sh
+bash BTRFS-recommended-subvolumes.sh
 rm BTRFS-recommended-subvolumes.sh
 
 
@@ -282,7 +297,7 @@ rm BTRFS-recommended-subvolumes.sh
 #          OPTIONAL SOFTWARE
 #______________________________________
 # KeepassXC Password Manager
-echo "Install KeepassXC?? (Y/n)"
+echo "Install KeepassXC (Y/n)?"
 read -p "The only free, reliable password manager that provides maximum security and can be synced between devices" answer
 case ${answer:0:1} in
     y|Y )
