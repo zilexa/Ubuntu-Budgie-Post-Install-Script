@@ -1,6 +1,7 @@
 /* Firefox 1) remove tabs bar 2) remove header of sidebars (otherwise it eats up useless space) */
 /**/
 /* HOW TO USE: */
+/* Go to about:config and find toolkit.legacyUserProfileCustomizations.stylesheets set it to TRUE by doubleclicking it. */
 /* Go to about:profiles and open the first folder of your profile. */
 /* Create a folder here called 'chrome'. */
 /* Copy this file into that folder (../chrome/userChrome.css) and restart Firefox. */
