@@ -340,7 +340,7 @@ case ${answer:0:1} in
     ;;
 esac
 
-# RawTherapee
+# RawTherapee ART
 echo "DarkTable is a (raw) photo editor and has been installed already. Would you also like to install RawTherapee ART (Y/n)?"
 read -p "(The downloadpage will open.)" answer
 case ${answer:0:1} in
@@ -376,6 +376,31 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Skipping Spotify..." 
+    ;;
+esac
+
+# Install losslesscut 
+read -p "Install LosslessCut? it allows easy, userfriendly trimming of your camera videos without effecting video quality" answer
+case ${answer:0:1} in
+    y|Y )
+        echo Installing LosslessCut...
+        wget -qO- https://github.com/mifi/lossless-cut/releases/latest/download/LosslessCut-linux.tar.bz2 | tar xvf -
+        sudo mv LosslessCut-linux/ /opt/LosslessCut/
+        sudo tee -a /usr/share/applications/losslesscut.desktop << EOF
+[Desktop Entry]
+Name=LosslessCut
+GenericName=Video Editor
+Comment=LosslessCut video editor.
+Type=Application
+Exec=/opt/LosslessCut/losslesscut
+Icon=video-player
+Categories=AudioVideo;Video;AudioVideoEditing
+EOF
+          chmod +x /usr/share/applications/LosslessCut.desktop
+        
+    ;;
+    * )
+        echo "Skipping LosslessCut video editor..." 
     ;;
 esac
 
