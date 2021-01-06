@@ -409,8 +409,7 @@ read -p "Install HandBrake? it allows easy, userfriendly conversion of your came
 case ${answer:0:1} in
     y|Y )
         echo Installing HandBrake...
-        sudo add-apt-repository -y ppa:stebbins/handbrake-releases  
-        sudo apt -y update && sudo apt -y install handbrake-gtk && sudo apt -y install handbrake-cli
+        sudo apt -y install handbrake && sudo apt -y install handbrake-cli
     ;;
     * )
         echo "Skipping Handbrake..." 
