@@ -380,7 +380,7 @@ case ${answer:0:1} in
 esac
 
 # Install losslesscut 
-read -p "Install LosslessCut? it allows easy, userfriendly trimming of your camera videos without effecting video quality" answer
+read -p "Install LosslessCut? it is the recommended solution to allow easy, userfriendly trimming of your camera videos without effecting video quality" answer
 case ${answer:0:1} in
     y|Y )
         echo Installing LosslessCut...
@@ -396,13 +396,27 @@ Exec=/opt/LosslessCut/losslesscut
 Icon=video-player
 Categories=AudioVideo;Video;AudioVideoEditing
 EOF
-          chmod +x /usr/share/applications/LosslessCut.desktop
-        
+          chmod +x /usr/share/applications/LosslessCut.desktop    
     ;;
     * )
         echo "Skipping LosslessCut video editor..." 
     ;;
 esac
+
+
+# Install HandBrake 
+read -p "Install HandBrake? it allows easy, userfriendly conversion of your camera videos, DVDs etc to regular formats with or without compression." answer
+case ${answer:0:1} in
+    y|Y )
+        echo Installing HandBrake...
+        sudo add-apt-repository -y ppa:stebbins/handbrake-releases  
+        sudo apt -y update && sudo apt -y install handbrake-gtk && sudo apt -y install handbrake-cli
+    ;;
+    * )
+        echo "Skipping Handbrake..." 
+    ;;
+esac
+
 
 # Get a Firefox shortcut for 2 profiles
 echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
