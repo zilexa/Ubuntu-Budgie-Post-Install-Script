@@ -98,6 +98,9 @@ sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent
 # Audacity - Audio recording and editing
 sudo apt -y install audacity
 
+# VLC - video playback, Celluloid is still the default player but some videos need VLC plus it is the easiest tool to rip a DVD
+sudo apt -y install vlc
+
 # Add repositories for applications that have their own up-to-date repository
 # ---------------------------------------------------------------------------
 # Timeshift repository
