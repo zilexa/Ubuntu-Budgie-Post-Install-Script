@@ -89,9 +89,10 @@ wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgi
 sudo bash officefonts.sh
 rm officefonts.sh
 
-# LibreOffice NL language
+# LibreOffice UK English and NL Dutch language
 sudo add-apt-repository -y ppa:libreoffice/ppa
-sudo apt install -y libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
+sudo apt update
+sudo apt install -y libreoffice-l10n-en-gb hunspell-en-gb hyphen-en-gb libreoffice-help-en-gb libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
 # Bleachbit - system cleanup
 wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
