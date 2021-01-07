@@ -387,9 +387,9 @@ read -p "Install LosslessCut? it is the recommended solution to allow easy, user
 case ${answer:0:1} in
     y|Y )
         echo Installing LosslessCut...
-        wget -qO- https://github.com/mifi/lossless-cut/releases/latest/download/LosslessCut-linux.tar.bz2 | tar xvf -
-        sudo mv LosslessCut-linux/ /opt/LosslessCut/
-        sudo tee -a /usr/share/applications/losslesscut.desktop << EOF
+        wget -qO- https://github.com/mifi/lossless-cut/releases/latest/download/LosslessCut-linux.tar.bz2 | tar jxvf -
+        sudo mv LosslessCut-linux/ /opt/LosslessCut
+        sudo tee -a /usr/share/applications/LosslessCut.desktop << EOF
 [Desktop Entry]
 Name=LosslessCut
 GenericName=Video Editor
@@ -399,7 +399,7 @@ Exec=/opt/LosslessCut/losslesscut
 Icon=video-player
 Categories=AudioVideo;Video;AudioVideoEditing
 EOF
-          chmod +x /usr/share/applications/LosslessCut.desktop    
+        sudo chmod +x /usr/share/applications/LosslessCut.desktop    
     ;;
     * )
         echo "Skipping LosslessCut video editor..." 
