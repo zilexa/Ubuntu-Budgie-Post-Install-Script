@@ -303,11 +303,16 @@ cd $HOME/Downloads
 # Move /Desktop and /Templates to be subfolders of /Documents. Remove /Public folder and prevent it from being created
 # This way, all you have to do is sync /Documents with your cloud provider and/or server (i.e. via Syncthing)
 # First, rename and move contents from Pictures to Photos, Videos to Media 
-mv $HOME/Pictures $HOME/Photos
-mv $HOME/Videos $HOME/Media
+# Move Desktop folder into Documents, this way, your cloud drive will contain all files on the desktop
 sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
+# Move Templates folder into Documents because it does not make sense to be outside it. 
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
+# Disable Public folder because nobody uses it. 
 sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
+# Rename Pictures to Photos
+sudo sed -i -e 's+$HOME/Pictures+$HOME/Photos+g' $HOME/.config/user-dirs.dirs
+# Rename Videos to Media making it the folder for tvshows/movies downloads or anything else that is not suppose to be in Photos. 
+sudo sed -i -e 's+$HOME/Videos+$HOME/Media+g' $HOME/.config/user-dirs.dirs
 mv $HOME/Templates $HOME/Documents/
 mv $HOME/Desktop $HOME/Documents/
 rm -rf $HOME/Public
