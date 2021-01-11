@@ -42,7 +42,7 @@ sudo apt -y install nfs-common
 # Add an example to /etc/fstab. Create a folder in /mnt, fill in your NAS IP address (X) and folder name (Y) and uncomment. 
 echo "#" | sudo tee -a /etc/fstab
 echo "# Example how to mount your servers NFS shares to a client:" | sudo tee -a /etc/fstab
-echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,fsc,nocto  0  0" | sudo tee -a /etc/fstab
+echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,timeo=50,fsc,nocto  0  0" | sudo tee -a /etc/fstab
 
 
 #________________________________________________________________________
