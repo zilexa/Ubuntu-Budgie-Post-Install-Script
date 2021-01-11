@@ -31,8 +31,6 @@ rm -r .cacheold/
 cd $HOME/.local/share
 mv syncthing stold
 btrfs subvolume create syncthing
-# add the C attribute to disable Copy-On-Write as this folder contains a database
-chattr +C syncthing
 mv stold/* syncthing/
 rm -r stold
 
