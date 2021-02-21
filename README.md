@@ -1,6 +1,7 @@
 ## Ubuntu Budgie - Post Installation script 
 ## An Out Of The Box Experience - Carefully selected applications and configurations of system and apps. 
 A single script to run after installing Ubuntu Budgie. When the script is finished, your PC/Laptop is immediately ready, everything just works, there is an app for all common tasks. Similar to a Mac but better, faster and with more functionality. 
+Every app or system configuration has been carefully chosen. No bloat!
 
 #### Welcome to Ubuntu Budgie! An intuitive, user friendly, light and fast Operating System. 
 For most people, it is better than Windows (10) or MacOS. It can easily look exactly like Windows or Mac.
