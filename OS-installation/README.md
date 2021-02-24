@@ -23,6 +23,6 @@ STEP3: recommended for this post-install script, required if you plan to use the
 2. Under the SSD you want to install on (for example nvmen0p1), there is a /boot/efi, must be 500 or 560 MB in size. If not, create a new table. 
 3. Make sure you create a BTRFS filesystem on the SSD, with maximum size and mounted on "/". 
 
-![Ubuntu Installation Wizard step 3.1](https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/OS-installation/Ubuntu-OS-setup-step3_1.png)
+![Ubuntu Installation Wizard step 3.1](https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/OS-installation/Ubuntu-OS-setup-step3_1.png)Select "Something else"
 
-![Ubuntu Installation Wizard step 3.1](https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/OS-installation/Ubuntu-OS-setup-step3_2.png)
+![Ubuntu Installation Wizard step 3.1](https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/OS-installation/Ubuntu-OS-setup-step3_2.png)change "EXT4" to BTRFS!
