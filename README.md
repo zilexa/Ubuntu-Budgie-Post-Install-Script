@@ -15,11 +15,11 @@ Just sit back and relax. At the end, a few optional apps can be installed.
 
 Note that most apps are installed via their own repository (if available). This way, you have the latest version and the system will check for updates automatically.
 
-## Important steps during Ubuntu (Budgie) Installation. 
+## 1. Important steps during Ubuntu (Budgie) Installation. 
 Please read [OS Installation Steps](https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/blob/master/OS-installation/README.md) first as I highly recommend to use BtrFS as the filesystem. 
 It is robust, fast, protects your data and highly mature. 
 
-## How To Use:
+## 2. How To Use the post-install script:
 Op the File Manager, go to Downloads
 Right-click empty area, select "Terminal"
 Now download and run the script:
