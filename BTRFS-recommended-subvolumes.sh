@@ -72,13 +72,13 @@ echo "Then save changes with CTRL+O and exit the file with CTRL+X"
 echo "-----------------------------------------------------------------------------------------------------------"
 read -p "Are you ready to do this? Hit Enter and enter your password in the 2nd window to open the file."
 x-terminal-emulator -e sudo nano /etc/fstab
-
+read -p "When done in the 2nd window, hit ENTER in this window to continue..."
 
 # OPTIONAL: disable BtrFS Copy-on-Write for common databases: DigiKam database 
 echo "======================================="
 echo "---------------------------------------"
-echo "Do you plan to use DigiKam for photomanagement (highly recommended if you have lots of photos) Choose Y/n?"
-read -p "If yes, its database-folder will be created and marked to optimise for BTRFS (disabling Copy-on-Write)" answer
+echo "Do you plan to use DigiKam for photomanagement? Highly recommended if you have lots of photos."
+read -p "If yes, its database-folder will be created and marked to optimise for BTRFS (disabling Copy-on-Write). Y/n?" answer
 case ${answer:0:1} in
     y|Y )
         mkdir $HOME/Photos/.digiKam-db
