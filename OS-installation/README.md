@@ -28,5 +28,4 @@ Select "Install Ubuntu Budgie".
 ![Ubuntu Installation Wizard step 3.1](https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/OS-installation/Ubuntu-OS-setup-step3_2.png)change "EXT4" to BTRFS!
 
 ### STEP4: Post-install actions
-After OS installation is complete, continue with the [Post-Install Script](https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script).
-Or at a minimum, run the [Recommended BTRFS subvolumes](https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/blob/master/BTRFS-recommended-subvolumes.sh) script!
+After OS installation is complete, continue with the [Post-Install Script](https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script) or at least run the [Recommended BTRFS subvolumes](https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/blob/master/BTRFS-recommended-subvolumes.sh) script _unless you are preparing a homeserver_ as they will be created automatically during [Filesytem Preparation](https://github.com/zilexa/Homeserver#step-1-filesystem).
