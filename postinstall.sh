@@ -320,15 +320,32 @@ rm -rf $HOME/Public
 #____________________________________
 # Create recommended BTRFS subvolumes
 #____________________________________
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-recommended-subvolumes.sh
-bash BTRFS-recommended-subvolumes.sh
-cd $HOME/Downloads
-rm BTRFS-recommended-subvolumes.sh
+echo "======================================="
+echo "---------------------------------------"
+echo "Are you installing a HOMESERVER? Or a different filesystem than btrfs? (y/n)"
+echo "(Type (n): Step will be skipped. Do skip if this will be a HOMESERVER or NAS or if you are using EXT4."
+echo "(Type (y): the BTRFS-recommended-subvolumes script wil run: Required  for home PCs & desktops with BTRFS filesystem!"
+echo "---------------------------------------"
+read -p "Please type n (homeserver or no btrfs filesystem) or y (normal pc/laptop)" answer
+case ${answer:0:1} in
+    y|Y )
+        wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-recommended-subvolumes.sh
+        bash BTRFS-recommended-subvolumes.sh
+        cd $HOME/Downloads
+        rm BTRFS-recommended-subvolumes.sh
+    ;;
+    * )
+        echo "Not enabling Syncthing..."
+    ;;
+esac
+
 
 #______________________________________
 #          OPTIONAL SOFTWARE
 #______________________________________
 # KeepassXC Password Manager
+echo "======================================="
+echo "---------------------------------------"
 echo "Install KeepassXC (Y/n)?"
 read -p "The only free, reliable password manager that provides maximum security and can be synced between devices" answer
 case ${answer:0:1} in
@@ -342,6 +359,8 @@ case ${answer:0:1} in
 esac
 
 # DigiKam
+echo "======================================="
+echo "---------------------------------------"
 echo "install the photo management tool (DigiKam), recommended for large photo collections (Y/n)?"
 read -p "(The downloadpage will open in your browser. choose the Linux 64-bit AppImage.)" answer
 case ${answer:0:1} in
@@ -354,6 +373,8 @@ case ${answer:0:1} in
 esac
 
 # RawTherapee ART
+echo "======================================="
+echo "---------------------------------------"
 echo "DarkTable is a (raw) photo editor and has been installed already. Would you also like to install RawTherapee ART (Y/n)?"
 read -p "(The downloadpage will open.)" answer
 case ${answer:0:1} in
@@ -366,6 +387,8 @@ case ${answer:0:1} in
 esac
 
 # Syncthing
+echo "======================================="
+echo "---------------------------------------"
 echo "Syncthing is installed but turned off. Turn on and start at boot? (Y/n)?"
 read -p "Syncthing is a fast and lightweight tool for 2-way syncing between your devices." answer
 case ${answer:0:1} in
@@ -379,6 +402,8 @@ case ${answer:0:1} in
 esac
 
 # Install Spotify
+echo "======================================="
+echo "---------------------------------------"
 read -p "Install Spotify (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
@@ -393,6 +418,8 @@ case ${answer:0:1} in
 esac
 
 # Install losslesscut 
+echo "======================================="
+echo "---------------------------------------"
 read -p "Install LosslessCut? it is the recommended solution to allow easy, userfriendly trimming of your camera videos without effecting video quality" answer
 case ${answer:0:1} in
     y|Y )
@@ -418,6 +445,8 @@ esac
 
 
 # Install HandBrake 
+echo "======================================="
+echo "---------------------------------------"
 read -p "Install HandBrake? it allows easy, userfriendly conversion of your camera videos, DVDs etc to regular formats with or without compression." answer
 case ${answer:0:1} in
     y|Y )
@@ -431,6 +460,8 @@ esac
 
 
 # Get a Firefox shortcut for 2 profiles
+echo "======================================="
+echo "---------------------------------------"
 echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
 read -p "Only useful if each user has its own Firefox profile. Do you need this option (y/n)?" answer
 case ${answer:0:1} in
