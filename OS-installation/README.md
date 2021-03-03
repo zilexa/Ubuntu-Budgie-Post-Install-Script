@@ -7,7 +7,7 @@ Not only will installation go extremely fast (minutes), the stick will have trip
 2. Install Ubuntu Budgie. 
 3. Use it as general USB stick: copy data, backup data etc.  
 
-#### STEP 1:
+### STEP 1:
 1. Download [Ventoy](https://www.ventoy.net/en/download.html). This tool allows you to create a bootdisk (read-only) and a seperate partition that can be used as general usb stick.
 2. Go to https://ubuntubudgie.org/downloads/ and direct-download the latest image. 
 3. Launch Ventoy and [follow the steps](https://www.ventoy.net/en/doc_start.html). For modern systems make sure you select GPT/UEFI instead of MBR unless you plan to use it on old systems. 
@@ -26,3 +26,7 @@ Select "Install Ubuntu Budgie".
 ![Ubuntu Installation Wizard step 3.1](https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/OS-installation/Ubuntu-OS-setup-step3_1.png)Select "Something else"
 
 ![Ubuntu Installation Wizard step 3.1](https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/OS-installation/Ubuntu-OS-setup-step3_2.png)change "EXT4" to BTRFS!
+
+### STEP4: Post-install actions
+After OS installation is complete, continue with the [Post-Install Script](https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script).
+Or at a minimum, run the [Recommended BTRFS subvolumes](https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/blob/master/BTRFS-recommended-subvolumes.sh) script!
