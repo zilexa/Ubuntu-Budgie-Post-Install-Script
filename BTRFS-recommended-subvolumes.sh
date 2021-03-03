@@ -64,8 +64,27 @@ echo "# Mount the BTRFS root subvolume @userdata" | sudo tee -a /etc/fstab
 echo "UUID=!!COPY-PASTE-FROM-ABOVE /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata 0       2" | sudo tee -a /etc/fstab
 
 ## Now open fstab for the user to copy paste the UUID
-sudo nano /etc/fstab
+echo "==========================================================================================================="
+echo "-----------------------------------------------------------------------------------------------------------"
+echo "Almost done, now a 2nd window will open and you need to copy/paste with your mouse the UUID from the top"
+echo "And paste it where it says !!Copy UUID HERE !!
+echo "Then save changes with CTRL+O and exit the file with CTRL+X"
+echo "-----------------------------------------------------------------------------------------------------------"
+read -p "Are you ready to do this? Hit Enter and enter your password in the 2nd window to open the file."
+x-terminal-emulator -e sudo nano /etc/fstab
 
-# OPTIONAL: disable BtrFS Copy-on-Write for databases: DigiKam database 
-mkdir $HOME/Photos/.digiKam-db
-chattr +C $HOME/Photos/.digiKam-db
+
+# OPTIONAL: disable BtrFS Copy-on-Write for common databases: DigiKam database 
+echo "======================================="
+echo "---------------------------------------"
+echo "Do you plan to use DigiKam for photomanagement (highly recommended if you have lots of photos) Choose Y/n?"
+read -p "If yes, its database-folder will be created and marked to optimise for BTRFS (disabling Copy-on-Write)" answer
+case ${answer:0:1} in
+    y|Y )
+        mkdir $HOME/Photos/.digiKam-db
+        chattr +C $HOME/Photos/.digiKam-db
+    ;;
+    * )
+        echo "Not creating folder $HOME/Photos/.digikam-db/, not applying chattr +C to it." 
+    ;;
+esac
