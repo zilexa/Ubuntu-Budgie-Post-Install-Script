@@ -8,7 +8,7 @@
 # This is the common and recommended way of using BTRFS in a home laptop/pc environment.
 
 
-# Create nested subvolume for /tmp
+# HIGHLY RECOMMENDED: Create nested subvolume for /tmp
 cd /
 sudo mv /tmp /tmpold
 sudo btrfs subvolume create tmp
@@ -17,7 +17,7 @@ sudo mv /tmpold/* /tmp
 sudo rm -r /tmpold
 
 
-# Create nested subvolume for $HOME/.cache
+# HIGHLY RECOMMENDED: Create nested subvolume for $HOME/.cache
 cd $HOME
 mv ~/.cache ~/.cacheold
 btrfs subvolume create .cache
@@ -25,7 +25,7 @@ mv .cacheold/* .cache
 rm -r .cacheold/
 
 
-# Create nested subvolume for syncthing database folder 
+# RECOMMENDED FOR CLIENT DEVICES (not home-server): Create nested subvolume for syncthing database folder 
 # If you ever restore a snapshot without excluding the syncthing database, existing files missing in the restored database will be deleted by syncthing!
 # if you exclude the syncthing database, it will scan your existing files into a new database. 
 cd $HOME/.local/share
@@ -34,38 +34,38 @@ btrfs subvolume create syncthing
 mv stold/* syncthing/
 rm -r stold
 
-# DigiKam database 
-mkdir $HOME/Photos/.digiKam-db
-chattr +C $HOME/Photos/.digiKam-db
-
-# Create subvolume for personal userdata
+# RECOMMENDED FOR CLIENT DEVICES (NOT HOME-SERVER): Create subvolume for personal userdata
 sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt
 sudo btrfs subvolume create /mnt/@userdata
 sudo umount /mnt
 
-# Now mount the subvolume, note this will not persist after reboot
+## Now mount the subvolume, note this will not persist after reboot
 sudo mkdir /mnt/userdata
 sudo mount -o subvol=@userdata /dev/sda2 /mnt/userdata
 
-# Move personal user folders to the subvolume
-# Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
+## Move personal user folders to the subvolume
+## Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
 sudo mv /home/$LOGNAME/Documents /mnt/userdata/
 sudo mv /home/$LOGNAME/Downloads /mnt/userdata/
 sudo mv /home/$LOGNAME/Media /mnt/userdata/
 sudo mv /home/$LOGNAME/Music /mnt/userdata/
 sudo mv /home/$LOGNAME/Photos /mnt/userdata/
 
-# Link personal folders inside subvolume back into home subvolume
+## Link personal folders inside subvolume back into home subvolume
 ln -s /mnt/userdata/Documents $HOME/Documents
 ln -s /mnt/userdata/Downloads $HOME/Downloads
 ln -s /mnt/userdata/Media $HOME/Media
 ln -s /mnt/userdata/Music $HOME/Music
 ln -s /mnt/userdata/Photos $HOME/Photos
 
-# Add a commented line in /etc/fstab, user will need to add the UUID
+## Add a commented line in /etc/fstab, user will need to add the UUID
 # This makes the /mnt/userdata mount persistent. 
 echo "# Mount the BTRFS root subvolume @userdata" | sudo tee -a /etc/fstab
 echo "UUID=!!COPY-PASTE-FROM-ABOVE /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata 0       2" | sudo tee -a /etc/fstab
 
-# Now open fstab for the user to copy paste the UUID
+## Now open fstab for the user to copy paste the UUID
 sudo nano /etc/fstab
+
+# OPTIONAL: disable BtrFS Copy-on-Write for databases: DigiKam database 
+mkdir $HOME/Photos/.digiKam-db
+chattr +C $HOME/Photos/.digiKam-db
