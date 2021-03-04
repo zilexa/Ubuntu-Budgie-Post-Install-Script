@@ -347,10 +347,11 @@ esac
 echo "======================================="
 echo "---------------------------------------"
 echo "common MS Office fonts have been installed by this script, for document compatibility, you can install ALL Win10/Office365 fonts."
-echo "Do that now? (Y/n)"
-read -p "You need to manually download win10-fonts.7z to your Downloads folder, press Y when done, N to skip (Y/n)" answer
+read -p "You need to download win10-fonts.7z, your browser will open the download page, continue (Y) or skip (N)? (Y/n)" answer
 case ${answer:0:1} in
     y|Y )
+       xdg-open https://mega.nz/file/m0AmWByb#CfN0uWwNwplB3rYi8WqQbIdpJV3JNkrXduBdIkGHUvg
+       read -p "Click any key when the download has finished completely..."
        # Extract the manually downloaded file to a subfolder in the systems font folder
        sudo 7z e -o/usr/share/fonts/win10 $HOME/Downloads/fonts-win10.7z
        # Set permissions to allow non-root to use the fonts
@@ -372,7 +373,9 @@ echo "Install KeepassXC (Y/n)?"
 read -p "The only free, reliable password manager that provides maximum security and can be synced between devices" answer
 case ${answer:0:1} in
     y|Y )
+       # Add repository
        sudo add-apt-repository -y ppa:phoerious/keepassxc
+       # Refresh repository and install Keepassxc
        sudo apt update && sudo apt -y install keepassxc
     ;;
     * )
@@ -387,6 +390,7 @@ echo "install the photo management tool (DigiKam), recommended for large photo c
 read -p "(The downloadpage will open in your browser. choose the Linux 64-bit AppImage.)" answer
 case ${answer:0:1} in
     y|Y )
+       # Open the download page
        xdg-open https://www.digikam.org/download/
     ;;
     * )
@@ -401,6 +405,7 @@ echo "DarkTable is a (raw) photo editor and has been installed already. Would yo
 read -p "(The downloadpage will open.)" answer
 case ${answer:0:1} in
     y|Y )
+       # Open the download page
        xdg-open https://bitbucket.org/agriggio/art/downloads/
     ;;
     * )
@@ -415,7 +420,9 @@ echo "Syncthing is installed but turned off. Turn on and start at boot? (Y/n)?"
 read -p "Syncthing is a fast and lightweight tool for 2-way syncing between your devices." answer
 case ${answer:0:1} in
     y|Y )
+       # Enable the systemd service with a generic name
        sudo systemctl enable syncthing@.service
+       # systemctl does not allow environment variables, manually create service link with system username
        sudo ln -s /etc/systemd/system/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$LOGNAME.service
     ;;
     * )
@@ -430,8 +437,11 @@ read -p "Install Spotify (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
         echo Installing Spotify by adding its repository...
+        # Add encryption key for the repository
         curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+        # Add the repository
         echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+        # Refresh repositories and install spotify
         sudo apt -y update && sudo apt -y install spotify-client
     ;;
     * )
@@ -446,8 +456,11 @@ read -p "Install LosslessCut? it is the recommended solution to allow easy, user
 case ${answer:0:1} in
     y|Y )
         echo Installing LosslessCut...
+        #Download & extract the file
         wget -qO- https://github.com/mifi/lossless-cut/releases/latest/download/LosslessCut-linux.tar.bz2 | tar jxvf -
+        # Move the extracted folder to the app folder
         sudo mv LosslessCut-linux/ /opt/LosslessCut
+        # Create a shortcut file for all users & make it executable
         sudo tee -a /usr/share/applications/LosslessCut.desktop << EOF
 [Desktop Entry]
 Name=LosslessCut
@@ -473,6 +486,7 @@ read -p "Install HandBrake? it allows easy, userfriendly conversion of your came
 case ${answer:0:1} in
     y|Y )
         echo Installing HandBrake...
+        # Install handbrake + cli version from standard Ubuntu repository 
         sudo apt -y install handbrake && sudo apt -y install handbrake-cli
     ;;
     * )
