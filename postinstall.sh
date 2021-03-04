@@ -346,8 +346,8 @@ esac
 # Install ALL Win10/Office365 fonts
 echo "======================================="
 echo "---------------------------------------"
-echo "common MS Office fonts have been installed by this script, for document compatibility, you can install ALL Win10/Office365 fonts.
-echo "Do that now? (Y/n)
+echo "common MS Office fonts have been installed by this script, for document compatibility, you can install ALL Win10/Office365 fonts."
+echo "Do that now? (Y/n)"
 read -p "You need to manually download win10-fonts.7z to your Downloads folder, press Y when done, N to skip (Y/n)" answer
 case ${answer:0:1} in
     y|Y )
