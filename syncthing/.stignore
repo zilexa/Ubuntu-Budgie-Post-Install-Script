@@ -1,5 +1,7 @@
 // .stignore
 //
+//Databases//
+digikam-db/
 //Filerun//
 .filerun*
 //---Linux-specific---//
