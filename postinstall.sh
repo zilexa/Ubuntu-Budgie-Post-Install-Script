@@ -346,20 +346,23 @@ esac
 # Install ALL Win10/Office365 fonts
 echo "======================================="
 echo "---------------------------------------"
-echo "common MS Office fonts have been installed by this script, for document compatibility, you can install ALL Win10/Office365 fonts IF you have Microsofts permission."
-read -p "The win10-fonts.7z archive is required. Your browser will open the download page, continue (Y) or skip (N)? (Y/n)" answer
+echo "A few MS Office available for Linux + a few commonly used additional MS Office fonts have been installed by this script." 
+echo "However, if you want your documents to look identical, you need to install all MS Office fonts. 
+echo "If you believe you have the right to do so, the script will download a prepackaged copy of all MS Office365/Win10 fonts and install them."
+read -p "The win10-fonts.zip archive is required. Your browser will open the download page, continue (Y) or skip (N)? (Y/n)" answer
 case ${answer:0:1} in
     y|Y )
-       xdg-open https://mega.nz/file/m0AmWByb#CfN0uWwNwplB3rYi8WqQbIdpJV3JNkrXduBdIkGHUvg
+       xdg-open https://mega.nz/file/u4p02JCC#HnJOVyK8TYDqEyVXLkwghDLKlKfIq0kOlX6SPxH53u0
        read -p "Click any key when the download has finished completely..."
+       echo "please wait while extracting fonts to the system fonts folder (/usr/share/fonts), the downloaded file will be deleted afterwards." 
        # Extract the manually downloaded file to a subfolder in the systems font folder
-       sudo 7z e -o/usr/share/fonts/win10 $HOME/Downloads/fonts-win10.7z
+       sudo tar -xf $HOME/Downloads/fonts-office365.tar.xz -C /usr/share/fonts
        # Set permissions to allow non-root to use the fonts
        sudo chmod -R /usr/share/fonts/win10
        # Refresh the font cache (= register the fonts)
        sudo fc-cache -f -v
        # Remove the downloaded font file
-       rm $HOME/Downloads/fonts-win10.7z
+       rm $HOME/Downloads/fonts-office365.tar.xz
     ;;
     * )
         echo "Not installing all win10/office365 fonts..."
