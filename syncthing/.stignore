@@ -1,25 +1,24 @@
-// .stignore
-//
-//Databases//
+//DigiKam db folder
 digikam-db/
+//
 //Filerun//
-.filerun*
+(?d).filerun*
 //---Linux-specific---//
-.Trash-*
+(?d).Trash-*
 //---Mac-specific---//
 //Mac Comments, Finder Windows Size, Tags, ...
 (?d).DS_Store
-.DocumentRevisions-V100
+(?d).DocumentRevisions-V100
 //Mac Folder Icons, which will not sync to Windows
 (?d)Icon*
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.fseventsd
+(?d).Spotlight-V100
+(?d).TemporaryItems
+(?d).Trashes
+(?d).fseventsd
 //Mac Flag to enable translation of Folder Names
 (?d).localized
 //Mac Temporary iCloud files while synching
-.iCloud
+(?d).iCloud
 //Mac OS Metadata on Windows or Linux filesystems
 (?d)._*
 //---Windows-Specific---//
@@ -35,8 +34,8 @@ digikam-db/
 //-vi(m)
 (?d)*.*.sw[a-p] # Thankys to Tom Hale!
 //-Dropbox
-.dropbox
-.dropbox.attr
+(?d).dropbox
+(?d).dropbox.attr
 //---OTHER---//
-.parallels-vm-directory
-Default.rdp
+(?d).parallels-vm-directory
+(?d)Default.rdp
