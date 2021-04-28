@@ -24,6 +24,8 @@ btrfs subvolume create .cache
 mv .cacheold/* .cache
 rm -r .cacheold/
 
+# GOOD PRACTICE: disable CoW for /var/log
+sudo chattr -R  +C /var/log
 
 # RECOMMENDED FOR CLIENT DEVICES (not home-server): Create nested subvolume for syncthing database folder 
 # If you ever restore a snapshot without excluding the syncthing database, existing files missing in the restored database will be deleted by syncthing!
