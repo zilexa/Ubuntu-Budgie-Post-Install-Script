@@ -27,21 +27,24 @@ rm -r .cacheold/
 # GOOD PRACTICE: disable CoW for /var/log
 sudo chattr -R  +C /var/log
 
-# RECOMMENDED FOR CLIENT DEVICES (not home-server): Create nested subvolume for syncthing database folder 
-# If you ever restore a snapshot without excluding the syncthing database, existing files missing in the restored database will be deleted by syncthing!
-# if you exclude the syncthing database, it will scan your existing files into a new database. 
-cd $HOME/.local/share
-mv syncthing stold
-btrfs subvolume create syncthing
-mv stold/* syncthing/
-rm -r stold
 
-# RECOMMENDED FOR CLIENT DEVICES (NOT HOME-SERVER): Create subvolume for personal userdata
-sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt
-sudo btrfs subvolume create /mnt/@userdata
-sudo umount /mnt
+# CREATE A MOUNTPOINT FOR THE FILESYSTEM ROOT
+sudo mkdir /mnt/system
+# Temporarily mount filesystem root
+sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt/system
 
-## Now mount the subvolume, note this will not persist after reboot
+# OPTIONAL: IF THIS IS A COMMON PC OR LAPTOP, CREATE A SUBVOLUME FOR USER DATA.  
+echo "======================================="
+echo "---------------------------------------"
+echo "Is this a regular, common device (laptop, personal computer)?"
+read -p "If yes, a seperate subvolume for user personal folders will be created to allow easy backups. Select n if this is a server. Y/n?" answer
+case ${answer:0:1} in
+    y|Y )
+# create a root subvolume for user personal folders in the root filesystem
+sudo btrfs subvolume create /mnt/system/@userdata
+# unmount root filesystem
+sudo umount /mnt/system
+## Now mount the userdata subvolume, note this will not persist after reboot
 sudo mkdir /mnt/userdata
 sudo mount -o subvol=@userdata /dev/sda2 /mnt/userdata
 
@@ -75,18 +78,8 @@ echo "--------------------------------------------------------------------------
 read -p "Are you ready to do this? Hit Enter and enter your password in the 2nd window to open the file."
 x-terminal-emulator -e sudo nano /etc/fstab
 read -p "When done in the 2nd window, hit ENTER in this window to continue..."
-
-# OPTIONAL: disable BtrFS Copy-on-Write for common databases: DigiKam database 
-echo "======================================="
-echo "---------------------------------------"
-echo "Do you plan to use DigiKam for photomanagement? Highly recommended if you have lots of photos."
-read -p "If yes, its database-folder will be created and marked to optimise for BTRFS (disabling Copy-on-Write). Y/n?" answer
-case ${answer:0:1} in
-    y|Y )
-        mkdir $HOME/Photos/.digiKam-db
-        chattr +C $HOME/Photos/.digiKam-db
     ;;
     * )
-        echo "Not creating folder $HOME/Photos/.digikam-db/, not applying chattr +C to it." 
+        echo "Not creating userdata, this is not a common personal device." 
     ;;
 esac
