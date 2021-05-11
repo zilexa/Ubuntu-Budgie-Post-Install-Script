@@ -395,6 +395,8 @@ case ${answer:0:1} in
     y|Y )
        # Open the download page
        xdg-open https://www.digikam.org/download/
+       mkdir $HOME/Photos/.digiKam-db
+       chattr +C $HOME/Photos/.digiKam-db
     ;;
     * )
         echo "Skipping DigiKam..."
