@@ -70,10 +70,10 @@ sudo gsettings set org.mate.pluma color-scheme 'cobalt'
 
 # Replace Rhythmbox for Deadbeef (much more intuitive and has folder-view)
 # ------------------------------------------------------------------------
-sudo apt -y autoremove rhythmbox --purge
-wget https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.4/deadbeef-static_1.8.4-1_amd64.deb
-sudo apt -y install ./deadbeef*.deb
-rm deadbeef*.deb
+#sudo apt -y autoremove rhythmbox --purge
+wget -O deadbeef.deb https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.7/deadbeef-static_1.8.7-1_amd64.deb
+sudo apt -y install ./deadbeef.deb
+rm deadbeef.deb
 # Get config file and required pre-build plugins for layout
 wget https://github.com/zilexa/deadbeef-config-layout/archive/master.zip
 unzip master.zip
@@ -95,10 +95,10 @@ sudo apt update
 sudo apt install -y libreoffice-l10n-en-gb hunspell-en-gb hyphen-en-gb libreoffice-help-en-gb libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
 # Bleachbit - system cleanup
-wget https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1910.deb
-sudo apt -y install ./bleachbit*.deb
-rm bleachbit*.deb
-sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/bleachbit/bleachbit.ini
+wget -O bleachtbit.deb https://www.bleachbit.org/download/file/t?file=bleachbit_4.2.0-0_all_ubuntu2010.deb
+sudo apt -y install bleachbit.deb
+rm bleachbit.deb
+sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit.ini
 
 # Audacity - Audio recording and editing
 sudo apt -y install audacity
@@ -114,21 +114,14 @@ sudo add-apt-repository -y ppa:teejee2008/timeshift
 sudo add-apt-repository -y ppa:appimagelauncher-team/stable
 # TLP repository
 sudo add-apt-repository -y ppa:linrunner/tlp
-# AnyDesk repository
-echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
-wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-# Syncthing repository
-curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
-echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
-printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
 # OnlyOffice DesktopEditors repository
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 sudo add-apt-repository -y "deb https://download.onlyoffice.com/repo/debian squeeze main"
 # Photoflare repository
 sudo add-apt-repository -y ppa:photoflare/photoflare-stable
 # DarkTable repository
-echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_20.10/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
-curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_20.10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics_darktable.gpg > /dev/null
+echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/xUbuntu_21.04/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
+curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu_21.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics_darktable.gpg > /dev/null
 
 # Reload repositories
 # -------------------
@@ -138,39 +131,40 @@ sudo apt -y update
 # ------------------------------------------------
 # enable system sensors read-out like temperature, fan speed
 sudo apt -y install lm-sensors
+sudo sensors-detect --auto
 # install tlp to control performance and temperature automatically
 sudo apt -y install tlp tlp-rdw
 sudo tlp start
+curl -L https://install.pivpn.io | bash  
 # Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
-sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/timeshift/timeshift.json
+sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/timeshift/timeshift.json
 sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
 # Integrate AppImages at first launch
 sudo apt -y install appimagelauncher
-# Install AnyDesk (remote support)
-sudo apt -y install anydesk
-sudo systemctl disable anydesk
-# Syncthing - sync folders between devices
-mkdir $HOME/.local/share/syncthing
-sudo apt -y install syncthing
-sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/syncthing/syncthing%40.service
+# Create folder to move appimages to when integrating them into the system
+sudo mkdir /opt/appimages
+sudo chown ${USER}:${USER} /opt/appimages
+sudo chmod 755 /opt/appimages
+# Add AppImageLauncher config file to specify this folder
+tee -a $HOME/.config/appimagelauncher.cfg << EOF
+[AppImageLauncher]
+destination=/opt/appimages
+enable_daemon=false
+EOF
 # OnlyOffice - Better alternative for existing MS Office files
 sudo apt -y install onlyoffice-desktopeditors
 # DarkTable - pro photo editing
 sudo apt -y install darktable
-sudo apt-get install onlyoffice-desktopeditors
 # Photoflare - simple image editing
 sudo apt -y install photoflare
-
 
 #_____________________________________________________
 # Set app defaults (solves known Ubuntu Budgie issues)
 # ____________________________________________________
 sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
 sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
-sudo sed -i -e 's#org.gnome.Geary.desktop#thunderbird.desktop#g' /usr/share/applications/defaults.list
 sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/mimeapps.list
-
 
 #______________________________________________
 # Configure Widescreen Panel and get seperators
@@ -219,16 +213,9 @@ gsettings set com.solus-project.budgie-wm button-style 'left'
 gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 sudo gsettings set org.nemo.preferences default-folder-viewer 'list-view'
 
-# allow slow doubleclick on filename to rename file
-gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
-sudo gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
-
 # show reload folder button
 gsettings set org.nemo.preferences show-reload-icon-toolbar true
 sudo gsettings set org.nemo.preferences show-reload-icon-toolbar true
-
-# week numbers in Raven calendar
-gsettings set com.solus-project.budgie-raven enable-week-numbers true
 
 # get brightness, volume etc buttons on every laptop keyboard to work
 gsettings set org.onboard layout '/usr/share/onboard/layouts/Full Keyboard.onboard'
@@ -320,25 +307,77 @@ rm -rf $HOME/Public
 #____________________________________
 # Create recommended BTRFS subvolumes
 #____________________________________
+# HIGHLY RECOMMENDED: Create nested subvolume for /tmp
+cd /
+sudo mv /tmp /tmpold
+sudo btrfs subvolume create tmp
+sudo chmod 1777 /tmp
+sudo mv /tmpold/* /tmp
+sudo rm -r /tmpold
+# HIGHLY RECOMMENDED: Create nested subvolume for $HOME/.cache
+cd $HOME
+mv ~/.cache ~/.cacheold
+btrfs subvolume create .cache
+mv .cacheold/* .cache
+rm -r .cacheold/
+# HIGHLY RECOMMENDED: disable CoW for /var/log
+sudo chattr -R  +C /var/log
+# CREATE A MOUNTPOINT FOR THE FILESYSTEM ROOT
+sudo mkdir /mnt/system
+# Temporarily mount filesystem root
+sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt/system
+
+# OPTIONAL: IF THIS IS A COMMON PC OR LAPTOP, CREATE A SUBVOLUME FOR USER DATA.  
 echo "======================================="
 echo "---------------------------------------"
-echo "Are you installing a HOMESERVER? Or a different filesystem than btrfs? (y/n)"
-echo "(Type (n): Step will be skipped. Do skip if this will be a HOMESERVER or NAS or if you are using EXT4."
-echo "(Type (y): the BTRFS-recommended-subvolumes script wil run: Required  for home PCs & desktops with BTRFS filesystem!"
-echo "---------------------------------------"
-read -p "Please type n (homeserver or no btrfs filesystem) or y (normal pc/laptop)" answer
+echo "Is this a regular, common device (laptop, personal computer)?"
+read -p "If yes, a seperate subvolume for user personal folders will be created to allow easy backups. Select n if this is a server. Y/n?" answer
 case ${answer:0:1} in
     y|Y )
-        wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/BTRFS-recommended-subvolumes.sh
-        bash BTRFS-recommended-subvolumes.sh
-        cd $HOME/Downloads
-        rm BTRFS-recommended-subvolumes.sh
+# create a root subvolume for user personal folders in the root filesystem
+sudo btrfs subvolume create /mnt/system/@userdata
+# unmount root filesystem
+sudo umount /mnt/system
+## Now mount the userdata subvolume, note this will not persist after reboot
+sudo mkdir /mnt/userdata
+sudo mount -o subvol=@userdata /dev/sda2 /mnt/userdata
+
+## Move personal user folders to the subvolume
+## Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
+sudo mv /home/${USER}/Documents /mnt/userdata/
+sudo mv /home/${USER}/Downloads /mnt/userdata/
+sudo mv /home/${USER}/Media /mnt/userdata/
+sudo mv /home/${USER}/Music /mnt/userdata/
+sudo mv /home/${USER}/Photos /mnt/userdata/
+
+## Link personal folders inside subvolume back into home subvolume
+ln -s /mnt/userdata/Documents $HOME/Documents
+ln -s /mnt/userdata/Downloads $HOME/Downloads
+ln -s /mnt/userdata/Media $HOME/Media
+ln -s /mnt/userdata/Music $HOME/Music
+ln -s /mnt/userdata/Photos $HOME/Photos
+
+## Add a commented line in /etc/fstab, user will need to add the UUID
+# This makes the /mnt/userdata mount persistent. 
+echo "# Mount the BTRFS root subvolume @userdata" | sudo tee -a /etc/fstab
+echo "UUID=!!COPY-PASTE-FROM-ABOVE /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata 0       2" | sudo tee -a /etc/fstab
+
+## Now open fstab for the user to copy paste the UUID
+echo "==========================================================================================================="
+echo "-----------------------------------------------------------------------------------------------------------"
+echo "Almost done, now a 2nd window will open and you need to copy/paste with your mouse the UUID from the top"
+echo "And paste it where it says !!Copy UUID HERE !!"
+echo "Then save changes with CTRL+O and exit the file with CTRL+X"
+echo "-----------------------------------------------------------------------------------------------------------"
+read -p "Are you ready to do this? Hit Enter and enter your password in the 2nd window to open the file."
+x-terminal-emulator -e sudo nano /etc/fstab
+read -p "When done in the 2nd window, hit ENTER in this window to continue..."
+
     ;;
     * )
-        echo "Not enabling Syncthing..."
+        echo "Not creating userdata, this is not a common personal device." 
     ;;
 esac
-
 
 #______________________________________
 #          OPTIONAL SOFTWARE
@@ -369,20 +408,22 @@ case ${answer:0:1} in
     ;;
 esac
 
-# KeepassXC Password Manager
+# Anydesk
 echo "======================================="
 echo "---------------------------------------"
-echo "Install KeepassXC (Y/n)?"
-read -p "The only free, reliable password manager that provides maximum security and can be synced between devices" answer
+echo "install Anydesk for remote support? (Y/n)"
+read -p "Recommended unless you only want remote support via VPN, in that case xrdp/x11vnc is a better choice." answer
 case ${answer:0:1} in
     y|Y )
-       # Add repository
-       sudo add-apt-repository -y ppa:phoerious/keepassxc
-       # Refresh repository and install Keepassxc
-       sudo apt update && sudo apt -y install keepassxc
+
+       echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+       wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+       sudo apt -y install anydesk
+       # Do not autostart Anydesk with system. 
+       sudo systemctl disable anydesk
     ;;
     * )
-        echo "Not enabling Syncthing..."
+        echo "Skipping AnyDesk..."
     ;;
 esac
 
@@ -421,14 +462,23 @@ esac
 # Syncthing
 echo "======================================="
 echo "---------------------------------------"
-echo "Syncthing is installed but turned off. Turn on and start at boot? (Y/n)?"
+echo "Install Syncthing (Y/n)?"
 read -p "Syncthing is a fast and lightweight tool for 2-way syncing between your devices." answer
 case ${answer:0:1} in
     y|Y )
-       # Enable the systemd service with a generic name
+       # Add syncthing repository
+       curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+       echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+       printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
+       # Create the dir containing sycnthing db, this will make sure the db will be stored here, seperately from syncthing config. Highly recommended. 
+       mkdir $HOME/.local/share/syncthing
+       # Install Syncthing
+       sudo apt -y install syncthing
+       sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/syncthing/syncthing%40.service
+       # Enable the systemd service with a generic name, this way we can ensure to create a system service that starts even when not logged in. 
        sudo systemctl enable syncthing@.service
        # systemctl does not allow environment variables, manually create service link with system username
-       sudo ln -s /etc/systemd/system/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@$LOGNAME.service
+       sudo ln -s /etc/systemd/system/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@${USER}.service
     ;;
     * )
         echo "Not enabling Syncthing..."
