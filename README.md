@@ -24,7 +24,8 @@ Op the File Manager, go to Downloads
 Right-click empty area, select "Terminal"
 Now download and run the script:
 ```
-wget https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/postinstall.sh
+cd Downloads
+wget https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/postinstall.sh
 bash postinstall.sh
 ```
 
