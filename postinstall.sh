@@ -361,6 +361,10 @@ ln -s /mnt/userdata/Media $HOME/Media
 ln -s /mnt/userdata/Music $HOME/Music
 ln -s /mnt/userdata/Photos $HOME/Photos
 
+#Current Downloads folder has been moved, enter the moved Downloads folder 
+cd $HOME
+cd $HOME/Downloads
+
 ## Add a commented line in /etc/fstab, user will need to add the UUID
 # This makes the /mnt/userdata mount persistent. 
 echo "# Mount the BTRFS root subvolume @userdata" | sudo tee -a /etc/fstab
