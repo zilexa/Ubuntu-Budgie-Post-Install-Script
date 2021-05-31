@@ -355,7 +355,7 @@ sudo mv /home/${USER}/Photos /mnt/userdata/
 
 ## Link personal folders inside subvolume back into home subvolume
 ln -s /mnt/userdata/Documents $HOME/Documents
-ln -s /mnt/userdata/Desktop $HOME/Documents
+ln -s /mnt/userdata/Desktop $HOME/Desktop
 ln -s /mnt/userdata/Downloads $HOME/Downloads
 ln -s /mnt/userdata/Media $HOME/Media
 ln -s /mnt/userdata/Music $HOME/Music
