@@ -95,7 +95,7 @@ sudo apt update
 sudo apt install -y libreoffice-l10n-en-gb hunspell-en-gb hyphen-en-gb libreoffice-help-en-gb libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
 # Bleachbit - system cleanup
-wget -O bleachtbit.deb https://www.bleachbit.org/download/file/t?file=bleachbit_4.2.0-0_all_ubuntu2010.deb
+wget -O bleachbit.deb https://www.bleachbit.org/download/file/t?file=bleachbit_4.2.0-0_all_ubuntu2010.deb
 sudo apt -y install bleachbit.deb
 rm bleachbit.deb
 sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit.ini
@@ -286,11 +286,10 @@ cd $HOME/Downloads
 #_________________________________
 # Simplify $HOME personal folders
 #_________________________________
-# Move /Desktop and /Templates to be subfolders of /Documents. Remove /Public folder and prevent it from being created
-# This way, all you have to do is sync /Documents with your cloud provider and/or server (i.e. via Syncthing)
+# Move /Templates to be subfolder of /Documents. Remove /Public folder and prevent it from being created
 # First, rename and move contents from Pictures to Photos, Videos to Media 
 # Move Desktop folder into Documents, this way, your cloud drive will contain all files on the desktop
-sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
+#sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
 # Move Templates folder into Documents because it does not make sense to be outside it. 
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
 # Disable Public folder because nobody uses it. 
@@ -300,7 +299,6 @@ sudo sed -i -e 's+$HOME/Pictures+$HOME/Photos+g' $HOME/.config/user-dirs.dirs
 # Rename Videos to Media making it the folder for tvshows/movies downloads or anything else that is not suppose to be in Photos. 
 sudo sed -i -e 's+$HOME/Videos+$HOME/Media+g' $HOME/.config/user-dirs.dirs
 mv $HOME/Templates $HOME/Documents/
-mv $HOME/Desktop $HOME/Documents/
 rm -rf $HOME/Public
 
 #____________________________________
@@ -339,11 +337,12 @@ sudo btrfs subvolume create /mnt/system/@userdata
 sudo umount /mnt/system
 ## Now mount the userdata subvolume, note this will not persist after reboot
 sudo mkdir /mnt/userdata
-sudo mount -o subvol=@userdata /dev/sda2 /mnt/userdata
+sudo mount -o subvol=@userdata /dev/nvme0n1p1 /mnt/userdata
 
 ## Move personal user folders to the subvolume
 ## Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
 sudo mv /home/${USER}/Documents /mnt/userdata/
+sudo mv /home/${USER}/Desktop /mnt/userdata/
 sudo mv /home/${USER}/Downloads /mnt/userdata/
 sudo mv /home/${USER}/Media /mnt/userdata/
 sudo mv /home/${USER}/Music /mnt/userdata/
@@ -359,7 +358,7 @@ ln -s /mnt/userdata/Photos $HOME/Photos
 ## Add a commented line in /etc/fstab, user will need to add the UUID
 # This makes the /mnt/userdata mount persistent. 
 echo "# Mount the BTRFS root subvolume @userdata" | sudo tee -a /etc/fstab
-echo "UUID=!!COPY-PASTE-FROM-ABOVE /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata 0       2" | sudo tee -a /etc/fstab
+echo "UUID=!!COPY-PASTE-FROM-ABOVE /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata,compress-force=zstd:2  0       2" | sudo tee -a /etc/fstab
 
 ## Now open fstab for the user to copy paste the UUID
 echo "==========================================================================================================="
@@ -385,7 +384,7 @@ esac
 echo "======================================="
 echo "---------------------------------------"
 echo "A few MS Office available for Linux + a few commonly used additional MS Office fonts have been installed by this script." 
-echo "However, if you want your documents to look identical, you need to install all MS Office fonts. 
+echo "However, if you want your documents to look identical, you need to install all MS Office fonts."
 echo "If you believe you have the right to do so, the script will download a prepackaged copy of all MS Office365/Win10 fonts and install them."
 read -p "The win10-fonts.zip archive is required. Your browser will open the download page, continue (Y) or skip (N)? (Y/n)" answer
 case ${answer:0:1} in
