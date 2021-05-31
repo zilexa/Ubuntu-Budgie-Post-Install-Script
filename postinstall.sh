@@ -405,7 +405,8 @@ case ${answer:0:1} in
        # Extract the manually downloaded file to a subfolder in the systems font folder
        sudo tar -xf $HOME/Downloads/fonts-office365.tar.xz -C /usr/share/fonts
        # Set permissions to allow non-root to use the fonts
-       sudo chmod -R /usr/share/fonts/win10
+       sudo chown -R root:root /usr/share/fonts/office365
+       sudo chmod -R 755 /usr/share/fonts/office365
        # Refresh the font cache (= register the fonts)
        sudo fc-cache -f -v
        # Remove the downloaded font file
