@@ -28,7 +28,7 @@ sudo add-apt-repository -y ppa:costales/folder-color
 sudo apt -y update
 
 # Install common applets required for Widescreen Panel Layout or for file manager
-sudo apt -y install budgie-kangaroo-applet
+sudo apt -y install budgie-kangaroo-appletf
 sudo apt -y install budgie-workspace-wallpaper-applet
 sudo apt -y install budgie-calendar-applet
 #sudo apt -y install folder-color-nemo #no longer supported in 20.10
@@ -135,7 +135,6 @@ sudo sensors-detect --auto
 # install tlp to control performance and temperature automatically
 sudo apt -y install tlp tlp-rdw
 sudo tlp start
-curl -L https://install.pivpn.io | bash  
 # Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
 sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/timeshift/timeshift.json
