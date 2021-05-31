@@ -50,14 +50,16 @@ sudo mount -o subvol=@userdata /dev/sda2 /mnt/userdata
 
 ## Move personal user folders to the subvolume
 ## Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
-sudo mv /home/$LOGNAME/Documents /mnt/userdata/
-sudo mv /home/$LOGNAME/Downloads /mnt/userdata/
-sudo mv /home/$LOGNAME/Media /mnt/userdata/
-sudo mv /home/$LOGNAME/Music /mnt/userdata/
-sudo mv /home/$LOGNAME/Photos /mnt/userdata/
+sudo mv /home/${USER}/Documents /mnt/userdata/
+sudo mv /home/${USER}/Desktop /mnt/userdata/
+sudo mv /home/${USER}/Downloads /mnt/userdata/
+sudo mv /home/${USER}/Media /mnt/userdata/
+sudo mv /home/${USER}/Music /mnt/userdata/
+sudo mv /home/${USER}/Photos /mnt/userdata/
 
 ## Link personal folders inside subvolume back into home subvolume
 ln -s /mnt/userdata/Documents $HOME/Documents
+ln -s /mnt/userdata/Desktop $HOME/Desktop
 ln -s /mnt/userdata/Downloads $HOME/Downloads
 ln -s /mnt/userdata/Media $HOME/Media
 ln -s /mnt/userdata/Music $HOME/Music
