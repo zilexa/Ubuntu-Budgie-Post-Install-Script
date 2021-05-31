@@ -95,9 +95,10 @@ sudo apt update
 sudo apt install -y libreoffice-l10n-en-gb hunspell-en-gb hyphen-en-gb libreoffice-help-en-gb libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
 # Bleachbit - system cleanup
-wget -O bleachbit.deb https://www.bleachbit.org/download/file/t?file=bleachbit_4.2.0-0_all_ubuntu2010.deb
+wget -O bleachbit.deb https://download.bleachbit.org/bleachbit_4.2.0-0_all_ubuntu2010.deb
 sudo apt -y install bleachbit.deb
 rm bleachbit.deb
+sudo mkdir /root/.config/bleachbit
 sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit.ini
 
 # Audacity - Audio recording and editing
@@ -286,20 +287,24 @@ cd $HOME/Downloads
 #_________________________________
 # Simplify $HOME personal folders
 #_________________________________
-# Move /Templates to be subfolder of /Documents. Remove /Public folder and prevent it from being created
-# First, rename and move contents from Pictures to Photos, Videos to Media 
-# Move Desktop folder into Documents, this way, your cloud drive will contain all files on the desktop
-#sudo sed -i -e 's+$HOME/Desktop+$HOME/Documents/Desktop+g' $HOME/.config/user-dirs.dirs
-# Move Templates folder into Documents because it does not make sense to be outside it. 
+# Change default location of personal folders by editing $HOME/.config/user-dirs.dirs
+## Move /Templates to be subfolder of /Documents. 
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
-# Disable Public folder because nobody uses it. 
+## Disable Public folder because nobody uses it. 
 sudo sed -i -e 's+$HOME/Public+$HOME+g' $HOME/.config/user-dirs.dirs
-# Rename Pictures to Photos
+## Rename Pictures to Photos
 sudo sed -i -e 's+$HOME/Pictures+$HOME/Photos+g' $HOME/.config/user-dirs.dirs
-# Rename Videos to Media making it the folder for tvshows/movies downloads or anything else that is not suppose to be in Photos. 
+## Rename Videos to Media making it the folder for tvshows/movies downloads or anything else that is not suppose to be in Photos. 
 sudo sed -i -e 's+$HOME/Videos+$HOME/Media+g' $HOME/.config/user-dirs.dirs
+
+# Now make the changes to the actual folders: 
+## Remove unused Pubic folder
+rmdir -rf $HOME/Public
+## Move Templates folder into Documents because it does not make sense to be outside it. 
 mv $HOME/Templates $HOME/Documents/
-rm -rf $HOME/Public
+## Rename and move contents from Pictures to Photos, Videos to Media.
+mv /home/${USER}/Videos /home/${USER}/Media
+mv /home/${USER}/Pictures /home/${USER}/Photos
 
 #____________________________________
 # Create recommended BTRFS subvolumes
@@ -321,8 +326,6 @@ rm -r .cacheold/
 sudo chattr -R  +C /var/log
 # CREATE A MOUNTPOINT FOR THE FILESYSTEM ROOT
 sudo mkdir /mnt/system
-# Temporarily mount filesystem root
-sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt/system
 
 # OPTIONAL: IF THIS IS A COMMON PC OR LAPTOP, CREATE A SUBVOLUME FOR USER DATA.  
 echo "======================================="
@@ -331,13 +334,15 @@ echo "Is this a regular, common device (laptop, personal computer)?"
 read -p "If yes, a seperate subvolume for user personal folders will be created to allow easy backups. Select n if this is a server. Y/n?" answer
 case ${answer:0:1} in
     y|Y )
+# Temporarily mount filesystem root
+sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt/system
 # create a root subvolume for user personal folders in the root filesystem
 sudo btrfs subvolume create /mnt/system/@userdata
 # unmount root filesystem
 sudo umount /mnt/system
 ## Now mount the userdata subvolume, note this will not persist after reboot
 sudo mkdir /mnt/userdata
-sudo mount -o subvol=@userdata /dev/nvme0n1p1 /mnt/userdata
+sudo mount -o subvol=@userdata /dev/nvme0n1p2 /mnt/userdata
 
 ## Move personal user folders to the subvolume
 ## Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
@@ -350,6 +355,7 @@ sudo mv /home/${USER}/Photos /mnt/userdata/
 
 ## Link personal folders inside subvolume back into home subvolume
 ln -s /mnt/userdata/Documents $HOME/Documents
+ln -s /mnt/userdata/Desktop $HOME/Documents
 ln -s /mnt/userdata/Downloads $HOME/Downloads
 ln -s /mnt/userdata/Media $HOME/Media
 ln -s /mnt/userdata/Music $HOME/Music
