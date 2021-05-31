@@ -299,7 +299,7 @@ sudo sed -i -e 's+$HOME/Videos+$HOME/Media+g' $HOME/.config/user-dirs.dirs
 
 # Now make the changes to the actual folders: 
 ## Remove unused Pubic folder
-rmdir -rf $HOME/Public
+rmdir $HOME/Public
 ## Move Templates folder into Documents because it does not make sense to be outside it. 
 mv $HOME/Templates $HOME/Documents/
 ## Rename and move contents from Pictures to Photos, Videos to Media.
