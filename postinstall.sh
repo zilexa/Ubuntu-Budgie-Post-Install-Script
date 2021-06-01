@@ -14,9 +14,6 @@ sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
-# Disable swap as it doesn't work out of the box with BTRFS and most systems don't need it or are better of using ZRAM
-sudo swapoff -a
-sudo rm -rf /swapfile
 
 
 #___________________________________
@@ -330,20 +327,44 @@ sudo mkdir /mnt/system
 # OPTIONAL: IF THIS IS A COMMON PC OR LAPTOP, CREATE A SUBVOLUME FOR USER DATA.  
 echo "======================================="
 echo "---------------------------------------"
-echo "Is this a regular, common device (laptop, personal computer)?"
-read -p "If yes, a seperate subvolume for user personal folders will be created to allow easy backups. Select n if this is a server. Y/n?" answer
+echo "Hit y if this a regular, personal device, laptop/desktop pc ( y /n )?"
+echo "Yes: Personal folders will be moved to (and linked back to home) and swapfile created on seperate root subvolumes. Swap will be properly configured for BTRFS."
+read -p "No: Nothing will be configured, make sure personal data is stored on a seperate subvolume. Consider a swapfile or alternatively configure zram." answer
 case ${answer:0:1} in
     y|Y )
 # Temporarily mount filesystem root
 sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt/system
 # create a root subvolume for user personal folders in the root filesystem
 sudo btrfs subvolume create /mnt/system/@userdata
+sudo btrfs subvolume create /mnt/system/@swap
+sudo chattr -R +C /mnt/system/@swap
 # unmount root filesystem
 sudo umount /mnt/system
-## Now mount the userdata subvolume, note this will not persist after reboot
+
+# Add lines to fstab to make it persistent after boot, you should manually fill in the UUID before rebooting
+sudo tee -a /etc/fstab << EOF
+# Mount @swap subvolume
+UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /swap                   btrfs   defaults,noatime,subvol=@swap  0  0
+/swap/swapfile none swap sw 0 0
+# Mount the BTRFS root subvolume @userdata
+UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata,compress-force=zstd:2  0  0
+EOF
+
+# Temporarily mount @swap and finish configuration 
+sudo mkdir /swap
+sudo mount -o subvol=@swap /dev/nvme0n1p2 /swap
+# Configure swap file
+sudo chattr -R +C /swap
+sudo touch /swap/swapfile
+sudo chattr +C /swap/swapfile
+sudo chmod 600 /swap/swapfile
+sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4000000
+sudo mkswap /swap/swapfile
+sudo swapon /swap/swapfile
+
+## Temporarily mount @userdata subvolume and finish configuration
 sudo mkdir /mnt/userdata
 sudo mount -o subvol=@userdata /dev/nvme0n1p2 /mnt/userdata
-
 ## Move personal user folders to the subvolume
 ## Note I have already moved Desktop and Templates to my Documents folder via my config.sh file.  
 sudo mv /home/${USER}/Documents /mnt/userdata/
@@ -364,11 +385,6 @@ ln -s /mnt/userdata/Photos $HOME/Photos
 #Current Downloads folder has been moved, enter the moved Downloads folder 
 cd $HOME
 cd $HOME/Downloads
-
-## Add a commented line in /etc/fstab, user will need to add the UUID
-# This makes the /mnt/userdata mount persistent. 
-echo "# Mount the BTRFS root subvolume @userdata" | sudo tee -a /etc/fstab
-echo "UUID=!!COPY-PASTE-FROM-ABOVE /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata,compress-force=zstd:2  0       2" | sudo tee -a /etc/fstab
 
 ## Now open fstab for the user to copy paste the UUID
 echo "==========================================================================================================="
