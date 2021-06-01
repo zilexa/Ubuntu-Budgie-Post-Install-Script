@@ -433,22 +433,66 @@ case ${answer:0:1} in
     ;;
 esac
 
-# Anydesk
+# Install losslesscut 
 echo "======================================="
 echo "---------------------------------------"
-echo "install Anydesk for remote support? (Y/n)"
-read -p "Recommended unless you only want remote support via VPN, in that case xrdp/x11vnc is a better choice." answer
+read -p "Install LosslessCut? it is the recommended solution to allow easy, userfriendly trimming of your camera videos without effecting video quality" answer
 case ${answer:0:1} in
     y|Y )
-
-       echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
-       wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-       sudo apt -y install anydesk
-       # Do not autostart Anydesk with system. 
-       sudo systemctl disable anydesk
+        echo Installing LosslessCut...
+        #Download & extract the file
+        wget -qO- https://github.com/mifi/lossless-cut/releases/latest/download/LosslessCut-linux.tar.bz2 | tar jxvf -
+        # Move the extracted folder to the app folder
+        sudo mv LosslessCut-linux/ /opt/LosslessCut
+        # Create a shortcut file for all users & make it executable
+        sudo tee -a /usr/share/applications/LosslessCut.desktop << EOF
+[Desktop Entry]
+Name=LosslessCut
+GenericName=Video Editor
+Comment=LosslessCut video editor.
+Type=Application
+Exec=/opt/LosslessCut/losslesscut
+Icon=video-player
+Categories=AudioVideo;Video;AudioVideoEditing
+EOF
+        sudo chmod +x /usr/share/applications/LosslessCut.desktop    
     ;;
     * )
-        echo "Skipping AnyDesk..."
+        echo "Skipping LosslessCut video editor..." 
+    ;;
+esac
+
+# Install HandBrake 
+echo "======================================="
+echo "---------------------------------------"
+read -p "Install HandBrake? it allows easy, userfriendly conversion of your camera videos, DVDs etc to regular formats with or without compression." answer
+case ${answer:0:1} in
+    y|Y )
+        echo Installing HandBrake...
+        # Install handbrake + cli version from standard Ubuntu repository 
+        sudo apt -y install handbrake && sudo apt -y install handbrake-cli
+    ;;
+    * )
+        echo "Skipping Handbrake..." 
+    ;;
+esac
+
+# Install Spotify
+echo "======================================="
+echo "---------------------------------------"
+read -p "Install Spotify (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        echo Installing Spotify by adding its repository...
+        # Add encryption key for the repository
+        curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+        # Add the repository
+        echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+        # Refresh repositories and install spotify
+        sudo apt -y update && sudo apt -y install spotify-client
+    ;;
+    * )
+        echo "Skipping Spotify..." 
     ;;
 esac
 
@@ -484,70 +528,24 @@ case ${answer:0:1} in
     ;;
 esac
 
-# Install Spotify
+# Anydesk
 echo "======================================="
 echo "---------------------------------------"
-read -p "Install Spotify (y/n)?" answer
+echo "install Anydesk for remote support? (Y/n)"
+read -p "Recommended unless you only want remote support via VPN, in that case xrdp/x11vnc is a better choice." answer
 case ${answer:0:1} in
     y|Y )
-        echo Installing Spotify by adding its repository...
-        # Add encryption key for the repository
-        curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
-        # Add the repository
-        echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-        # Refresh repositories and install spotify
-        sudo apt -y update && sudo apt -y install spotify-client
+
+       echo 'deb http://deb.anydesk.com/ all main' | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+       wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+       sudo apt -y install anydesk
+       # Do not autostart Anydesk with system. 
+       sudo systemctl disable anydesk
     ;;
     * )
-        echo "Skipping Spotify..." 
+        echo "Skipping AnyDesk..."
     ;;
 esac
-
-# Install losslesscut 
-echo "======================================="
-echo "---------------------------------------"
-read -p "Install LosslessCut? it is the recommended solution to allow easy, userfriendly trimming of your camera videos without effecting video quality" answer
-case ${answer:0:1} in
-    y|Y )
-        echo Installing LosslessCut...
-        #Download & extract the file
-        wget -qO- https://github.com/mifi/lossless-cut/releases/latest/download/LosslessCut-linux.tar.bz2 | tar jxvf -
-        # Move the extracted folder to the app folder
-        sudo mv LosslessCut-linux/ /opt/LosslessCut
-        # Create a shortcut file for all users & make it executable
-        sudo tee -a /usr/share/applications/LosslessCut.desktop << EOF
-[Desktop Entry]
-Name=LosslessCut
-GenericName=Video Editor
-Comment=LosslessCut video editor.
-Type=Application
-Exec=/opt/LosslessCut/losslesscut
-Icon=video-player
-Categories=AudioVideo;Video;AudioVideoEditing
-EOF
-        sudo chmod +x /usr/share/applications/LosslessCut.desktop    
-    ;;
-    * )
-        echo "Skipping LosslessCut video editor..." 
-    ;;
-esac
-
-
-# Install HandBrake 
-echo "======================================="
-echo "---------------------------------------"
-read -p "Install HandBrake? it allows easy, userfriendly conversion of your camera videos, DVDs etc to regular formats with or without compression." answer
-case ${answer:0:1} in
-    y|Y )
-        echo Installing HandBrake...
-        # Install handbrake + cli version from standard Ubuntu repository 
-        sudo apt -y install handbrake && sudo apt -y install handbrake-cli
-    ;;
-    * )
-        echo "Skipping Handbrake..." 
-    ;;
-esac
-
 
 # Get a Firefox shortcut for 2 profiles
 echo "======================================="
