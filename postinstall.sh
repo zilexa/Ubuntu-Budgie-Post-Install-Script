@@ -10,8 +10,8 @@
 # filesystem configuration (BTRFS)
 #__________________________________________
 # Don't show bootmenu with BTRFS filesystem
-sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
-sudo update-grub
+#sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
+#sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
 
