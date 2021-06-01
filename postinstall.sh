@@ -15,7 +15,6 @@ sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
 
-
 #___________________________________
 # Budgie Desktop Extras & Essentials
 #___________________________________
@@ -574,6 +573,19 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Keeping the Firefox shortcut as is..."
+    ;;
+esac
+
+# Remove RPi ARM TweakTool
+echo "======================================="
+echo "---------------------------------------"
+read -p "Is this a Raspberry Pi? If no, the Raspberry Pi ARM Tweaktool will be removed to prevent popup (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        sudo apt -y autoremove budgie-arm-environment
+    ;;
+    * )
+        echo "Skipping RPi ARM Tweaktool removal.."
     ;;
 esac
 echo "DONE! please REBOOT now, type sudo reboot now and hit enter."
