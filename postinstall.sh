@@ -329,7 +329,7 @@ echo "======================================="
 echo "---------------------------------------"
 echo "Hit y if this a regular, personal device, laptop/desktop pc ( y /n )?"
 echo "Yes: Personal folders will be moved to (and linked back to home) and swapfile created on seperate root subvolumes. Swap will be properly configured for BTRFS."
-read -p "No: Nothing will be configured, make sure personal data is stored on a seperate subvolume. Consider a swapfile or alternatively configure zram." answer
+read -p "No: Nothing will be configured, make sure personal data is stored on a seperate subvolume and consider a swapfile or alternatively configure zram." answer
 case ${answer:0:1} in
     y|Y )
 # Temporarily mount filesystem root
@@ -358,7 +358,7 @@ sudo chattr -R +C /swap
 sudo touch /swap/swapfile
 sudo chattr +C /swap/swapfile
 sudo chmod 600 /swap/swapfile
-sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4000000
+sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4194304
 sudo mkswap /swap/swapfile
 sudo swapon /swap/swapfile
 
@@ -481,32 +481,6 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Skipping RawTherapee..."
-    ;;
-esac
-
-# Syncthing
-echo "======================================="
-echo "---------------------------------------"
-echo "Install Syncthing (Y/n)?"
-read -p "Syncthing is a fast and lightweight tool for 2-way syncing between your devices." answer
-case ${answer:0:1} in
-    y|Y )
-       # Add syncthing repository
-       curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
-       echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
-       printf "Package: *\nPin: origin apt.syncthing.net\nPin-Priority: 990\n" | sudo tee /etc/apt/preferences.d/syncthing
-       # Create the dir containing sycnthing db, this will make sure the db will be stored here, seperately from syncthing config. Highly recommended. 
-       mkdir $HOME/.local/share/syncthing
-       # Install Syncthing
-       sudo apt -y install syncthing
-       sudo wget -O /etc/systemd/system/syncthing@.service https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/syncthing/syncthing%40.service
-       # Enable the systemd service with a generic name, this way we can ensure to create a system service that starts even when not logged in. 
-       sudo systemctl enable syncthing@.service
-       # systemctl does not allow environment variables, manually create service link with system username
-       sudo ln -s /etc/systemd/system/syncthing@.service /etc/systemd/system/multi-user.target.wants/syncthing@${USER}.service
-    ;;
-    * )
-        echo "Not enabling Syncthing..."
     ;;
 esac
 
