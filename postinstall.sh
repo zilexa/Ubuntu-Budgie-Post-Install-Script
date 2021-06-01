@@ -21,7 +21,7 @@ sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
 #___________________________________
 # Add repository for recommended Budgie stuff
 sudo add-apt-repository -y ppa:ubuntubudgie/backports
-sudo add-apt-repository -y ppa:costales/folder-color
+## sudo add-apt-repository -y ppa:costales/folder-color not supported?
 sudo apt -y update
 
 # Install common applets required for Widescreen Panel Layout or for file manager
