@@ -10,8 +10,8 @@
 # filesystem configuration (BTRFS)
 #__________________________________________
 # Don't show bootmenu with BTRFS filesystem
-#sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
-#sudo update-grub
+sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
+sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
 
@@ -25,7 +25,7 @@ sudo add-apt-repository -y ppa:ubuntubudgie/backports
 sudo apt -y update
 
 # Install common applets required for Widescreen Panel Layout or for file manager
-sudo apt -y install budgie-kangaroo-appletf
+sudo apt -y install budgie-kangaroo-applet
 sudo apt -y install budgie-workspace-wallpaper-applet
 sudo apt -y install budgie-calendar-applet
 #sudo apt -y install folder-color-nemo #no longer supported in 20.10
@@ -93,7 +93,7 @@ sudo apt install -y libreoffice-l10n-en-gb hunspell-en-gb hyphen-en-gb libreoffi
 
 # Bleachbit - system cleanup
 wget -O bleachbit.deb https://download.bleachbit.org/bleachbit_4.2.0-0_all_ubuntu2010.deb
-sudo apt -y install bleachbit.deb
+sudo apt -y install ./bleachbit.deb
 rm bleachbit.deb
 sudo mkdir /root/.config/bleachbit
 sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit.ini
@@ -430,6 +430,21 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Not installing all win10/office365 fonts..."
+    ;;
+esac
+
+# Install Nextcloud Desktop Client for webDAV syncing with FileRun 
+echo "======================================="
+echo "---------------------------------------"
+read -p "Install Nextcloud Desktop Client for Nemo/Budgie? Recommended if you run a FileRun or WebDAV server (y / n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        sudo add-apt-repository -y ppa:nextcloud-devs/client
+        sudo apt update
+        sudo apt -y install nemo-nextcloud
+    ;;
+    * )
+        echo "Skipping Nextcloud Desktop Client..."
     ;;
 esac
 
