@@ -9,7 +9,7 @@ enable-week-numbers=true
 active-plugins=['dbus-media-server', 'artsearch', 'generic-player', 'audiocd', 'alternative-toolbar', 'mtpdevice', 'daap', 'android', 'rb', 'power-manager', 'notification', 'ipod', 'mpris', 'iradio', 'audioscrobbler', 'mmkeys']
 
 [org.gnome.rhythmbox.plugins.alternative_toolbar]
-dark-theme=false
+dark-theme=true
 display-type=1
 
 [com.solus-project.icon-tasklist]
@@ -31,6 +31,8 @@ timefont='Sawasdee 75'
 datefont='Sawasdee 32'
 leftalign=false
 linespacing=8
+[org.ubuntubudgie.plugins.quicknote]
+custompath="$HOME/Documents"
 
 [org.ubuntubudgie.budgie-wpreviews]
 enable-previews=true
@@ -61,9 +63,11 @@ cursor-theme='DMZ-Black'
 gtk-theme='Pocillo-dark'
 icon-theme='ubuntu-mono-dark'
 clock-show-date=false
+show-battery-percentage=true
 
 [org.gnome.desktop.peripherals.touchpad:Budgie]
-tap-to-click = true
+tap-to-click=true
+natural-scroll=false
 
 [com.solus-project.budgie-menu]
 menu-headers=false
@@ -102,6 +106,7 @@ dynamic-workspaces=false
 [com.solus-project.budgie-panel]
 builtin-theme=false
 dark-theme=true
+notification-position='BUDGIE_NOTIFICATION_POSITION_TOP_LEFT'
 
 [com.solus-project.budgie-panel.panel]
 theme-regions=false
@@ -121,6 +126,9 @@ triggers=[]
 [org.gnome.settings-daemon.plugins.power]
 sleep-inactive-ac-type='nothing'
 
+[org.gnome.settings-daemon.plugins.color]
+night-light-enabled=true
+
 [org.nemo.desktop]
 font='Noto Sans 11'
 use-desktop-grid=false
@@ -137,6 +145,9 @@ show-new-folder-icon-toolbar=true
 show-full-path-titles=true
 confirm-move-to-trash=true
 quick-renames-with-pause-in-between=true
+default-folder-viewer='list-view'
+show-reload-icon-toolbar=true
+
 
 [org.nemo.window-state]
 start-with-menu-bar=false
@@ -150,6 +161,7 @@ exec='tilix'
 
 [com.solus-project.budgie-wm]
 desktop-type-override='nemo'
+button-style='left'
 
 [org.gnome.software:Budgie]
 enable-shell-extensions-repo=false
@@ -162,3 +174,9 @@ highlight-current-line=false
 
 [org.ubuntubudgie.armconfig]
 runarmconfig=false
+
+[org.mate.pluma]
+display-line-numbers=true
+highlight-current-line=true
+bracket-matching=true
+color-scheme='cobalt'
