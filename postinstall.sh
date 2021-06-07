@@ -517,7 +517,7 @@ echo "======================================="
 echo "---------------------------------------"
 read -p "Is this a Raspberry Pi? If no, the Raspberry Pi ARM Tweaktool will be removed to prevent popup (y/n)?" answer
 case ${answer:0:1} in
-    y|Y )
+    n|N )
         sudo apt -y autoremove budgie-arm-environment
     ;;
     * )
