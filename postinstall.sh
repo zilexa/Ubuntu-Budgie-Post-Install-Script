@@ -100,8 +100,6 @@ sudo apt -y install vlc
 sudo add-apt-repository -y ppa:teejee2008/timeshift
 # AppImageLauncher repository
 sudo add-apt-repository -y ppa:appimagelauncher-team/stable
-# TLP repository
-sudo add-apt-repository -y ppa:linrunner/tlp
 # OnlyOffice DesktopEditors repository
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 sudo add-apt-repository -y "deb https://download.onlyoffice.com/repo/debian squeeze main"
@@ -120,9 +118,6 @@ sudo apt -y update
 # enable system sensors read-out like temperature, fan speed
 sudo apt -y install lm-sensors
 sudo sensors-detect --auto
-# install tlp to control performance and temperature automatically
-sudo apt -y install tlp tlp-rdw
-sudo tlp start
 # Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
 sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/timeshift/timeshift.json
