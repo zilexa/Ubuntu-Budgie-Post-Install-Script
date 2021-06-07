@@ -2,6 +2,9 @@
 menu-headers=false
 menu-icon='ubuntu-budgie-symbolic'
 
+[com.solus-project.budgie-raven]
+enable-week-numbers=true
+
 [org.gnome.rhythmbox.plugins]
 active-plugins=['dbus-media-server', 'artsearch', 'generic-player', 'audiocd', 'alternative-toolbar', 'mtpdevice', 'daap', 'android', 'rb', 'power-manager', 'notification', 'ipod', 'mpris', 'iradio', 'audioscrobbler', 'mmkeys']
 
@@ -10,7 +13,7 @@ dark-theme=false
 display-type=1
 
 [com.solus-project.icon-tasklist]
-pinned-launchers=['nemo.desktop', 'org.gnome.gThumb.desktop', 'deadbeef.desktop', 'libreoffice-startcenter.desktop', 'org.gnome.Calculator.desktop', 'firefox.desktop']
+pinned-launchers=['nemo.desktop', 'org.gnome.gThumb.desktop', 'deadbeef.desktop', 'onlyoffice.desktop', 'pluma.desktop', 'org.gnome.Calculator.desktop', 'firefox.desktop']
 
 [net.launchpad.plank.dock.settings]
 position='bottom'
@@ -55,8 +58,8 @@ monospace-font-name='Ubuntu Mono 13'
 font-name='Noto Sans 11'
 document-font-name='Noto Sans 11'
 cursor-theme='DMZ-Black'
-gtk-theme='Arc-Dark'
-icon-theme='ubuntu-mono-dark'
+gtk-theme='Pocillo-dark'
+icon-theme='TelaBudgie-dark'
 clock-show-date=false
 
 [org.gnome.desktop.peripherals.touchpad:Budgie]
@@ -69,7 +72,7 @@ menu-headers=false
 show-icon-on-systray=false
 
 [org.gnome.desktop.wm.preferences:Budgie]
-theme='Arc-Dark'
+theme='Pocillo-dark'
 num-workspaces=2
 
 [org.gnome.desktop.sound:Budgie]
@@ -132,6 +135,8 @@ tooltips-on-desktop=true
 thumbnail-limit=5242880
 show-new-folder-icon-toolbar=true
 show-full-path-titles=true
+confirm-move-to-trash=true
+quick-renames-with-pause-in-between=true
 
 [org.nemo.window-state]
 start-with-menu-bar=false
@@ -143,11 +148,17 @@ default-zoom-level='small'
 [org.cinnamon.desktop.default-applications.terminal]
 exec='tilix'
 
-[com.solus-project.budgie-panel]
-desktop-icons-handler='NEMO'
+[com.solus-project.budgie-wm]
+desktop-type-override='nemo'
 
 [org.gnome.software:Budgie]
 enable-shell-extensions-repo=false
 allow-updates=false
 download-updates=false
 download-updates-notify=false
+
+[org.gnome.gedit.preferences.editor]
+highlight-current-line=false
+
+[org.ubuntubudgie.armconfig]
+runarmconfig=false
