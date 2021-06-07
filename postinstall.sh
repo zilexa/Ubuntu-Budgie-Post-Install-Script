@@ -169,8 +169,8 @@ sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilex
 sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
 cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
 # replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
-sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
-sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+##sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
+##sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 # Add horizontal and vertical separator icons to the system
 wget https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/separator-images.zip
 unzip separator-images.zip
@@ -180,16 +180,16 @@ rm -r separator-images.zip
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorH1.desktop
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorV1.desktop
 # Switch to widescreen panel layout with medium sized icons
-sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/widescreen.layout
-gsettings set com.solus-project.budgie-panel layout 'widescreen'
+##sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/widescreen.layout
+##gsettings set com.solus-project.budgie-panel layout 'widescreen'
 # reset panel to apply changes
-nohup budgie-panel --reset --replace &
+##nohup budgie-panel --reset --replace &
 # disable plank from autostarting
-rm -r /home/$LOGNAME/.config/autostart/plank.desktop
+##rm -r /home/$LOGNAME/.config/autostart/plank.desktop
 # stop plank
-sudo pkill plank
-cd $HOME/Downloads
-rm nohup.out
+##sudo pkill plank
+##cd $HOME/Downloads
+##rm nohup.out
 
 
 #____________________________
