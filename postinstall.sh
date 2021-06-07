@@ -70,12 +70,6 @@ mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
 rm -r deadbeef-config-layout-master
 rm master.zip
 
-# All MS Office fonts
-# --------------------
-wget --no-check-certificate https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/libreoffice/officefonts.sh
-sudo bash officefonts.sh
-rm officefonts.sh
-
 # LibreOffice UK English and NL Dutch language
 sudo add-apt-repository -y ppa:libreoffice/ppa
 sudo apt update
