@@ -14,6 +14,8 @@ sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
+# Ubuntu should not mount a swapfile, it results in an error at boot when filesystem is btrfs. Comment it out in etc/fstab
+sudo sed -i -e 's@swapfile@#swapfile@g' /etc/fstab
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
@@ -112,10 +114,12 @@ sudo apt -y update
 # enable system sensors read-out like temperature, fan speed
 sudo apt -y install lm-sensors
 sudo sensors-detect --auto
+
 # Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
 sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/timeshift/timeshift.json
 sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
+
 # Integrate AppImages at first launch
 sudo apt -y install appimagelauncher
 # Create folder to move appimages to when integrating them into the system
@@ -128,8 +132,16 @@ tee -a $HOME/.config/appimagelauncher.cfg << EOF
 destination=/opt/appimages
 enable_daemon=false
 EOF
+
 # OnlyOffice - Better alternative for existing MS Office files
+# OnlyOffice will install mscorefonts if it isn't present. Install it first to prevent user-interaction
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+sudo apt -y install ttf-mscorefonts-installer
 sudo apt -y install onlyoffice-desktopeditors
+# Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
+sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
+cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
+
 # DarkTable - pro photo editing
 sudo apt -y install darktable
 # Photoflare - simple image editing
@@ -145,13 +157,8 @@ sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilex
 #______________________________________________
 # Configure Widescreen Panel and get seperators
 # _____________________________________________
-# Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
-sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
-cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
-# replace override file otherwise some settings will be reverted back after reset and only default icons will be pinned
-sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
-sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-# Add horizontal and vertical separator icons to the system
+# For Plank (the bottom MacOS-like dock) add horizontal and vertical separator icons
+# Get the images
 wget https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/separator-images.zip
 unzip separator-images.zip
 sudo mv {separatorH.svg,separatorV.svg} /usr/share/icons
@@ -159,6 +166,11 @@ rm -r separator-images.zip
 # Add a fake app-shortcuts to use as a horizontal and vertical seperarators
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorH1.desktop
 wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorV1.desktop
+
+# Replace default 21.04 Budgie UI configuration for one for additional settings
+sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+
 # Switch to widescreen panel layout with medium sized icons
 sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/widescreen.layout
 gsettings set com.solus-project.budgie-panel layout 'widescreen'
@@ -294,7 +306,9 @@ sudo touch /swap/swapfile
 sudo chattr +C /swap/swapfile
 sudo chmod 600 /swap/swapfile
 sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4194304
+sudo chattr +C /swap/swapfile
 sudo mkswap /swap/swapfile
+sudo chattr +C /swap/swapfile
 sudo swapon /swap/swapfile
 
 ## Temporarily mount @userdata subvolume and finish configuration
