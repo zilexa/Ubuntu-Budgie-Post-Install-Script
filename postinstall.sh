@@ -152,27 +152,27 @@ sudo apt -y install photoflare
 # ____________________________________________________
 sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
 sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
-sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/mimeapps.list
+sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/mimeapps.list
 
 #______________________________________________
 # Configure Widescreen Panel and get seperators
 # _____________________________________________
 # For Plank (the bottom MacOS-like dock) add horizontal and vertical separator icons
 # Get the images
-wget https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/separator-images.zip
+wget https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/separator-images.zip
 unzip separator-images.zip
 sudo mv {separatorH.svg,separatorV.svg} /usr/share/icons
 rm -r separator-images.zip
 # Add a fake app-shortcuts to use as a horizontal and vertical seperarators
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorH1.desktop
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/seperators/SeparatorV1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/SeparatorH1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/SeparatorV1.desktop
 
 # Replace default 21.04 Budgie UI configuration for one for additional settings
-sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
+sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 
 # Switch to widescreen panel layout with medium sized icons
-sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/widescreen.layout
+sudo wget --no-check-certificate -P /usr/share/budgie-desktop/layouts https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/widescreen.layout
 gsettings set com.solus-project.budgie-panel layout 'widescreen'
 # reset panel to apply changes
 nohup budgie-panel --reset --replace &
@@ -212,7 +212,7 @@ rm -r master.zip
 rm -r libinput-gestures-master
 # Get the preconfigured file enabling 3/4 finger up/down swipe to show/hide open windows (alt+tab) and 2 finger left/right for prev/next page.
 # This is the default file untouched only copied those 4 gestures, added the correct command for Budgie and commented out the original. 
-wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/budgie-desktop/libinput-gestures.conf
+wget -O $HOME/.config/libinput-gestures.conf https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/libinput-gestures.conf
 libinput-gestures-setup stop
 libinput-gestures-setup start
 libinput-gestures-setup autostart
@@ -519,7 +519,7 @@ read -p "Only useful if each user has its own Firefox profile. Do you need this 
 case ${answer:0:1} in
     y|Y )
         echo adding profiles to right-click of Firefox shortcut... 
-        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/UbuntuBudgie-config/master/firefox/firefox.desktop
+        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/firefox/firefox.desktop
     ;;
     * )
         echo "Keeping the Firefox shortcut as is..."
