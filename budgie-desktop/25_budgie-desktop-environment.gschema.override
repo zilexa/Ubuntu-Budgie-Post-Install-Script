@@ -32,6 +32,9 @@ datefont='Sawasdee 32'
 leftalign=false
 linespacing=8
 
+[org.ubuntubudgie.plugins.budgie-dropby]
+popup-corner=3
+
 [org.ubuntubudgie.plugins.quicknote]
 custompath="$HOME/Documents"
 
