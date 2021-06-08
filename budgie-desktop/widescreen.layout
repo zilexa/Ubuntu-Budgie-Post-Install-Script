@@ -34,7 +34,7 @@ Alignment=start
 ID=ShowTime
 Alignment=center
 
-[VisualSpace]
+[Visual Space]
 ID=Visual Space
 Alignment=end
 
