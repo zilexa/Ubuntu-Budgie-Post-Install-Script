@@ -25,6 +25,8 @@ sudo add-apt-repository -y ppa:ubuntubudgie/backports
 ## sudo add-apt-repository -y ppa:costales/folder-color not supported?
 sudo apt -y update
 
+# Install Budgie Restricted Extras
+sudo apt -y ubuntu-restricted-extras
 # Install common applets required for Widescreen Panel Layout or for file manager
 sudo apt -y install budgie-kangaroo-applet
 sudo apt -y install budgie-workspace-wallpaper-applet
