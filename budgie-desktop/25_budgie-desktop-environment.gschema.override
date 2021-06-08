@@ -23,6 +23,9 @@ hide-delay=500
 hide-mode='window-dodge'
 zoom-enabled=true
 
+[io.elementary.desktop.wingpanel.applications-menu]
+use-category=true
+
 [org.gnome.calendar.window-size]
 window-maximized=false
 
