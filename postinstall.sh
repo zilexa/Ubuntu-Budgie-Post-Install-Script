@@ -15,7 +15,7 @@ sudo update-grub
 # Don't write to file each time a file is accessed
 sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
 # Ubuntu should not mount a swapfile, it results in an error at boot when filesystem is btrfs. Comment it out in etc/fstab
-sudo sed -i -e 's@swapfile@#swapfile@g' /etc/fstab
+sudo sed -i -e 's@/swapfile@#swapfile@g' /etc/fstab
 
 #___________________________________
 # Budgie Desktop Extras & Essentials
@@ -25,14 +25,18 @@ sudo add-apt-repository -y ppa:ubuntubudgie/backports
 ## sudo add-apt-repository -y ppa:costales/folder-color not supported?
 sudo apt -y update
 
-# Install Budgie Restricted Extras
+# Install Ubuntu Restricted Extras
+# Note this (and OnlyOffice which will be installed later) triggers MS truetype fonts installer which requires manual user acceptance of license.
+#nstall it first unattendedly to prevent user-interaction
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+sudo apt -y install ttf-mscorefonts-installer
 sudo apt -y ubuntu-restricted-extras
 # Install common applets required for Widescreen Panel Layout or for file manager
 sudo apt -y install budgie-kangaroo-applet
 sudo apt -y install budgie-workspace-wallpaper-applet
 sudo apt -y install budgie-calendar-applet
-#sudo apt -y install folder-color-nemo #no longer supported in 20.10
-#nemo -q # because not supported
+sudo apt -y install folder-color-nemo
+nemo -q # because not supported
 
 # Install ExFat support
 sudo apt -y install exfat-utils
@@ -136,9 +140,6 @@ enable_daemon=false
 EOF
 
 # OnlyOffice - Better alternative for existing MS Office files
-# OnlyOffice will install mscorefonts if it isn't present. Install it first to prevent user-interaction
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-sudo apt -y install ttf-mscorefonts-installer
 sudo apt -y install onlyoffice-desktopeditors
 # Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
 sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
@@ -286,32 +287,32 @@ sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt/system
 # create a root subvolume for user personal folders in the root filesystem
 sudo btrfs subvolume create /mnt/system/@userdata
 sudo btrfs subvolume create /mnt/system/@swap
-sudo chattr -R +C /mnt/system/@swap
-# unmount root filesystem
+#sudo chattr +C /mnt/system/@swap
+## unmount root filesystem
 sudo umount /mnt/system
 
 # Add lines to fstab to make it persistent after boot, you should manually fill in the UUID before rebooting
 sudo tee -a /etc/fstab << EOF
 # Mount @swap subvolume
 UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /swap                   btrfs   defaults,noatime,subvol=@swap  0  0
-/swap/swapfile none swap sw 0 0
+##/swap/swapfile none swap sw 0 0
 # Mount the BTRFS root subvolume @userdata
 UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata,compress-force=zstd:2  0  0
 EOF
 
 # Temporarily mount @swap and finish configuration 
-sudo mkdir /swap
-sudo mount -o subvol=@swap /dev/nvme0n1p2 /swap
+#sudo mkdir /swap
+##sudo mount -o subvol=@swap /dev/nvme0n1p2 /swap
 # Configure swap file
-sudo chattr -R +C /swap
-sudo touch /swap/swapfile
-sudo chattr +C /swap/swapfile
-sudo chmod 600 /swap/swapfile
-sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4194304
-sudo chattr +C /swap/swapfile
-sudo mkswap /swap/swapfile
-sudo chattr +C /swap/swapfile
-sudo swapon /swap/swapfile
+#sudo chattr -R +C /swap
+#sudo touch /swap/swapfile
+#sudo chattr +C /swap/swapfile
+#sudo chmod 600 /swap/swapfile
+#sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4194304
+#sudo chattr +C /swap/swapfile
+#sudo mkswap /swap/swapfile
+#sudo chattr +C /swap/swapfile
+#sudo swapon /swap/swapfile
 
 ## Temporarily mount @userdata subvolume and finish configuration
 sudo mkdir /mnt/userdata
