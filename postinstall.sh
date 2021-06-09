@@ -24,19 +24,18 @@ sudo sed -i -e 's@/swapfile@#swapfile@g' /etc/fstab
 sudo add-apt-repository -y ppa:ubuntubudgie/backports
 ## sudo add-apt-repository -y ppa:costales/folder-color not supported?
 sudo apt -y update
-
+# Install common applets required for Widescreen Panel Layout or for file manager
+sudo apt -y install budgie-kangaroo-applet
+sudo apt -y install budgie-workspace-wallpaper-applet
+sudo apt -y install budgie-calendar-applet
+sudo apt -y install folder-color-nemo
+nemo -q
 # Install Ubuntu Restricted Extras
 # Note this (and OnlyOffice which will be installed later) triggers MS truetype fonts installer which requires manual user acceptance of license.
 #nstall it first unattendedly to prevent user-interaction
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 sudo apt -y install ttf-mscorefonts-installer
 sudo apt -y ubuntu-restricted-extras
-# Install common applets required for Widescreen Panel Layout or for file manager
-sudo apt -y install budgie-kangaroo-applet
-sudo apt -y install budgie-workspace-wallpaper-applet
-sudo apt -y install budgie-calendar-applet
-sudo apt -y install folder-color-nemo
-nemo -q # because not supported
 
 # Install ExFat support
 sudo apt -y install exfat-utils
@@ -335,7 +334,7 @@ ln -s /mnt/userdata/Music $HOME/Music
 ln -s /mnt/userdata/Photos $HOME/Photos
 
 #Current Downloads folder has been moved, enter the moved Downloads folder 
-cd $HOME
+cd /
 cd $HOME/Downloads
 
 ## Now open fstab for the user to copy paste the UUID
