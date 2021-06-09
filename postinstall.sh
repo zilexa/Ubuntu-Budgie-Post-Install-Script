@@ -28,14 +28,12 @@ sudo apt -y update
 sudo apt -y install budgie-kangaroo-applet
 sudo apt -y install budgie-workspace-wallpaper-applet
 sudo apt -y install budgie-calendar-applet
-sudo apt -y install folder-color-nemo
-nemo -q
 # Install Ubuntu Restricted Extras
 # Note this (and OnlyOffice which will be installed later) triggers MS truetype fonts installer which requires manual user acceptance of license.
 #nstall it first unattendedly to prevent user-interaction
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 sudo apt -y install ttf-mscorefonts-installer
-sudo apt -y ubuntu-restricted-extras
+sudo apt -y install ubuntu-restricted-extras
 
 # Install ExFat support
 sudo apt -y install exfat-utils
