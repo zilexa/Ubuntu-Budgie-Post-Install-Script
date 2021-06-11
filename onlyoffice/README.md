@@ -17,12 +17,10 @@ create a folder with your language containing template files with your language 
 1. It is somehow not possible to modify these files: you cannot save them even with root/permissions, probably because this is the installation program folder of OnlyOffice.
 2. All files need to be owned by root and with 644 permissions. 
 
-To reach our goal and overcome the constraints, do the following. Note this is written so that any noob can do this:
+To reach our goal and overcome the constraints, do the following. The instructions are for Linux but should be the same for any other OS: you just have to find the path to the `converter/empty` folder within the onlyoffice desktopeditors program directory.)
 
-
+Note this is written so that any noob can do this:
 ## Instructions
-(Note the instructions are for Linux but should be the same for any other OS: you just have to find the path to the `converter/empty` folder within the onlyoffice desktopeditors program directory.)
-
 
 1. To create your own language template, simply copy an existing default template folder to a location where you can edit it. For example, the folder cs-CZ exists, let's use that:
 ```
