@@ -1,10 +1,6 @@
 #!/bin/bash
 
-cd /opt/onlyoffice/desktopeditors/converter/empty/
-sudo mkdir nl-NL
-sudo wget -O nl-NL/new.docx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.docx
-sudo wget -O nl-NL/new.pptx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.pptx
-sudo wget -O nl-NL/new.xlsx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.xlsx
+
 
 echo "==========================================================================================" 
 echo "                                                                                          " 
@@ -17,9 +13,16 @@ echo "                                                                          
 echo "To use a different language, hit "n" and "ENTER" and follow the instructions.             "
 echo "                                                                                          " 
 echo "==========================================================================================" 
+read -p " y or n (ENTER) ?" 
 case ${answer:0:1} in
     y|Y )
-    echo "Replace the template files to support nl-NL default document language.." 
+    cd /opt/onlyoffice/desktopeditors/converter/empty/
+    sudo mkdir nl-NL
+    echo "downloading preconfigured NL templates..." 
+    sudo wget -O nl-NL/new.docx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.docx
+    sudo wget -O nl-NL/new.pptx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.pptx
+    sudo wget -O nl-NL/new.xlsx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.xlsx
+    echo "moving files to the correct dir, replacing other templates with copies.." 
     # Copy the templates to the converter/empty dir
     sudo cp nl-NL/new.* ./
     # Remove the templates with prefix in_ and _mm as we need to replace them
@@ -30,9 +33,10 @@ case ${answer:0:1} in
     # Rename the new.* templates, add mm_ 
     for f in new.*; do sudo mv -- "$f" "mm_$f"; done
     echo "done!" 
+    cd $HOME/Downloads
     ;;
     * )
-        sudo xdg-open nl-NL/
-        echo "Follow the instructions in that link". 
+        read -p "Hit a button to open the instructions: https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/tree/master/onlyoffice"
+        sudo xdg-open https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/tree/master/onlyoffice
     ;;
 esac
