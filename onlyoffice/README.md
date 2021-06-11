@@ -26,7 +26,7 @@ Note this is written so that any noob can do this:
 `cp /opt/onlyoffice/desktopeditors/converter/empty/cs-CZ $HOME/Downloads`\
 Set permissions so that you can edit the files: \
 `sudo chown -R ${USER}:${USER} $HOME/Downloads/cs-CZ` \
-`sudo chmod -R 777 $HOME/Downloads/cs-CZ` \ 
+`sudo chmod -R 777 $HOME/Downloads/cs-CZ`  
 
 3. Change the language!
 - In your Downloads/cs-CZ folder, open new.docx and new.pptx in OnlyOffice and for each click the globe at bottom and select desired language.
