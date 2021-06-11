@@ -53,15 +53,14 @@ sudo mv $Downloads/da-DK /opt/onlyoffice/desktopeditors/converter/empty/
 
 You should now have 3 files called `new`, besides the 6 files `in_new` and `mm_new`. 
 
-8. In /empty,replace the exisitng 'in_new' and 'mm_new' files with yours by removing the old ones and copying/renaming your versions.
+8. In /empty,replace the exisitng 'in_new' and 'mm_new' files with yours by removing the old ones and copying/renaming your versions. \
 `cd /opt/onlyoffice/desktopeditors/converter/empty/`  \
 Remove the templates with prefix in_ and mm_ as we need to replace them \
 `sudo rm in_*` \
 `sudo rm mm_*`
 Copy the new.* templates and rename the copies by adding in_ prefix \
-`for f in new.*; do sudo cp -- "$f" "in_$f"; done`
-# Rename the new.* templates, add mm_ \
+`for f in new.*; do sudo cp -- "$f" "in_$f"; done` \
+Rename the new.* templates, add mm_ \
 `for f in new.*; do sudo mv -- "$f" "mm_$f"; done`
-```
 
 That's it!
