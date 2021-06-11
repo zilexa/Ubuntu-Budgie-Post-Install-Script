@@ -1,8 +1,14 @@
+# ONLYOFFICE DESKTOPEDITORS
+## How to change the language/spellchecker for newly created documents?
 When you create a new document, spreadsheet or presentation with OnlyOffice, the default language is always en-US, cs-CZ, es-ES, fr-FR, it-IT, pt-BR or ru-RU depending on your system language.
-OnlyOffice has support for many more languages, but it is not possible to change the default language in the program.
 
+#### The problem:
+OnlyOffice has support for many more languages! But it is not possible to change the default language in the program.
+
+#### The solution
 To do this anyway, either use the script to change to nl-NL or follow the below instrcutions to change to any other language supported by OnlyOffice:
 
+#### Instructions
 Goal: create a folder with your language containing template files with your language in: 
 /opt/onlyoffice/desktopeditors/converter/empty/ contains folders for each language. You want to add a folder for your language, containing template files.
 /opt/onlyoffice/desktopeditors/converter/empty also contains 2 sets of files: `in_new.docx` and `mm_new.docx`, also for pptx and xlsx. You want to replace them with your template files.
