@@ -112,18 +112,27 @@ curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/xUbuntu
 # -------------------
 sudo apt -y update
 
-# Now install applications from added repositories
-# ------------------------------------------------
+echo "_________________________________________________"
+echo "Now install applications from added repositories "
+echo "_________________________________________________"
 # enable system sensors read-out like temperature, fan speed
+echo "-------------------------------------------------"
+echo "Install lm-sensors and find system sensors       "
+echo "-------------------------------------------------"
 sudo apt -y install lm-sensors
 sudo sensors-detect --auto
 
+echo "-------------------------------------------------"
+echo "Install Timeshift for automated system snapshots "
+echo "-------------------------------------------------"
 # Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
 sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/timeshift/timeshift.json
 sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
 
-# Integrate AppImages at first launch
+echo "-------------------------------------------------"
+echo "Integrate AppImages at first launch              "
+echo "-------------------------------------------------"
 sudo apt -y install appimagelauncher
 # Create folder to move appimages to when integrating them into the system
 sudo mkdir /opt/appimages
@@ -136,37 +145,38 @@ destination=/opt/appimages
 enable_daemon=false
 EOF
 
-# OnlyOffice - Better alternative for existing MS Office files
+echo "-------------------------------------------------"
+echo "Install OnlyOffice DesktopEditors                "
+echo "-------------------------------------------------"
 sudo apt -y install onlyoffice-desktopeditors
 # Apply a much better icon for the LibreOffice StartCenter (by default it is plain white textfile icon)
 sudo sed -i -e 's/Icon=libreoffice-startcenter/Icon=libreoffice-oasis-text-template/g' /usr/share/applications/libreoffice-startcenter.desktop
 cp /usr/share/applications/libreoffice-startcenter.desktop $HOME/.local/share/applications
 
-# DarkTable - pro photo editing
+echo "-------------------------------------------------"
+echo "Install DarkTable - pro photo editor             "
+echo "-------------------------------------------------"
 sudo apt -y install darktable
-# Photoflare - simple image editing
+echo "-------------------------------------------------"
+echo "Install Photoflare - simple photo editor         "
+echo "-------------------------------------------------"
 sudo apt -y install photoflare
+echo "-------------------------------------------------"
+echo "Install Pinta - simple (like Paint) image editor "
+echo "-------------------------------------------------"
+sudo apt -y install pinta
 
-#_____________________________________________________
-# Set app defaults (solves known Ubuntu Budgie issues)
-# ____________________________________________________
+echo "____________________________________________________________________"
+echo "set Deadbeef as default musicplayer and Pluma as default texteditor "
+echo "____________________________________________________________________"
 sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
 sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
 sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/mimeapps.list
 
-#______________________________________________
-# Configure Widescreen Panel and get seperators
-# _____________________________________________
-# For Plank (the bottom MacOS-like dock) add horizontal and vertical separator icons
-# Get the images
-wget https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/separator-images.zip
-unzip separator-images.zip
-sudo mv {separatorH.svg,separatorV.svg} /usr/share/icons
-rm -r separator-images.zip
-# Add a fake app-shortcuts to use as a horizontal and vertical seperarators
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/SeparatorH1.desktop
-wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/SeparatorV1.desktop
 
+echo "____________________________________"
+echo "Configure Widescreen vertical Panel "
+echo "____________________________________"
 # Replace default 21.04 Budgie UI configuration for one for additional settings
 sudo wget --no-check-certificate -O /usr/share/glib-2.0/schemas/25_budgie-desktop-environment.gschema.override https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/25_budgie-desktop-environment.gschema.override
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
@@ -183,7 +193,21 @@ sudo pkill plank
 cd $HOME/Downloads
 rm nohup.out
 
-# Print Scr should take area screenshot
+echo "______________________________________________________________________________"
+echo "For the app Dock (Plank), get seperators that you can use as apps in the dock "
+echo "______________________________________________________________________________"
+# For Plank (the bottom MacOS-like dock) add horizontal and vertical separator icons
+# Get the images
+wget https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/separator-images.zip
+unzip separator-images.zip
+sudo mv {separatorH.svg,separatorV.svg} /usr/share/icons
+rm -r separator-images.zip
+# Add a fake app-shortcuts to use as a horizontal and vertical seperarators
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/SeparatorH1.desktop
+wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/seperators/SeparatorV1.desktop
+
+
+# Print Scr should take area screenshot - THIS IS OUTDATED
 #gsettings set org.gnome.settings-daemon.plugins.media-keys window-screenshot-clip '@as []'
 #gsettings set org.gnome.settings-daemon.plugins.media-keys area-screenshot-clip '@as []'
 #gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot-clip '@as []'
@@ -196,10 +220,9 @@ rm nohup.out
 #mkdir $HOME/Pictures/Screenshots
 #gsettings set org.gnome.gnome-screenshot auto-save-directory "$HOME/Pictures/Screenshots"
 
-
-#______________________________
-# Allow 3 and 4 finger gestures
-#______________________________
+echo "___________________________________________"
+echo "   Allow 3 and 4 finger touchpad gestures  "
+echo "___________________________________________"
 sudo gpasswd -a $USER input
 sudo apt -y install libinput-tools
 cd $HOME/Downloads
@@ -228,9 +251,9 @@ libinput-gestures-setup autostart
 cd $HOME/Downloads
 
 
-#_________________________________
-# Simplify $HOME personal folders
-#_________________________________
+echo "_______________________________________"
+echo "   Simplify $HOME personal folders     "
+echo "_______________________________________"
 # Change default location of personal folders by editing $HOME/.config/user-dirs.dirs
 ## Move /Templates to be subfolder of /Documents. 
 sudo sed -i -e 's+$HOME/Templates+$HOME/Documents/Templates+g' $HOME/.config/user-dirs.dirs
@@ -250,9 +273,10 @@ mv $HOME/Templates $HOME/Documents/
 mv /home/${USER}/Videos /home/${USER}/Media
 mv /home/${USER}/Pictures /home/${USER}/Photos
 
-#____________________________________
-# Create recommended BTRFS subvolumes
-#____________________________________
+
+echo "_______________________________________"
+echo "  Create recommended BTRFS subvolumes  "
+echo "_______________________________________"
 # HIGHLY RECOMMENDED: Create nested subvolume for /tmp
 cd /
 sudo mv /tmp /tmpold
@@ -271,6 +295,12 @@ sudo chattr -R  +C /var/log
 # CREATE A MOUNTPOINT FOR THE FILESYSTEM ROOT
 sudo mkdir /mnt/system
 
+echo "_____________________________________________________________________________________________________"
+echo "Finished! Check the above for errors, run the relevant commands manually again if there was an error " 
+echo "Most errors appear if the Ubuntu server was down or overwhelmed, simply run the commands again       " 
+echo "If server is still down, choose a different server for your country via the app 'Software Sources'   " 
+echo "But first, continue with the optional tasks below:                                                   "
+echo "_____________________________________________________________________________________________________"
 # OPTIONAL: IF THIS IS A COMMON PC OR LAPTOP, CREATE A SUBVOLUME FOR USER DATA.  
 echo "======================================="
 echo "---------------------------------------"
@@ -349,6 +379,45 @@ read -p "When done in the 2nd window, hit ENTER in this window to continue..."
     ;;
     * )
         echo "Not creating userdata, this is not a common personal device." 
+    ;;
+esac
+
+echo "==========================================================================================" 
+echo "                                                                                          " 
+echo "OnlyOffice default document language & spellcheck is US English.                          "
+echo "To change it to your language, you need to adjust the default template.                   "
+echo "OnlyOffice has no way of doing this normally and permissions prevent you to do this easily" 
+echo "                                                                                          "
+echo "To use Dutch (NL) hit 'y' and 'ENTER.'                                                    " 
+echo "                                                                                          "
+echo "To use a different language, hit "n" and "ENTER" and follow the instructions.             "
+echo "                                                                                          " 
+echo "==========================================================================================" 
+read -p " y or n (ENTER) ?" 
+case ${answer:0:1} in
+    y|Y )
+    cd /opt/onlyoffice/desktopeditors/converter/empty/
+    sudo mkdir nl-NL
+    echo "downloading preconfigured NL templates..." 
+    sudo wget -O nl-NL/new.docx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.docx
+    sudo wget -O nl-NL/new.pptx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.pptx
+    sudo wget -O nl-NL/new.xlsx https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/onlyoffice/new.xlsx
+    echo "moving files to the correct dir, replacing other templates with copies.." 
+    # Copy the templates to the converter/empty dir
+    sudo cp nl-NL/new.* ./
+    # Remove the templates with prefix in_ and _mm as we need to replace them
+    sudo rm in_*
+    sudo rm mm_*
+    # Copy the new.* templates and rename the copies by adding in_ prefix
+    for f in new.*; do sudo cp -- "$f" "in_$f"; done
+    # Rename the new.* templates, add mm_ 
+    for f in new.*; do sudo mv -- "$f" "mm_$f"; done
+    echo "done!" 
+    cd $HOME/Downloads
+    ;;
+    * )
+        read -p "Hit a button to open the instructions: https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/tree/master/onlyoffice"
+        sudo xdg-open https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/tree/master/onlyoffice
     ;;
 esac
 
