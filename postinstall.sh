@@ -112,6 +112,9 @@ sudo apt -y install vlc
 echo "__________________________________________________________________________________________________"
 echo "Some applications we want are outdated in Ubuntu repository, add the app developer own repository "
 echo "__________________________________________________________________________________________________"
+
+# Flatpak repository
+sudo add-apt-repository -y ppa:alexlarsson/flatpak
 # Timeshift repository
 sudo add-apt-repository -y ppa:teejee2008/timeshift
 # AppImageLauncher repository
@@ -132,12 +135,12 @@ sudo apt -y update
 echo "_________________________________________________"
 echo "Now install applications from added repositories "
 echo "_________________________________________________"
-# enable system sensors read-out like temperature, fan speed
-echo "-------------------------------------------------"
-echo "Install lm-sensors and find system sensors       "
-echo "-------------------------------------------------"
-sudo apt -y install lm-sensors
-sudo sensors-detect --auto
+echo "------------------------------------------------------------------"
+echo "Install support for Flatpak apps and install the FlatHub app store"
+echo "------------------------------------------------------------------"
+sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo apt -y install gnome-software-plugin-flatpak
 
 echo "-------------------------------------------------"
 echo "Install Timeshift for automated system snapshots "
@@ -181,7 +184,14 @@ sudo apt -y install photoflare
 echo "-------------------------------------------------"
 echo "Install Pinta - simple (like Paint) image editor "
 echo "-------------------------------------------------"
-sudo apt -y install pinta
+flatpak install flathub com.github.PintaProject.Pinta
+
+# enable system sensors read-out like temperature, fan speed
+echo "-------------------------------------------------"
+echo "Install lm-sensors and find system sensors       "
+echo "-------------------------------------------------"
+sudo apt -y install lm-sensors
+sudo sensors-detect --auto
 
 echo "____________________________________________________________________"
 echo "set Deadbeef as default musicplayer and Pluma as default texteditor "
@@ -189,7 +199,6 @@ echo "____________________________________________________________________"
 sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
 sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
 sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/mimeapps.list
-
 
 echo "____________________________________"
 echo "Configure Widescreen vertical Panel "
