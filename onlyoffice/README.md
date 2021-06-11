@@ -40,7 +40,7 @@ Save each file!
 6. Finally, go back to your Terminal and use the commands below to move that folder back to the Onlyoffice folder and set correct ownership/permissions. \
 `sudo chown -R root:root $HOME/Downloads/da-DK` \
 `sudo chmod -R 644 $HOME/Downloads/da-DK` \
-`sudo mv $Downloads/da-DK /opt/onlyoffice/desktopeditors/converter/empty/` \
+`sudo mv $Downloads/da-DK /opt/onlyoffice/desktopeditors/converter/empty/`  
 
 7. And now copy those files, 1 folder higher, so that they also appear in /empty: \
 `cd /opt/onlyoffice/desktopeditors/converter/empty/` \
