@@ -29,12 +29,11 @@ wget https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/
 bash postinstall.sh
 ```
 
-## What it does:
+# Features
+Note this list is updated, the script is up to date and has clear comments explaining what it does.
 
 ### Installs 'OS system addons': 
-* Folder Colors - Allows you to organise your folders with colors and tags via right-click context menu.
 * lm-sensors - allows system sensors read-out like temperature, fan speed. 
-* tlp - install tlp to control performance and temperature automatically. Must-have for laptops.
 * Timeshift - automated system backups via snapshots.
 * appimagelauncher - Integrate AppImages at first launch.
 
