@@ -1,5 +1,5 @@
 # ONLYOFFICE DESKTOPEDITORS
-## How to change the language/spellchecker for newly created documents?
+## How to change the default document language and spellchecker language for newly created documents?
 When you create a new document, spreadsheet or presentation with OnlyOffice, the default language is always en-US, cs-CZ, es-ES, fr-FR, it-IT, pt-BR or ru-RU depending on your system language.
 
 ### The problem:
