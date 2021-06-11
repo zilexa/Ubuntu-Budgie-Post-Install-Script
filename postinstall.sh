@@ -6,9 +6,9 @@
 # Like gestures, folder colors and some nice applets. 
 # It will also apply settings to make it feel more intuitive, settings that can easily be changed/reverted by the user. 
 
-#__________________________________________
-# filesystem configuration (BTRFS)
-#__________________________________________
+echo "_________________________________________________________________________________________"
+echo "BTRFS related configurations Ubuntu Installer hopefully will take care of in the future  "
+echo "_________________________________________________________________________________________"
 # Don't show bootmenu with BTRFS filesystem
 sudo sed -i '1iGRUB_RECORDFAIL_TIMEOUT=0' /etc/default/grub
 sudo update-grub
@@ -17,9 +17,22 @@ sudo sed -i -e 's#defaults,subvol=#defaults,noatime,subvol=#g' /etc/fstab
 # Ubuntu should not mount a swapfile, it results in an error at boot when filesystem is btrfs. Comment it out in etc/fstab
 sudo sed -i -e 's@/swapfile@#swapfile@g' /etc/fstab
 
-#___________________________________
-# Budgie Desktop Extras & Essentials
-#___________________________________
+echo "______________________________"
+echo "Expand filesystem support     "
+echo "______________________________"
+# Install ExFat support
+sudo apt -y install exfat-utils
+
+# Install NFS supprt - Fastest way to access shared folders over the network (as a client)
+sudo apt -y install nfs-common
+# Add an example to /etc/fstab. Create a folder in /mnt, fill in your NAS IP address (X) and folder name (Y) and uncomment. 
+echo "#" | sudo tee -a /etc/fstab
+echo "# Example how to mount your servers NFS shares to a client:" | sudo tee -a /etc/fstab
+echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,timeo=50,fsc,nocto  0  0" | sudo tee -a /etc/fstab
+
+echo "___________________________________"
+echo "Budgie Desktop Extras & Essentials "
+echo "___________________________________"
 # Add repository for recommended Budgie stuff
 sudo add-apt-repository -y ppa:ubuntubudgie/backports
 ## sudo add-apt-repository -y ppa:costales/folder-color not supported?
@@ -35,16 +48,6 @@ echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select tr
 sudo apt -y install ttf-mscorefonts-installer
 sudo apt -y install ubuntu-restricted-extras
 
-# Install ExFat support
-sudo apt -y install exfat-utils
-
-# Install NFS supprt - Fastest way to access shared folders over the network (as a client)
-sudo apt -y install nfs-common
-# Add an example to /etc/fstab. Create a folder in /mnt, fill in your NAS IP address (X) and folder name (Y) and uncomment. 
-echo "#" | sudo tee -a /etc/fstab
-echo "# Example how to mount your servers NFS shares to a client:" | sudo tee -a /etc/fstab
-echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,timeo=50,fsc,nocto  0  0" | sudo tee -a /etc/fstab
-
 
 #________________________________________________________________________
 # Perform all actions from $HOME/Downloads, this allows automated cleanup
@@ -52,16 +55,19 @@ echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,timeo=50,
 # Just in case this script was not executed from ./Downloads
 cd $HOME/Downloads
 
+echo "___________________________________________________________________________________________"
+echo "Install applications and apply per app configurations (make them ready to use & intuitive) "
+echo "___________________________________________________________________________________________"
 
-#__________________________________________________________________________________________
-# Install applications and apply per app configurations (make them ready to use & intuitive
-# -----------------------------------------------------------------------------------------
-# Replace gedit for Pluma - better simple notepad 
-# -----------------------------------------------
+echo "-------------------------------------------------"
+echo "Replace gedit for Pluma - better simple notepad  "
+echo "-------------------------------------------------"
 sudo apt -y install pluma
 
-# Replace Rhythmbox for Deadbeef (much more intuitive and has folder-view)
-# ------------------------------------------------------------------------
+# 
+echo "------------------------------------------------------------------------------------------------"
+echo "Replace Rhythmbox audioplayer for Deadbeef (more intuitive, bitperfect playback and folder view "
+echo "------------------------------------------------------------------------------------------------"
 #sudo apt -y autoremove rhythmbox --purge
 wget -O deadbeef.deb https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.7/deadbeef-static_1.8.7-1_amd64.deb
 sudo apt -y install ./deadbeef.deb
@@ -75,11 +81,16 @@ mv deadbeef-config-layout-master/config $HOME/.config/deadbeef/
 rm -r deadbeef-config-layout-master
 rm master.zip
 
-# LibreOffice UK English and NL Dutch language
+echo "------------------------------------------------------------------------------------------------"
+echo "LibreOffice by default only supports US English. Add proper UK English support and NL support   "
+echo "------------------------------------------------------------------------------------------------"
 sudo add-apt-repository -y ppa:libreoffice/ppa
 sudo apt update
 sudo apt install -y libreoffice-l10n-en-gb hunspell-en-gb hyphen-en-gb libreoffice-help-en-gb libreoffice-l10n-nl hunspell-nl hyphen-nl libreoffice-help-nl
 
+echo "--------------------------------------------------"
+echo "Install Bleachbit to cleanup the system regularly "
+echo "--------------------------------------------------"
 # Bleachbit - system cleanup
 wget -O bleachbit.deb https://download.bleachbit.org/bleachbit_4.2.0-0_all_ubuntu2010.deb
 sudo apt -y install ./bleachbit.deb
@@ -87,14 +98,20 @@ rm bleachbit.deb
 sudo mkdir /root/.config/bleachbit
 sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit.ini
 
-# Audacity - Audio recording and editing
+echo "---------------------------------------"
+echo "Audacity - Audio recording and editing "
+echo "---------------------------------------"
 sudo apt -y install audacity
 
+echo "-----------------------------------------------------"
+echo "VLC - videoplayer in addition to default (Celluloid) "
+echo "-----------------------------------------------------"
 # VLC - video playback, Celluloid is still the default player but some videos need VLC plus it is the easiest tool to rip a DVD
 sudo apt -y install vlc
 
-# Add repositories for applications that have their own up-to-date repository
-# ---------------------------------------------------------------------------
+echo "__________________________________________________________________________________________________"
+echo "Some applications we want are outdated in Ubuntu repository, add the app developer own repository "
+echo "__________________________________________________________________________________________________"
 # Timeshift repository
 sudo add-apt-repository -y ppa:teejee2008/timeshift
 # AppImageLauncher repository
@@ -295,12 +312,12 @@ sudo chattr -R  +C /var/log
 # CREATE A MOUNTPOINT FOR THE FILESYSTEM ROOT
 sudo mkdir /mnt/system
 
-echo "_____________________________________________________________________________________________________"
-echo "Finished! Check the above for errors, run the relevant commands manually again if there was an error " 
-echo "Most errors appear if the Ubuntu server was down or overwhelmed, simply run the commands again       " 
-echo "If server is still down, choose a different server for your country via the app 'Software Sources'   " 
-echo "But first, continue with the optional tasks below:                                                   "
-echo "_____________________________________________________________________________________________________"
+echo "_______________________________________________________________________________________________________________________________________"
+echo "Finished! Check the above for errors, run the relevant commands manually again if there was an error                                   " 
+echo "Most errors appear if the Ubuntu server was down or overwhelmed, simply open the script, find the app that failed and run the commands " 
+echo "If server is still down, choose a different server for your country via the app 'Software Sources'                                     " 
+echo "But first, continue with the optional tasks below:                                                                                     "
+echo "_______________________________________________________________________________________________________________________________________"
 # OPTIONAL: IF THIS IS A COMMON PC OR LAPTOP, CREATE A SUBVOLUME FOR USER DATA.  
 echo "======================================="
 echo "---------------------------------------"
@@ -393,7 +410,7 @@ echo "                                                                          
 echo "To use a different language, hit "n" and "ENTER" and follow the instructions.             "
 echo "                                                                                          " 
 echo "==========================================================================================" 
-read -p " y or n (ENTER) ?" 
+read -p " y or n (ENTER) ?" answer
 case ${answer:0:1} in
     y|Y )
     cd /opt/onlyoffice/desktopeditors/converter/empty/
@@ -417,7 +434,9 @@ case ${answer:0:1} in
     ;;
     * )
         read -p "Hit a button to open the instructions: https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/tree/master/onlyoffice"
+        echo "Please continue here before starting with the instructions" 
         sudo xdg-open https://github.com/zilexa/Ubuntu-Budgie-Post-Install-Script/tree/master/onlyoffice
+
     ;;
 esac
 
