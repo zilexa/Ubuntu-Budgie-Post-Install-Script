@@ -9,7 +9,8 @@ OnlyOffice has support for many more languages! But it is not possible to change
 To do this anyway, either use the script to change to nl-NL or follow the below instrcutions to change to any other language supported by OnlyOffice:
 
 #### Instructions
-Goal: create a folder with your language containing template files with your language in: 
+Goal: 
+create a folder with your language containing template files with your language in: 
 /opt/onlyoffice/desktopeditors/converter/empty/ contains folders for each language. You want to add a folder for your language, containing template files.
 /opt/onlyoffice/desktopeditors/converter/empty also contains 2 sets of files: `in_new.docx` and `mm_new.docx`, also for pptx and xlsx. You want to replace them with your template files.
 
