@@ -405,9 +405,10 @@ echo "OnlyOffice default document language & spellcheck is US English.          
 echo "To change it to your language, you need to adjust the default template.                   "
 echo "OnlyOffice has no way of doing this normally and permissions prevent you to do this easily" 
 echo "                                                                                          "
-echo "To use Dutch (NL) hit 'y' and 'ENTER.'                                                    " 
+echo "To switch from English to Dutch (NL) hit 'y' and 'ENTER.'                                 "
+echo "Note this will not change the OnlyOffice interface language, it's not available in NL     " 
 echo "                                                                                          "
-echo "To use a different language, hit "n" and "ENTER" and follow the instructions.             "
+echo "To use a different language, hit 'n'and 'ENTER' and follow the instructions.              "
 echo "                                                                                          " 
 echo "==========================================================================================" 
 read -p " y or n (ENTER) ?" answer
