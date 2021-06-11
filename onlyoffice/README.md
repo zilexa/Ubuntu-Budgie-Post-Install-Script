@@ -9,13 +9,15 @@ OnlyOffice has support for many more languages! But it is not possible to change
 To do this anyway, either use the script to change to nl-NL or follow the below instrcutions to change to any other language supported by OnlyOffice:
 
 #### Instructions
+(Note the instructions are for Linux but should be the same for any other OS: you just have to find the path to the `converter/empty` folder within the onlyoffice desktopeditors program directory.)
+
 Goal: 
 create a folder with your language containing template files with your language in: 
 /opt/onlyoffice/desktopeditors/converter/empty/ contains folders for each language. You want to add a folder for your language, containing template files.
 /opt/onlyoffice/desktopeditors/converter/empty also contains 2 sets of files: `in_new.docx` and `mm_new.docx`, also for pptx and xlsx. You want to replace them with your template files.
 
 Constraints:
-1. It is somehow not possible to modify these files: you cannot save them even with root/permissions, probably because this is the installation program folder of OnlyOffie.
+1. It is somehow not possible to modify these files: you cannot save them even with root/permissions, probably because this is the installation program folder of OnlyOffice.
 2. All files need to be owned by root and with 644 permissions. 
 
 To reach our goal and overcome the constraints, do the following. Note this is written so that any noob can do this:
