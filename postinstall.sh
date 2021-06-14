@@ -112,9 +112,8 @@ sudo apt -y install vlc
 echo "__________________________________________________________________________________________________"
 echo "Some applications we want are outdated in Ubuntu repository, add the app developer own repository "
 echo "__________________________________________________________________________________________________"
-
 # Flatpak repository
-sudo add-apt-repository -y ppa:alexlarsson/flatpak
+#sudo add-apt-repository -y ppa:alexlarsson/flatpak
 # Timeshift repository
 sudo add-apt-repository -y ppa:teejee2008/timeshift
 # AppImageLauncher repository
@@ -148,7 +147,7 @@ echo "-------------------------------------------------"
 # Timeshift - automated system snapshots (backups) and set configuration
 sudo apt -y install timeshift
 sudo wget -O /etc/timeshift/timeshift.json https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/timeshift/timeshift.json
-sudo sed -i -e 's#asterix#'"$LOGNAME"'#g' /etc/timeshift/timeshift.json
+sudo sed -i -e 's#asterix#'"${USER}"'#g' /etc/timeshift/timeshift.json
 
 echo "-------------------------------------------------"
 echo "Integrate AppImages at first launch              "
@@ -164,7 +163,7 @@ tee -a $HOME/.config/appimagelauncher.cfg << EOF
 destination=/opt/appimages
 enable_daemon=false
 EOF
-
+read -p "please test if /opt/appimages and /etc/timeshift/timeshift.json have been created"
 echo "-------------------------------------------------"
 echo "Install OnlyOffice DesktopEditors                "
 echo "-------------------------------------------------"
@@ -184,8 +183,8 @@ sudo apt -y install photoflare
 echo "-------------------------------------------------"
 echo "Install Pinta - simple (like Paint) image editor "
 echo "-------------------------------------------------"
-flatpak install flathub com.github.PintaProject.Pinta
-
+sudo flatpak install flathub com.github.PintaProject.Pinta
+read -p "check if pinta is installed"
 # enable system sensors read-out like temperature, fan speed
 echo "-------------------------------------------------"
 echo "Install lm-sensors and find system sensors       "
@@ -320,6 +319,7 @@ rm -r .cacheold/
 sudo chattr -R  +C /var/log
 # CREATE A MOUNTPOINT FOR THE FILESYSTEM ROOT
 sudo mkdir /mnt/system
+cd $HOME/Downloads
 
 echo "_______________________________________________________________________________________________________________________________________"
 echo "Finished! Check the above for errors, run the relevant commands manually again if there was an error                                   " 
@@ -340,14 +340,14 @@ sudo mount -o subvolid=5 /dev/nvme0n1p2 /mnt/system
 # create a root subvolume for user personal folders in the root filesystem
 sudo btrfs subvolume create /mnt/system/@userdata
 sudo btrfs subvolume create /mnt/system/@swap
-#sudo chattr +C /mnt/system/@swap
+sudo chattr +C /mnt/system/@swap
 ## unmount root filesystem
 sudo umount /mnt/system
 
 # Add lines to fstab to make it persistent after boot, you should manually fill in the UUID before rebooting
 sudo tee -a /etc/fstab << EOF
 # Mount @swap subvolume
-UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /swap                   btrfs   defaults,noatime,subvol=@swap  0  0
+#UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /swap                   btrfs   defaults,noatime,subvol=@swap  0  0
 ##/swap/swapfile none swap sw 0 0
 # Mount the BTRFS root subvolume @userdata
 UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata,compress-force=zstd:2  0  0
@@ -357,14 +357,11 @@ EOF
 #sudo mkdir /swap
 ##sudo mount -o subvol=@swap /dev/nvme0n1p2 /swap
 # Configure swap file
-#sudo chattr -R +C /swap
+#sudo chattr +C /swap
 #sudo touch /swap/swapfile
-#sudo chattr +C /swap/swapfile
 #sudo chmod 600 /swap/swapfile
 #sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4194304
-#sudo chattr +C /swap/swapfile
 #sudo mkswap /swap/swapfile
-#sudo chattr +C /swap/swapfile
 #sudo swapon /swap/swapfile
 
 ## Temporarily mount @userdata subvolume and finish configuration
@@ -389,6 +386,7 @@ ln -s /mnt/userdata/Photos $HOME/Photos
 
 #Current Downloads folder has been moved, enter the moved Downloads folder 
 cd /
+cd $HOME
 cd $HOME/Downloads
 
 ## Now open fstab for the user to copy paste the UUID
@@ -401,6 +399,9 @@ echo "--------------------------------------------------------------------------
 read -p "Are you ready to do this? Hit Enter and enter your password in the 2nd window to open the file."
 x-terminal-emulator -e sudo nano /etc/fstab
 read -p "When done in the 2nd window, hit ENTER in this window to continue..."
+cd /
+cd $HOME
+cd $HOME/Downloads
 
     ;;
     * )
