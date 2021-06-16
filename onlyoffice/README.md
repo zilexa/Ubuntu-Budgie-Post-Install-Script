@@ -38,13 +38,16 @@ Save each file!
 4. Finally, go back to your Terminal and use the commands below to move that folder back to the Onlyoffice folder and set correct ownership/permissions. \
 `sudo chown -R root:root $HOME/Downloads/da-DK` \
 `sudo chmod -R 644 $HOME/Downloads/da-DK` \
+Now move your foler da-DK into the ../empty/ folder:
 `sudo mv $Downloads/da-DK /opt/onlyoffice/desktopeditors/converter/empty/`  
 
 5. And now copy those files, 1 folder higher, so that they also appear in /empty: \
+Go to the ../empty/da-DK folder:
 `cd /opt/onlyoffice/desktopeditors/converter/empty/` \
+Copy the contents of da-DK 1 folder up, into ../empty/  \
 `sudo sudo cp da-DK/new.* ./`
 
-You should now have 3 files called `new`, besides the 6 files `in_new` and `mm_new`. 
+In `../empty/` you should now have 3 files called `new`, besides the 6 files `in_new` and `mm_new`. 
 
 6. In /empty, replace the exisitng 'in_new' and 'mm_new' files with yours by removing the old ones and copying/renaming your versions. \
 `cd /opt/onlyoffice/desktopeditors/converter/empty/`  \
