@@ -65,9 +65,9 @@ echo "-------------------------------------------------"
 sudo apt -y install pluma
 
 # 
-echo "------------------------------------------------------------------------------------------------"
-echo "Replace Rhythmbox audioplayer for Deadbeef (more intuitive, bitperfect playback and folder view "
-echo "------------------------------------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------------------------------"
+echo "Replace Rhythmbox audioplayer for Deadbeef (more intuitive, bitperfect playback and folder view) "
+echo "-------------------------------------------------------------------------------------------------"
 #sudo apt -y autoremove rhythmbox --purge
 wget -O deadbeef.deb https://downloads.sourceforge.net/project/deadbeef/travis/linux/1.8.7/deadbeef-static_1.8.7-1_amd64.deb
 sudo apt -y install ./deadbeef.deb
@@ -95,7 +95,7 @@ echo "--------------------------------------------------"
 wget -O bleachbit.deb https://download.bleachbit.org/bleachbit_4.2.0-0_all_ubuntu2010.deb
 sudo apt -y install ./bleachbit.deb
 rm bleachbit.deb
-sudo mkdir /root/.config/bleachbit
+sudo mkdir -p /root/.config/bleachbit
 sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit.ini
 
 echo "---------------------------------------"
@@ -137,7 +137,7 @@ echo "_________________________________________________"
 echo "------------------------------------------------------------------"
 echo "Install support for Flatpak apps and install the FlatHub app store"
 echo "------------------------------------------------------------------"
-sudo apt install flatpak
+sudo apt -y install flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo apt -y install gnome-software-plugin-flatpak
 
@@ -163,7 +163,6 @@ tee -a $HOME/.config/appimagelauncher.cfg << EOF
 destination=/opt/appimages
 enable_daemon=false
 EOF
-read -p "please test if /opt/appimages and /etc/timeshift/timeshift.json have been created"
 echo "-------------------------------------------------"
 echo "Install OnlyOffice DesktopEditors                "
 echo "-------------------------------------------------"
@@ -184,7 +183,6 @@ echo "-------------------------------------------------"
 echo "Install Pinta - simple (like Paint) image editor "
 echo "-------------------------------------------------"
 sudo flatpak install flathub com.github.PintaProject.Pinta
-read -p "check if pinta is installed"
 # enable system sensors read-out like temperature, fan speed
 echo "-------------------------------------------------"
 echo "Install lm-sensors and find system sensors       "
