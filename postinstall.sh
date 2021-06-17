@@ -358,7 +358,7 @@ EOF
 #sudo chattr +C /swap
 #sudo touch /swap/swapfile
 #sudo chmod 600 /swap/swapfile
-#sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=4194304
+#sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=2097152
 #sudo mkswap /swap/swapfile
 #sudo swapon /swap/swapfile
 
