@@ -345,8 +345,8 @@ sudo umount /mnt/system
 # Add lines to fstab to make it persistent after boot, you should manually fill in the UUID before rebooting
 sudo tee -a /etc/fstab << EOF
 # Mount @swap subvolume
-#UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /swap                   btrfs   defaults,noatime,subvol=@swap  0  0
-##/swap/swapfile none swap sw 0 0
+UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /swap                   btrfs   defaults,noatime,subvol=@swap  0  0
+/swap/swapfile none swap sw 0 0
 # Mount the BTRFS root subvolume @userdata
 UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata,compress-force=zstd:2  0  0
 EOF
@@ -355,12 +355,14 @@ EOF
 #sudo mkdir /swap
 ##sudo mount -o subvol=@swap /dev/nvme0n1p2 /swap
 # Configure swap file
-#sudo chattr +C /swap
-#sudo touch /swap/swapfile
-#sudo chmod 600 /swap/swapfile
-#sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=2097152
-#sudo mkswap /swap/swapfile
-#sudo swapon /swap/swapfile
+sudo chattr +C /swap
+sudo touch /swap/swapfile
+sudo chmod 600 /swap/swapfile
+sudo dd if=/dev/zero of=/swap/swapfile bs=1024 count=2097152
+sudo mkswap /swap/swapfile
+sudo swapon /swap/swapfile
+# Change default swappiness from 60 to 10 to swap less. 
+echo -e "vm.swappiness=0" | sudo tee -a /etc/sysctl.conf
 
 ## Temporarily mount @userdata subvolume and finish configuration
 sudo mkdir /mnt/userdata
