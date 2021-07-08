@@ -593,6 +593,38 @@ case ${answer:0:1} in
     ;;
 esac
 
+# Firefox: configure Firefox Sync Server
+echo "======================================="
+echo "---------------------------------------"
+read -p "Would you like to use your own Firefox Sync Server? (y/n)" answer
+case ${answer:0:1} in
+    y|Y )
+    echo "Please type your Firefox Sync domain address, for example: firefox.mydomain.com"
+    read -p 'Firefox Sync domain address: ' ffsyncdomain
+    sudo echo 'defaultPref("identity.sync.tokenserver.uri","https://$ffsyncdomain/token/1.0/sync/1.5");' >> /usr/lib/firefox/firefox.cfg
+    echo "Done. New firefox profile will use your Firefox sync server by default."
+    ;;
+    * )
+        echo "default Mozilla public sync server is used."
+    ;;
+esac
+EOF
+
+# Get a Firefox shortcut for 2 profiles
+echo "======================================="
+echo "---------------------------------------"
+echo "Firefox: would you like to be able to launch different profiles (2), by simply right-clicking the Firefox shortcut?"
+read -p "Only useful if multiple users use this machine and each user has its own Firefox profile. (y/n)?" answer
+case ${answer:0:1} in
+    y|Y )
+        echo adding profiles to right-click of Firefox shortcut... 
+        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/firefox/firefox.desktop
+    ;;
+    * )
+        echo "Keeping the Firefox shortcut as is..."
+    ;;
+esac
+
 # RawTherapee ART
 echo "======================================="
 echo "---------------------------------------"
@@ -624,36 +656,6 @@ case ${answer:0:1} in
     ;;
     * )
         echo "Skipping AnyDesk..."
-    ;;
-esac
-
-
-# Firefox: configure Firefox Sync Server
-echo "======================================="
-echo "---------------------------------------"
-read -p "Would you like to use your own Firefox Sync Server? (y/n)" answer
-case ${answer:0:1} in
-    y|Y )
-defaultPref("identity.sync.tokenserver.uri","https://ffsync.mydomain.tld/token/1.0/sync/1.5");
-    ;;
-    * )
-        echo "Firefox will use default Mozilla Sync Server (note it uses Amazon AWS US cloud servers)"
-    ;;
-esac
-EOF
-
-# Get a Firefox shortcut for 2 profiles
-echo "======================================="
-echo "---------------------------------------"
-echo "If you share this laptop, you can right-click Firefox to select which Firefox profile to launch."
-read -p "Only useful if each user has its own Firefox profile. Do you need this option (y/n)?" answer
-case ${answer:0:1} in
-    y|Y )
-        echo adding profiles to right-click of Firefox shortcut... 
-        wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/firefox/firefox.desktop
-    ;;
-    * )
-        echo "Keeping the Firefox shortcut as is..."
     ;;
 esac
 
