@@ -96,7 +96,9 @@ wget -O bleachbit.deb https://download.bleachbit.org/bleachbit_4.2.0-0_all_ubunt
 sudo apt -y install ./bleachbit.deb
 rm bleachbit.deb
 sudo mkdir -p /root/.config/bleachbit
-sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit.ini
+sudo wget -O /root/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit-root.ini
+sudo mkdir $HOME/.config/bleachbit/
+wget -O $HOME/.config/bleachbit/bleachbit.ini https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/bleachbit/bleachbit-user.ini
 
 echo "---------------------------------------"
 echo "Audacity - Audio recording and editing "
@@ -196,6 +198,21 @@ echo "____________________________________________________________________"
 sudo sed -i -e 's#rhythmbox.desktop#deadbeef.desktop#g' /etc/budgie-desktop/defaults.list
 sudo sed -i -e 's#org.gnome.gedit.desktop#pluma.desktop#g' /usr/share/applications/defaults.list
 sudo wget -O $HOME/.config/mimeapps.list https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/budgie-desktop/mimeapps.list
+
+
+echo "___________________________________________________________________________________"
+echo "Firefox: Create a default profile setting to enable syncing of your toolbar layout " 
+echo "         (Applied for for all Firefox profiles created in the future.)             "
+echo "___________________________________________________________________________________"
+sudo tee -a /usr/lib/firefox/defaults/pref/autoconfig.js << EOF
+pref("general.config.filename", "firefox.cfg");
+pref("general.config.obscure_value", 0);
+EOF
+sudo tee -a /usr/lib/firefox/firefox.cfg << EOF
+// IMPORTANT: Start your code on the 2nd line
+defaultPref("services.sync.prefs.sync.browser.uiCustomization.state","true");
+EOF
+
 
 echo "____________________________________"
 echo "Configure Widescreen vertical Panel "
@@ -609,6 +626,21 @@ case ${answer:0:1} in
         echo "Skipping AnyDesk..."
     ;;
 esac
+
+
+# Firefox: configure Firefox Sync Server
+echo "======================================="
+echo "---------------------------------------"
+read -p "Would you like to use your own Firefox Sync Server? (y/n)" answer
+case ${answer:0:1} in
+    y|Y )
+defaultPref("identity.sync.tokenserver.uri","https://ffsync.mydomain.tld/token/1.0/sync/1.5");
+    ;;
+    * )
+        echo "Firefox will use default Mozilla Sync Server (note it uses Amazon AWS US cloud servers)"
+    ;;
+esac
+EOF
 
 # Get a Firefox shortcut for 2 profiles
 echo "======================================="
