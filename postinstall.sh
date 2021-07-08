@@ -27,7 +27,7 @@ sudo apt -y install exfat-utils
 sudo apt -y install nfs-common
 # Add an example to /etc/fstab. Create a folder in /mnt, fill in your NAS IP address (X) and folder name (Y) and uncomment. 
 echo "#" | sudo tee -a /etc/fstab
-echo "# Example how to mount your servers NFS shares to a client:" | sudo tee -a /etc/fstab
+echo "# Example how to mount your servers NFS shares to a client:" | sudo tee -a /etc/fstab 
 echo "#192.168.88.X:  /mnt/Y  nfs4  nfsvers=4,minorversion=2,proto=tcp,timeo=50,fsc,nocto  0  0" | sudo tee -a /etc/fstab
 
 echo "___________________________________"
@@ -159,7 +159,7 @@ sudo mkdir /opt/appimages
 sudo chown ${USER}:${USER} /opt/appimages
 sudo chmod 755 /opt/appimages
 # Add AppImageLauncher config file to specify this folder
-tee -a $HOME/.config/appimagelauncher.cfg << EOF
+tee -a $HOME/.config/appimagelauncher.cfg &>/dev/null << EOF
 [AppImageLauncher]
 destination=/opt/appimages
 enable_daemon=false
@@ -203,13 +203,13 @@ echo "__________________________________________________________________________
 echo "Firefox: Create a default profile setting to enable syncing of your toolbar layout " 
 echo "         (Applied for for all Firefox profiles created in the future.)             "
 echo "___________________________________________________________________________________"
-sudo tee -a /usr/lib/firefox/defaults/pref/autoconfig.js << EOF
+sudo tee -a /usr/lib/firefox/defaults/pref/autoconfig.js &>/dev/null << EOF
 pref("general.config.filename", "firefox.cfg");
 pref("general.config.obscure_value", 0);
 EOF
-sudo tee -a /usr/lib/firefox/firefox.cfg << EOF
+sudo tee -a /usr/lib/firefox/firefox.cfg &>/dev/null << EOF
 // IMPORTANT: Start your code on the 2nd line
-defaultPref("services.sync.prefs.sync.browser.uiCustomization.state","true");
+defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
 EOF
 
 
@@ -359,7 +359,7 @@ sudo chattr +C /mnt/system/@swap
 sudo umount /mnt/system
 
 # Add lines to fstab to make it persistent after boot, you should manually fill in the UUID before rebooting
-sudo tee -a /etc/fstab << EOF
+sudo tee -a /etc/fstab &>/dev/null << EOF
 # Mount @swap subvolume
 UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /swap                   btrfs   defaults,noatime,subvol=@swap  0  0
 /swap/swapfile none swap sw 0 0
@@ -524,7 +524,7 @@ case ${answer:0:1} in
         # Move the extracted folder to the app folder
         sudo mv LosslessCut-linux/ /opt/LosslessCut
         # Create a shortcut file for all users & make it executable
-        sudo tee -a /usr/share/applications/LosslessCut.desktop << EOF
+        sudo tee -a /usr/share/applications/LosslessCut.desktop &>/dev/null << EOF
 [Desktop Entry]
 Name=LosslessCut
 GenericName=Video Editor
@@ -600,14 +600,15 @@ case ${answer:0:1} in
     y|Y )
     echo "Please type your Firefox Sync domain address, for example: firefox.mydomain.com"
     read -p 'Firefox Sync domain address: ' ffsyncdomain
-    sudo echo 'defaultPref("identity.sync.tokenserver.uri","https://$ffsyncdomain/token/1.0/sync/1.5");' >> /usr/lib/firefox/firefox.cfg
+    sudo tee -a /usr/lib/firefox/firefox.cfg &>/dev/null << EOF
+defaultPref("identity.sync.tokenserver.uri","https://$ffsyncdomain/token/1.0/sync/1.5");
+EOF
     echo "Done. New firefox profile will use your Firefox sync server by default."
     ;;
     * )
         echo "default Mozilla public sync server is used."
     ;;
 esac
-EOF
 
 # Get a Firefox shortcut for 2 profiles
 echo "======================================="
