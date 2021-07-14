@@ -37,9 +37,16 @@ echo "___________________________________"
 sudo add-apt-repository -y ppa:ubuntubudgie/backports
 ## sudo add-apt-repository -y ppa:costales/folder-color not supported?
 sudo apt -y update
-# Install common applets required for Widescreen Panel Layout or for file manager
+
+# Allow each Workspace (virtual desktop) to have its own wallpaper
 sudo apt -y install budgie-workspace-wallpaper-applet
+
+# Show a calendar when clicking on the time
 sudo apt -y install budgie-calendar-applet
+
+# Allow a Desktop wallpaper slideshow based on users photos or Bing photos (default)
+sudo apt -y install variety
+
 # Install Ubuntu Restricted Extras
 # Note this (and OnlyOffice which will be installed later) triggers MS truetype fonts installer which requires manual user acceptance of license.
 #nstall it first unattendedly to prevent user-interaction
