@@ -113,8 +113,6 @@ sudo apt -y install vlc
 echo "__________________________________________________________________________________________________"
 echo "Some applications we want are outdated in Ubuntu repository, add the app developer own repository "
 echo "__________________________________________________________________________________________________"
-# Flatpak repository
-#sudo add-apt-repository -y ppa:alexlarsson/flatpak
 # Timeshift repository
 sudo add-apt-repository -y ppa:teejee2008/timeshift
 # AppImageLauncher repository
@@ -139,8 +137,8 @@ echo "------------------------------------------------------------------"
 echo "Install support for Flatpak apps and install the FlatHub app store"
 echo "------------------------------------------------------------------"
 sudo apt -y install flatpak
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo apt -y install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 echo "-------------------------------------------------"
 echo "Install Timeshift for automated system snapshots "
