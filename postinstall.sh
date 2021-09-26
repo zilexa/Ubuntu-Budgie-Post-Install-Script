@@ -215,6 +215,7 @@ EOF
 sudo tee -a /usr/lib/firefox/firefox.cfg &>/dev/null << EOF
 // IMPORTANT: Start your code on the 2nd line
 defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
+#defaultPref("identity.sync.tokenserver.uri","https://YOUR.DOMAIN.TLD/token/1.0/sync/1.5");
 EOF
 
 
