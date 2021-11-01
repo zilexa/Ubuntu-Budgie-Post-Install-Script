@@ -369,19 +369,19 @@ sudo tee -a /etc/fstab &>/dev/null << EOF
 UUID=COPYPASTE-THE-LONG-UUID-FROM-THE-TOP /mnt/userdata           btrfs   defaults,noatime,subvol=@userdata,compress-force=zstd:2  0  0
 EOF
 
-# Temporarily mount @swap and finish configuration 
+# Create 11GB swap as recommended for 8GB RAM + hubernate support
 sudo btrfs subvolume create /@swap
 # Configure swap file
 sudo chattr +C /@swap
 sudo touch /@swap/swapfile
-sudo dd if=/dev/zero of=/@swap/swapfile bs=1024 count=2097152
-sudo truncate -s 0 /@swap/swapfile
-sudo btrfs property set /swapfile compression none
-sudo chmod 600 /@swap/swapfile
+sudo dd if=/dev/zero of=/@swap/swapfile bs=1M count=11264
+sudo btrfs property set /@swap/swapfile compression none
 sudo mkswap /@swap/swapfile
+sudo chmod 600 /@swap/swapfile
 sudo swapon /@swap/swapfile
 # Change default swappiness from 60 to 10 to swap less. 
 echo -e "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
+
 
 ## Temporarily mount @userdata subvolume and finish configuration
 sudo mkdir /mnt/userdata
