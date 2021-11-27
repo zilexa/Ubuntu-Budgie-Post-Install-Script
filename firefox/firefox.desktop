@@ -160,6 +160,14 @@ MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rs
 StartupNotify=true
 Actions=new-window;Profile1;Profile2;
 
+[Desktop Action Profile1]
+Name=start Profile1's Firefox
+Exec=firefox -P Profile1 -no-remote
+
+[Desktop Action Profile2]
+Name=start Profile2's Firefox
+Exec=firefox -P Profile2 -no-remote
+
 [Desktop Action new-window]
 Name=Open a New Window
 Name[ar]=افتح نافذة جديدة
@@ -220,11 +228,3 @@ Name[tr]=Yeni gizli pencere aç
 Name[uk]=Відкрити нове вікно у потайливому режимі
 Name[zh_TW]=開啟新隱私瀏覽視窗
 Exec=firefox -private-window
-
-[Desktop Action Profile1]
-Name=start Profile1's Firefox
-Exec=firefox -P Profile1 -no-remote
-
-[Desktop Action Profile2]
-Name=start Profile2's Firefox
-Exec=firefox -P Profile2 -no-remote
