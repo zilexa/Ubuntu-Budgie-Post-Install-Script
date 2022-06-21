@@ -1,5 +1,5 @@
-## Ubuntu Budgie - Post Installation script 
-## An Out Of The Box Experience - Carefully selected applications and configurations of system and apps. 
+## After 2 years of Ubuntu (switched cold-turkey from Windows 10) I discovered Arch based distributions and decided to switch to Manjaro Gnome. This repository is now outdated and replaced by https://github.com/zilexa/manjaro-gnome-post-install
+### An Out Of The Box Experience - Carefully selected applications and configurations of system and apps. 
 A single script to run after installing Ubuntu Budgie. When the script is finished, your PC/Laptop is immediately ready, everything just works, there is an app for all common tasks. Similar to a Mac but better, faster and with more functionality. 
 Every app or system configuration has been carefully chosen. No bloat!
 
